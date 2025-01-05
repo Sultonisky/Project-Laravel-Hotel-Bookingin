@@ -43,10 +43,10 @@
 
                                     <div class="form-group">
                                         <label>Check-in Date</label>
-                                        <input type="date" name="tanggal_checkin" value="{{ old('tanggal_checkin') }}"
-                                            class="form-control @error('tanggal_checkin') is-invalid @enderror"
+                                        <input type="date" name="checkin_date" value="{{ old('checkin_date') }}"
+                                            class="form-control @error('checkin_date') is-invalid @enderror"
                                             placeholder="Enter Date Check-in">
-                                        @error('tanggal_checkin')
+                                        @error('checkin_date')
                                             <span class="invalid-feedback alert-danger"
                                                 role="alert">{{ $message }}</span>
                                         @enderror
@@ -54,23 +54,24 @@
 
                                     <div class="form-group">
                                         <label>Check-out Date</label>
-                                        <input type="date" name="tanggal_checkout" value="{{ old('tanggal_checkout') }}"
-                                            class="form-control @error('tanggal_checkout') is-invalid @enderror"
+                                        <input type="date" name="checkout_date" value="{{ old('checkout_date') }}"
+                                            class="form-control @error('checkout_date') is-invalid @enderror"
                                             placeholder="Enter Date Check-out">
-                                        @error('tanggal_checkout')
+                                        @error('checkout_date')
                                             <span class="invalid-feedback alert-danger"
                                                 role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Payment</label>
-                                        <select class="form-control @error('payment') is-invalid @enderror" name="payment">
+                                        <label>payment_method</label>
+                                        <select class="form-control @error('payment_method') is-invalid @enderror"
+                                            name="payment_method">
                                             <option value="" selected>--Select Payment Method--</option>
                                             <option value="1">Cash</option>
                                             <option value="0">Credit</option>
                                         </select>
-                                        @error('payment')
+                                        @error('payment_method')
                                             <span class="invalid-feedback alert-danger"
                                                 role="alert">{{ $message }}</span>
                                         @enderror

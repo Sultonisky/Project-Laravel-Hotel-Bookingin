@@ -43,9 +43,9 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Detail</label>
-                                    <textarea name="detail" class="form-control @error('detail') is-invalid @enderror" id="ckeditor" disabled>{{ old('detail', $show->detail) }}</textarea>
-                                    @error('detail')
+                                    <label>Description</label>
+                                    <textarea name="detail" class="form-control @error('description') is-invalid @enderror" id="ckeditor" disabled>{{ old('description', $show->category->description) }}</textarea>
+                                    @error('description')
                                         <span class="invalid-feedback alert-danger" role="alert">
                                             {{ $message }}
                                         </span>

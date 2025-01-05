@@ -10,7 +10,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/images/logo-putih.png') }}">
-    <title>Toko Online</title>
+    <title>Bookigin Hotel Login</title>
     <!-- Custom CSS -->
     <link href="{{ asset('backend/dist/css/style.min.css') }}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -56,7 +56,7 @@
                     @endif
                     <!-- error end -->
 
-                    <form class="form-horizontal m-t-20" id="loginform" action="{{ route('backend.login') }}"
+                    <form class="form-horizontal m-t-20" id="loginform" action="{{ route('backend.login.view') }}"
                         method="post">
                         @csrf
                         <div class="row p-b-30">
@@ -64,7 +64,7 @@
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text bg-primary text-white" id="basic-addon1"><i
-                                                class=" fas fa-user"></i></span>
+                                                class="fas fa-user"></i></span>
                                     </div>
                                     <input type="text" name="email" value="{{ old('email') }}"
                                         class="form-control form-control-lg @error('email') is invalid @enderror"
@@ -101,9 +101,10 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="p-t-20">
-                                        <button class="btn btn-danger" id="to-recover" type="button"><i
-                                                class="fa fa-lock m-r-5"></i> Lost password?</button>
+
                                         <button class="btn btn-primary float-right" type="submit">Login</button>
+                                        <a href="{{ route('backend.register.form') }}"
+                                            class="btn btn-secondary float-left">Register</a>
                                     </div>
                                 </div>
                             </div>

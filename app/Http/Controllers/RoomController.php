@@ -47,15 +47,15 @@ class RoomController extends Controller
             // 'guests_id' => 'required',
             'room_name' => 'required|max:255|unique:rooms',
             'status' => 'required|boolean',
-            'detail' => 'required',
+            // 'detail' => 'required',
             'price' => 'required',
-            'number_of_rooms' => 'required',
+            // 'number_of_rooms' => 'required',
             'foto' => 'required|image|mimes:jpeg,jpg,png,gif|file|max:1024',
         ], $messages = [
-            'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif.',
-            'foto.max' => 'Ukuran file gambar Maksimal adalah 1024 KB.'
+            'foto.image' => 'Image formats use files with the extension jpeg, jpg, png, or gif.',
+            'foto.max' => 'Maximum image file size is 1024 KB.'
         ]);
-        $validatedData['status'] = 0;
+        // $validatedData['status'] = 0;
 
         if ($request->file('foto')) {
             $file = $request->file('foto');
@@ -125,9 +125,9 @@ class RoomController extends Controller
             // 'room_categories_id' => 'required|unique:room_categories,category_name,' . $id,
             'room_categories_id' => 'required|exists:room_categories,id',
             'status' => 'required|boolean',
-            'detail' => 'required',
+            // 'detail' => 'required',
             'price' => 'required',
-            'number_of_rooms' => 'required',
+            // 'number_of_rooms' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,jpg,png,gif|file|max:1024',
         ];
         $messages = [
@@ -279,5 +279,10 @@ class RoomController extends Controller
         $foto->delete();
 
         return redirect()->route('backend.room.show', $roomId)->with('success', 'Photo Deleted Successfully.');
+    }
+
+    public function roomGallery()
+    {
+        return view('backend.v_room.gallery');
     }
 }

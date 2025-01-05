@@ -46,21 +46,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="tanggal_checkin">Check-in Date</label>
-                                <input type="date" name="tanggal_checkin" id="tanggal_checkin"
-                                    class="form-control @error('tanggal_checkin') is-invalid @enderror"
-                                    value="{{ old('tanggal_checkin', $reservation->tanggal_checkin) }}">
-                                @error('tanggal_checkin')
+                                <label for="checkin_date">Check-in Date</label>
+                                <input type="date" name="checkin_date" id="checkin_date"
+                                    class="form-control @error('checkin_date') is-invalid @enderror"
+                                    value="{{ old('checkin_date', $reservation->checkin_date) }}">
+                                @error('checkin_date')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
 
                             <div class="form-group">
-                                <label for="tanggal_checkout">Check-out Date</label>
-                                <input type="date" name="tanggal_checkout" id="tanggal_checkout"
-                                    class="form-control @error('tanggal_checkout') is-invalid @enderror"
-                                    value="{{ old('tanggal_checkout', $reservation->tanggal_checkout) }}">
-                                @error('tanggal_checkout')
+                                <label for="checkout_date">Check-out Date</label>
+                                <input type="date" name="checkout_date" id="checkout_date"
+                                    class="form-control @error('checkout_date') is-invalid @enderror"
+                                    value="{{ old('checkout_date', $reservation->checkout_date) }}">
+                                @error('checkout_date')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
@@ -79,16 +79,18 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="payment">Payment Method</label>
-                                <select name="payment" id="payment"
-                                    class="form-control @error('payment') is-invalid @enderror">
+                                <label for="payment_method">Payment Method</label>
+                                <select name="payment_method" id="payment_method"
+                                    class="form-control @error('payment_method') is-invalid @enderror">
                                     <option value="1"
-                                        {{ old('payment', $reservation->payment) == '1' ? 'selected' : '' }}>Cash</option>
+                                        {{ old('payment_method', $reservation->payment_method) == '1' ? 'selected' : '' }}>
+                                        Cash</option>
                                     <option value="0"
-                                        {{ old('payment', $reservation->payment) == '0' ? 'selected' : '' }}>Credit
+                                        {{ old('payment_method', $reservation->payment_method) == '0' ? 'selected' : '' }}>
+                                        Credit
                                     </option>
                                 </select>
-                                @error('payment')
+                                @error('payment_method')
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>

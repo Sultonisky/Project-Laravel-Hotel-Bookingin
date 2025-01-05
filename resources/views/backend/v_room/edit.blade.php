@@ -39,7 +39,8 @@
                                         <label>Status</label>
                                         <select name="status" class="form-control @error('status') is-invalid @enderror">
                                             <option value=""
-                                                {{ old('status', $edit->status) == '' ? 'selected' : '' }}> - Pilih Status -
+                                                {{ old('status', $edit->status) == '' ? 'selected' : '' }}> - Select Status
+                                                -
                                             </option>
                                             <option value="1"
                                                 {{ old('status', $edit->status) == '1' ? 'selected' : '' }}>Ready</option>
@@ -86,9 +87,9 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Detail</label>
-                                        <textarea name="detail" class="form-control @error('detail') is-invalid @enderror" id="ckeditor">{{ old('detail', $edit->detail) }}</textarea>
-                                        @error('detail')
+                                        <label>Descriotion</label>
+                                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="ckeditor">{{ old('description', $edit->category->description) }}</textarea>
+                                        @error('description')
                                             <span class="invalid-feedback alert-danger" role="alert">
                                                 {{ $message }}
                                             </span>
@@ -111,7 +112,7 @@
                                     <div class="form-group">
                                         <label>Number of Rooms</label>
                                         <input type="text" name="number_of_rooms"
-                                            value="{{ old('number_of_rooms', $edit->number_of_rooms) }}"
+                                            value="{{ old('number_of_rooms', $edit->category->number_of_rooms) }}"
                                             class="form-control @error('number_of_rooms') is-invalid @enderror"
                                             placeholder="Enter the Number of Rooms">
                                         @error('number_of_rooms')

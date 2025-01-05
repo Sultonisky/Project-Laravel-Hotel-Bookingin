@@ -56,7 +56,7 @@ class GuestController extends Controller
         }
 
         Guest::create($validatedData);
-        return redirect()->route('backend.guest.index')->with('success', 'Data berhasil tersimpan');
+        return redirect()->route('backend.guest.index')->with('success', 'Data Saved Successfully');
     }
 
     /**
@@ -93,7 +93,7 @@ class GuestController extends Controller
         $guest = Guest::findOrFail($id);
 
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:guests,email,' . $id,
             'no_hp' => 'required|min:10|max:13',
             'foto' => 'image|mimes:jpeg,jpg,png,gif|max:1024',
@@ -115,7 +115,7 @@ class GuestController extends Controller
         }
 
         $guest->update($validatedData);
-        return redirect()->route('backend.guest.index')->with('success', 'Data berhasil diperbarui');
+        return redirect()->route('backend.guest.index')->with('success', 'Data Updated Successfully');
     }
 
     /**
@@ -132,6 +132,6 @@ class GuestController extends Controller
         }
 
         $guest->delete();
-        return redirect()->route('backend.guest.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('backend.guest.index')->with('success', 'Data Deleted Successfully');
     }
 }

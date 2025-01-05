@@ -66,13 +66,9 @@
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select name="status" class="form-control @error('status') is-invalid @enderror">
-                                            <option value="" {{ old('role') == '' ? 'selected' : '' }}> - Select
-                                                Status -
-                                            </option>
-                                            <option value="1" {{ old('status') == '1' ? 'selected' : '' }}> Ready
-                                            </option>
-                                            <option value="0" {{ old('status') == '0' ? 'selected' : '' }}> Booked
-                                            </option>
+                                            <option value="" disabled selected>-- Select Status --</option>
+                                            <option value="1">Ready</option>
+                                            <option value="0">Booked</option>
                                         </select>
                                         @error('status')
                                             <span class="invalid-feedback alert-danger" role="alert">
@@ -93,8 +89,8 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>Detail Room</label><br>
+                                    {{-- <div class="form-group">
+                                        <label>Description Room</label><br>
                                         <textarea name="detail" class="form-control @error('detail') is-invalid @enderror"
                                             placeholder="Enter details about the room...">{{ old('detail') }}</textarea>
                                         @error('detail')
@@ -102,7 +98,7 @@
                                                 {{ $message }}
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
 
 
                                     <div class="form-group">
@@ -118,7 +114,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label>Number of Rooms</label>
                                         <input type="text" onkeypress="return hanyaAngka(event)" name="number_of_rooms"
                                             value="{{ old('number_of_rooms') }}"
@@ -129,7 +125,7 @@
                                                 {{ $message }}
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

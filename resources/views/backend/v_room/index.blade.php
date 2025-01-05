@@ -21,7 +21,8 @@
                                     <th>Status</th>
                                     <th>Room Name</th>
                                     <th>Price</th>
-                                    <th>Number of Rooms</th>
+                                    {{-- <th>Number of Rooms</th> --}}
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -35,16 +36,18 @@
                                                 <span class="badge badge-success"></i>
                                                     Ready</span>
                                             @elseif($row->status == 0)
-                                                <span class="badge badge-secondary"></i>
+                                                <span class="badge badge-danger"></i>
                                                     Booked</span>
                                             @endif
                                         </td>
 
                                         {{-- <td> {{ $row->guest->nama }} </td> --}}
                                         <td> {{ $row->room_name }} </td>
-                                        <td> Rp. {{ number_format($row->price, 0, ',', '.') }}
+                                        <td> IDR. {{ number_format($row->price, 0, ',', '.') }}
+                                            {{-- <td> {{ $row->category->number_of_rooms }} </td> --}}
                                         </td>
-                                        <td> {{ $row->number_of_rooms }}</td>
+                                        {{-- <td> {{ $row->number_of_rooms }}</td> --}}
+                                        <td> {{ $row->category->description }}</td>
                                         <td>
                                             <a href="{{ route('backend.room.edit', $row->id) }}" title="Ubah Data">
                                                 <button type="button" class="btn btn-cyan btn-sm"><i
@@ -55,6 +58,7 @@
                                                 <button type="button" class="btn btn-warning btn-sm"><i
                                                         class="fas fa-plus"></i> Image</button>
                                             </a>
+
 
                                             <form method="POST" action="{{ route('backend.room.destroy', $row->id) }}"
                                                 style="display: inline-block;">

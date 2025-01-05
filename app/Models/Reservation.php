@@ -25,10 +25,22 @@ class Reservation extends Model
         return $this->belongsTo(Room::class, 'rooms_id', 'id'); // Foreign key, Primary key
     }
 
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+
+
     public function getTotalPaymentAttribute()
     {
-        $checkin = \Carbon\Carbon::parse($this->tanggal_checkin);
-        $checkout = \Carbon\Carbon::parse($this->tanggal_checkout);
+        $checkin = \Carbon\Carbon::parse($this->checkin_date);
+        $checkout = \Carbon\Carbon::parse($this->checkout_date);
         $duration = $checkout->diffInDays($checkin); // Menghitung jumlah hari menginap
 
         return $duration * $this->room->price; // Total pembayaran

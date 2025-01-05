@@ -140,8 +140,8 @@ class="light-logo" /> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
                                 href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                @if (Auth::user()->foto)
-                                    <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" alt="user"
+                                @if (Auth::User()->foto)
+                                    <img src="{{ asset('storage/img-user/' . Auth::User()->foto) }}" alt="user"
                                         class="rounded-circle" width="31">
                                 @else
                                     <img src="{{ asset('storage/img-user/img-default.jpg') }}" alt="user"
@@ -186,7 +186,7 @@ class="light-logo" /> -->
                                 class="sidebar-link waves-effect 
                         waves-dark sidebar-link"
                                 href="{{ route('backend.user.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-account-circle"></i><span class="hide-menu">User
+                                    class="mdi mdi-account-circle"></i><span class="hide-menu">Staff
                                     Bookingin</span></a>
                         </li>
 
@@ -203,12 +203,17 @@ class="light-logo" /> -->
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="{{ route('backend.category.index') }}"
                                         class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
-                                            class="hide-menu"> Room Category
+                                            class="hide-menu"> Room Categories
+                                        </span></a>
+                                </li>
+                                <li class="sidebar-item"><a href="{{ route('backend.room.roomGallery') }}"
+                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
+                                            class="hide-menu"> Room Galleries
                                         </span></a>
                                 </li>
                                 <li class="sidebar-item"><a href="{{ route('backend.room.index') }}"
                                         class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
-                                            class="hide-menu"> Room
+                                            class="hide-menu"> Rooms
                                         </span></a>
                                 </li>
                             </ul>
@@ -346,7 +351,7 @@ none">
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Berhasil!',
+                title: 'Succesfully!',
                 text: "{{ session('success') }}"
             });
         </script>
@@ -360,17 +365,43 @@ none">
             var konfdelete = $(this).data("konf-delete");
             event.preventDefault();
             Swal.fire({
-                title: 'Konfirmasi Hapus Data?',
-                html: "Data yang dihapus <strong>" + konfdelete + "</strong> tidak dapat dikembalikan!",
+                title: 'Confirm to This Delete Data?',
+                html: "Deleted data <strong>" + konfdelete + "</strong> cannot be restored!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, dihapus',
-                cancelButtonText: 'Batal',
+                confirmButtonText: 'Yes, deleted',
+                cancelButtonText: 'Cancel',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire('Terhapus!', 'Data berhasil dihapus.', 'success')
+                    Swal.fire('Deleted!', 'Data deleted successfully.', 'success')
+                        .then(() => {
+                            form.submit();
+                        });
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        // Konfirmasi untuk membatalkan reservasi
+        $(document).on('click', '.show_cancel', function(event) {
+            var form = $(this).closest("form");
+            var konfCancel = $(this).data("konf-cancel");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Confirm to Cancel Reservation?',
+                html: "Reservation for <strong>" + konfCancel + "</strong> will be cancelled.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel',
+                cancelButtonText: 'No, keep it',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Cancelled!', 'Reservation has been successfully cancelled.', 'success')
                         .then(() => {
                             form.submit();
                         });

@@ -38,39 +38,47 @@
     <p> Periode: {{ $startDate }} - {{ $endDate }}</p>
 
     <table>
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Guest Name</th>
-                <th>Room Name</th>
-                <th>Room Price</th>
-                <th>Check-in Date</th>
-                <th>Check-out Date</th>
-                <th>Total Payment</th>
-                <th>Payment Method</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($prints as $print)
+        @if (isset($prints) && $prints->isNotEmpty())
+            <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $print->guest->name }}</td>
-                    <td>{{ $print->room->room_name }}</td>
-                    <td>Rp. {{ number_format($print->room->price, 0, ',', '.') }}</td>
-                    <td>{{ $print->tanggal_checkin }}</td>
-                    <td>{{ $print->tanggal_checkout }}</td>
-                    <td>Rp. {{ number_format($print->total_payment, 0, ',', '.') }}</td>
-                    {{-- <td>{{ $print->payment == 1 ? 'Cash' : 'Credit' }}</td> --}}
-                    <td>
-                        @if ($print->payment == 1)
-                            Cash
-                        @else
-                            Credit
-                        @endif
-                    </td>
+                    <th>No.</th>
+                    <th>Guest Name</th>
+                    <th>Room Name</th>
+                    <th>Room Price</th>
+                    <th>Check-in Date</th>
+                    <th>Check-out Date</th>
+                    <th>Total Payment</th>
+                    <th>Payment Method</th>
                 </tr>
-            @endforeach
-        </tbody>
+            </thead>
+            <tbody>
+                @foreach ($prints as $print)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $print->guest->name }}</td>
+                        <td>{{ $print->room->room_name }}</td>
+                        <td>IDR. {{ number_format($print->room->price, 0, ',', '.') }}</td>
+                        <td>{{ $print->checkin_date }}</td>
+                        <td>{{ $print->checkout_date }}</td>
+                        <td>IDR. {{ number_format($print->total_payment, 0, ',', '.') }}</td>
+                        <td>
+                            @if ($print->payment_method == 1)
+                                Cash
+                            @else
+                                Credit
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        @else
+            <tbody>
+                <tr>
+                    <td colspan="8" style="text-align: center;">No reservation data found for the selected dates.
+                        PLease select again.</td>
+                </tr>
+            </tbody>
+        @endif
     </table>
 
     <script>
@@ -88,96 +96,3 @@
 </body>
 
 </html>
-
-
-
-{{-- <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservation Report</title>
-    <!-- Include Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        th,
-        td {
-            border: 1px solid #dee2e6;
-            padding: 8px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f8f9fa;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container my-4">
-        <h2 class="text-center">{{ $judul }}</h2>
-        <p>Period: {{ $startDate }} to {{ $endDate }}</p>
-
-        <!-- Alert jika tidak ada data -->
-        @if (session('no_data'))
-            <div class="alert alert-warning text-center" role="alert">
-                <strong>{{ session('no_data') }}</strong>
-            </div>
-        @endif
-
-        <!-- Tabel data -->
-        @if (isset($prints) && $prints->isNotEmpty())
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Guest Name</th>
-                        <th>Room Name</th>
-                        <th>Room Price</th>
-                        <th>Check-in Date</th>
-                        <th>Check-out Date</th>
-                        <th>Payment Method</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($prints as $print)
-                        <tr>
-                            <td>{{ $loop->iteration }}</td>
-                            <td>{{ $print->guest->name }}</td>
-                            <td>{{ $print->room->room_name }}</td>
-                            <td>Rp. {{ number_format($print->room->price, 0, ',', '.') }}</td>
-                            <td>{{ $print->tanggal_checkin }}</td>
-                            <td>{{ $print->tanggal_checkout }}</td>
-                            <td>
-                                @if ($print->payment == 1)
-                                    Cash
-                                @else
-                                    Credit
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        @else
-            <div class="alert alert-danger text-center" role="alert">
-                <strong>No data found for the selected period.</strong>
-            </div>
-        @endif
-    </div>
-
-    <!-- Script untuk cetak otomatis -->
-    <script>
-        window.onload = function() {
-            window.print();
-        };
-    </script>
-</body>
-
-</html> --}}

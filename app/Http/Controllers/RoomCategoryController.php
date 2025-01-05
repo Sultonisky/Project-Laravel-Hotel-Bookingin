@@ -37,9 +37,11 @@ class RoomCategoryController extends Controller
         // dd($request); 
         $validatedData = $request->validate([
             'category_name' => 'required|max:255|unique:room_categories',
+            'number_of_rooms' => 'required|integer',
+            'description' => 'required|max:255',
         ]);
         RoomCategory::create($validatedData);
-        return redirect()->route('backend.category.index')->with('success', 'Data berhasil tersimpan');
+        return redirect()->route('backend.category.index')->with('success', 'Data Saved Successfully');
     }
 
     /**
@@ -69,10 +71,12 @@ class RoomCategoryController extends Controller
     {
         $rules = [
             'category_name' => 'required|max:255|unique:room_categories,category_name,' . $id,
+            'number_of_rooms' => 'required|integer',
+            'description' => 'required|max:255',
         ];
         $validatedData = $request->validate($rules);
         RoomCategory::where('id', $id)->update($validatedData);
-        return redirect()->route('backend.category.index')->with('success', 'Data berhasil diperbaharui');
+        return redirect()->route('backend.category.index')->with('success', 'Data Updated Successfully');
     }
 
     /**
@@ -82,6 +86,6 @@ class RoomCategoryController extends Controller
     {
         $category = RoomCategory::findOrFail($id);
         $category->delete();
-        return redirect()->route('backend.category.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('backend.category.index')->with('success', 'Data Deleted Successfully');
     }
 }

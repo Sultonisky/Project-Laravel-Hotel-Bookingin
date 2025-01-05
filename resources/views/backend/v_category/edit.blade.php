@@ -24,6 +24,32 @@
                                 @enderror
                             </div>
 
+                            <div class="form-group">
+                                <label>Number of Rooms</label>
+                                <input type="text" name="number_of_rooms"
+                                    value="{{ old('number_of_rooms', $edit->number_of_rooms) }}"
+                                    class="form-control @error('number_of_rooms') is-invalid @enderror"
+                                    placeholder="Input Number of Rooms">
+                                @error('number_of_rooms')
+                                    <span class="invalid-feedback alert-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Description</label>
+                                <input type="text" name="description"
+                                    value="{{ old('description', $edit->description) }}"
+                                    class="form-control @error('description') is-invalid @enderror"
+                                    placeholder="Input Description">
+                                @error('description')
+                                    <span class="invalid-feedback alert-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
                         </div>
                         <div class="border-top">
                             <div class="card-body">

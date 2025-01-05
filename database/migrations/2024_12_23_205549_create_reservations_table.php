@@ -15,11 +15,13 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('guests_id');
             $table->unsignedBigInteger('rooms_id');
-            $table->date('tanggal_checkin');
-            $table->date('tanggal_checkout');
-            $table->boolean('payment');
+            $table->date('checkin_date');
+            $table->date('checkout_date');
+            $table->boolean('payment_method');
             $table->decimal('total_payment', 10, 2)->default(0);
             $table->timestamps();
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('guests_id')
                 ->references('id')
                 ->on('guests')
@@ -31,6 +33,14 @@ return new class extends Migration
                 ->on('rooms')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
+            $table->foreign('created_by')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
+            $table->foreign('updated_by')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 

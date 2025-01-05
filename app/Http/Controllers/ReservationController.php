@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Room;
 use App\Models\Guest;
 use App\Models\Reservation;
+use App\Models\RoomCategory;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -26,14 +27,25 @@ class ReservationController extends Controller
      */
     public function create()
     {
+        // Ambil data tamu, diurutkan berdasarkan nama
         $guest = Guest::orderBy('name', 'asc')->get();
-        $room = Room::orderBy('room_name', 'asc')->get();
+
+        // Ambil hanya kamar yang berstatus Ready dan kategori dengan jumlah kamar > 0
+        $room = Room::where('status', 1) // Filter kamar dengan status "Ready"
+            ->whereHas('category', function ($query) {
+                $query->where('number_of_rooms', '>', 0); // Filter kategori dengan kamar yang tersedia
+            })
+            ->orderBy('room_name', 'asc') // Urutkan berdasarkan nama kamar
+            ->get();
+
+        // Kirim data ke view
         return view('backend.v_reservation.create', [
             'judul' => 'Add Reservation Data',
             'guests' => $guest,
-            'rooms' => $room
+            'rooms' => $room,
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -43,14 +55,43 @@ class ReservationController extends Controller
         $validatedData = $request->validate([
             'guests_id' => 'required|exists:guests,id',
             'rooms_id' => 'required|exists:rooms,id',
-            'tanggal_checkin' => 'required|date|after_or_equal:today',
-            'tanggal_checkout' => 'required|date|after:tanggal_checkin',
-            'payment' => 'required|boolean',
+            'checkin_date' => 'required|date|after_or_equal:today',
+            'checkout_date' => 'required|date|after:checkin_date',
+            'payment_method' => 'required|boolean',
         ]);
 
+
+        $validatedData['created_by'] = auth()->user()->id;
+        $validatedData['updated_by'] = auth()->user()->id;
+
+        // Ambil data kamar berdasarkan rooms_id
+        $room = Room::findOrFail($request->rooms_id);
+
+        // Ambil kategori kamar terkait
+        $category = RoomCategory::findOrFail($room->room_categories_id);
+
+        // Menghitung total pembayaran
+        $room = Room::findOrFail($validatedData['rooms_id']);
+        $days = (new \Carbon\Carbon($validatedData['checkout_date']))
+            ->diffInDays(new \Carbon\Carbon($validatedData['checkin_date']));
+        $validatedData['total_payment'] = $days * $room->price;
+
+
+        // Periksa ketersediaan kamar di kategori
+        if ($category->number_of_rooms <= 0) {
+            return redirect()->back()->withErrors(['rooms_id' => 'Room category is no longer available.']);
+        }
+
+        // Kurangi jumlah kamar di kategori
+        $category->decrement('number_of_rooms');
+
+        // Ubah status kamar menjadi booked
+        $room->update(['status' => '0']);
+
+        // Simpan data reservasi
         Reservation::create($validatedData);
 
-        return redirect()->route('backend.reservation.index')->with('success', 'Data berhasil tersimpan');
+        return redirect()->route('backend.reservation.index')->with('success', 'Data Saved Successfully');
     }
 
 
@@ -88,28 +129,25 @@ class ReservationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $rules = [
+        // Validasi input
+        $validatedData = $request->validate([
             'guests_id' => 'required|exists:guests,id',
             'rooms_id' => 'required|exists:rooms,id',
-            'tanggal_checkin' => 'required|date|after_or_equal:today',
-            'tanggal_checkout' => 'required|date|after:tanggal_checkin',
-            'payment' => 'required|boolean',
-        ];
+            'checkin_date' => 'required|date|after_or_equal:today',
+            'checkout_date' => 'required|date|after:checkin_date',
+            'payment_method' => 'required|boolean',
+        ]);
 
-        $validatedData = $request->validate($rules);
+        // Menambahkan kolom updated_by
+        $validatedData['updated_by'] = auth()->id();
 
-        // Jika total_payment dihitung otomatis
-        if ($request->filled('rooms_id')) {
-            $room = Room::findOrFail($request->rooms_id);
-            $days = (new \Carbon\Carbon($request->tanggal_checkout))
-                ->diffInDays(new \Carbon\Carbon($request->tanggal_checkin));
-            $validatedData['total_payment'] = $days * $room->price;
-        }
-
+        // Update data
         Reservation::where('id', $id)->update($validatedData);
 
-        return redirect()->route('backend.reservation.index')->with('success', 'Data berhasil diperbaharui');
+        // Redirect ke halaman index
+        return redirect()->route('backend.reservation.index')->with('success', 'Data Updated Successfully');
     }
+
 
 
     /**
@@ -119,8 +157,31 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOrFail($id);
         $reservation->delete();
-        return redirect()->route('backend.reservation.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('backend.reservation.index')->with('success', 'Data Saved Successfully');
     }
+
+
+    // cancel reservation
+    public function cancel($id)
+    {
+        // Cari reservasi berdasarkan ID
+        $reservation = Reservation::findOrFail($id);
+
+        // Ambil data kamar terkait
+        $room = Room::findOrFail($reservation->rooms_id);
+        $room->update(['status' => '1']);
+
+        // Kembalikan jumlah kamar di kategori terkait
+        $category = RoomCategory::findOrFail($room->room_categories_id);
+        $category->increment('number_of_rooms');
+
+        // Hapus data reservasi
+        $reservation->delete();
+
+        // Redirect ke halaman daftar reservasi dengan pesan sukses
+        return redirect()->route('backend.reservation.index')->with('success', 'Reservation successfully canceled.');
+    }
+
 
 
     // Method untuk Form Laporan Produk 
@@ -150,16 +211,9 @@ class ReservationController extends Controller
 
         // Query data reservasi berdasarkan rentang tanggal
         $reservations = Reservation::with(['guest', 'room']) // Pastikan relasi di-load
-            ->whereBetween('tanggal_checkin', [$startDate, $endDate])
+            ->whereBetween('checkin_date', [$startDate, $endDate])
             ->orderBy('id', 'desc')
             ->get();
-
-        // Jika tidak ada data, tampilkan pesan error
-        if ($reservations->isEmpty()) {
-            return redirect()->back()->withErrors([
-                'no_data' => 'No reservation data found for the selected dates.'
-            ]);
-        }
 
         // Kirim data ke view cetak
         return view('backend.v_reservation.print', [

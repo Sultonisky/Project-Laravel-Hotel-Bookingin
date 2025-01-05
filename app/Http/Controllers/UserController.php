@@ -37,15 +37,15 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|max:255',
-            'email' => 'required|max:255|email|unique:user',
+            'name' => 'required|max:255',
+            'email' => 'required|max:255|email|unique:users',
             'role' => 'required',
             'hp' => 'required|min:10|max:13',
             'password' => 'required|min:4|confirmed',
             'foto' => 'image|mimes:jpeg,jpg,png,gif|file|max:1024',
         ], $messages = [
-            'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif.',
-            'foto.max' => 'Ukuran file gambar Maksimal adalah 1024 KB.'
+            'foto.image' => 'Image formats use files with the extension jpeg, jpg, png, or gif.',
+            'foto.max' => 'Maximum image file size is 1024 KB.'
         ]);
         $validatedData['status'] = 0;
 
@@ -68,9 +68,9 @@ class UserController extends Controller
         if (preg_match($pattern, $password)) {
             $validatedData['password'] = Hash::make($validatedData['password']);
             User::create($validatedData, $messages);
-            return redirect()->route('backend.user.index')->with('success', 'Data berhasil tersimpan');
+            return redirect()->route('backend.user.index')->with('success', 'Data Saved Successfully');
         } else {
-            return redirect()->back()->withErrors(['password' => 'Password harus terdiri dari kombinasi huruf besar, huruf kecil, angka, dan simbol karakter.']);
+            return redirect()->back()->withErrors(['password' => 'The password must consist of a combination of uppercase letters, lowercase letters, numbers and character symbols.']);
         }
     }
 
@@ -89,7 +89,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         return view('backend.v_user.edit', [
-            'judul' => 'Ubah User',
+            'judul' => 'Edit User',
             'edit' => $user
         ]);
     }
@@ -102,14 +102,14 @@ class UserController extends Controller
         // dd($requst)
         $user = User::findOrFail($id);
         $rules = [
-            'nama' => 'required|max:255',
+            'name' => 'required|max:255',
             'role' => 'required',
             'status' => 'required',
             'hp' => 'required|min:10|max:13',
             'foto' => 'image|mimes:jpeg,jpf,png,gif|file|max:1024',
         ];
         $messages = [
-            'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif'
+            'foto.image' => 'Image formats use files with the extension jpeg, jpg, png, or gif.'
         ];
 
         if ($request->email != $user->email) {
@@ -136,7 +136,7 @@ class UserController extends Controller
             $validatedData['foto'] = $originalFileName;
         }
         $user->update($validatedData);
-        return redirect()->route('backend.user.index')->with('success', 'Data berhasil diperbaharui');
+        return redirect()->route('backend.user.index')->with('success', 'Data Updated Successfully');
     }
 
     /**
@@ -152,6 +152,6 @@ class UserController extends Controller
             }
         }
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
+        return redirect()->route('backend.user.index')->with('success', 'Data Deleted Successfully');
     }
 }

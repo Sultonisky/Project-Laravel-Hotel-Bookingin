@@ -17,9 +17,9 @@ return new class extends Migration
             // $table->unsignedBigInteger('guests_id');
             $table->boolean('status');
             $table->string('room_name');
-            $table->text('detail');
+            // $table->text('detail');
             $table->double('price');
-            $table->integer('number_of_rooms');
+            // $table->integer('number_of_rooms');
             $table->string('foto'); // Thumbnail image 
             $table->timestamps();
             $table->foreign('room_categories_id')

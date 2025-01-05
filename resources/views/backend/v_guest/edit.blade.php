@@ -49,7 +49,7 @@
 
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="text" name="email" value="{{ old('email', $edit->email) }}"
+                                        <input type="email" name="email" value="{{ old('email', $edit->email) }}"
                                             class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Masukkan Email">
                                         @error('email')
@@ -61,7 +61,7 @@
 
                                     <div class="form-group">
                                         <label>No HP</label>
-                                        <input type="text" onkeypress="return hanyaAngka(event)" name="no_hp"
+                                        <input type="number" onkeypress="return hanyaAngka(event)" name="no_hp"
                                             value="{{ old('no_hp', $edit->no_hp) }}"
                                             class="form-control @error('hp') is-invalid @enderror"
                                             placeholder="Masukkan Nomor HP">

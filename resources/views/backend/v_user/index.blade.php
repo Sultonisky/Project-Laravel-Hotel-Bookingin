@@ -16,6 +16,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>E-mail</th>
+                                    <th>No. HP</th>
                                     <th>Name</th>
                                     <th>Role</th>
                                     <th>Status</th>
@@ -27,19 +28,22 @@
                                     <tr>
                                         <td> {{ $loop->iteration }} </td>
                                         <td> {{ $row->email }} </td>
+                                        <td> {{ $row->hp }} </td>
                                         <td> {{ $row->name }} </td>
                                         <td>
                                             @if ($row->role == 1)
                                                 <span class="badge badge-success"></i>Administrator</span>
                                             @elseif($row->role == 0)
                                                 <span class="badge badge-primary"></i>Staff</span>
+                                            @elseif($row->role == 2)
+                                                <span class="badge badge-secondary"></i>User</span>
                                             @endif
                                         </td>
                                         <td>
                                             @if ($row->status == 1)
-                                                <span class="badge badge-success"></i>Aktif</span>
+                                                <span class="badge badge-success"></i>Active</span>
                                             @elseif($row->status == 0)
-                                                <span class="badge badge-secondary"></i>NonAktif</span>
+                                                <span class="badge badge-secondary"></i>Non-Active</span>
                                             @endif
                                         </td>
                                         <td>
@@ -53,7 +57,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                    data-konf-delete="{{ $row->nama }}" title='Hapus Data'>
+                                                    data-konf-delete="{{ $row->name }}" title='Hapus Data'>
                                                     <i class="fas fa-trash"></i> Delete</button>
                                             </form>
                                         </td>

@@ -28,13 +28,14 @@
                                     <div class="form-group">
                                         <label>Hak Ases</label>
                                         <select name="role" class="form-control @error('role') is-invalid @enderror">
-                                            <option value="" {{ old('role') == '' ? 'selected' : '' }}> - Pilih Hak
-                                                Akses
+                                            <option value="" {{ old('role') == '' ? 'selected' : '' }}> - Select Role
                                                 -
                                             </option>
                                             <option value="1" {{ old('role') == '1' ? 'selected' : '' }}> Administrator
                                             </option>
                                             <option value="0" {{ old('role') == '0' ? 'selected' : '' }}> Staff
+                                            </option>
+                                            <option value="2" {{ old('role') == '2' ? 'selected' : '' }}> User
                                             </option>
                                         </select>
                                         @error('role')
@@ -45,10 +46,10 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Nama</label>
-                                        <input type="text" name="nama" value="{{ old('nama') }}"
+                                        <input type="text" name="name" value="{{ old('name') }}"
                                             class="form-control @error('nama') is-invalid @enderror"
                                             placeholder="Masukkan Nama">
-                                        @error('nama')
+                                        @error('name')
                                             <span class="invalid-feedback alert-danger" role="alert">
                                                 {{ $message }}
                                             </span>

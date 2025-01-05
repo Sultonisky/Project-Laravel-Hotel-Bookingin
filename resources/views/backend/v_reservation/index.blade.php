@@ -20,6 +20,8 @@
                                     <th>Check-out Date</th>
                                     <th>Total Payment</th>
                                     <th>Payment Method</th>
+                                    {{-- <th>Created By</th>
+                                    <th>Updated By</th> --}}
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -29,17 +31,19 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $row->guest->name }}</td>
                                         <td>{{ $row->room->room_name }}</td>
-                                        <td> Rp. {{ number_format($row->room->price, 0, ',', '.') }}
-                                        <td>{{ $row->tanggal_checkin }}</td>
-                                        <td>{{ $row->tanggal_checkout }}</td>
-                                        <td>Rp. {{ number_format($row->total_payment, 0, ',', '.') }}</td>
+                                        <td> IDR. {{ number_format($row->room->price, 0, ',', '.') }}</td>
+                                        <td>{{ $row->checkin_date }}</td>
+                                        <td>{{ $row->checkout_date }}</td>
+                                        <td>IDR. {{ number_format($row->total_payment, 0, ',', '.') }}</td>
                                         <td>
-                                            @if ($row->payment == 1)
+                                            @if ($row->payment_method == 1)
                                                 <span class="badge badge-success">Cash</span>
                                             @else
-                                                <span class="badge badge-secondary">Credit</span>
+                                                <span class="badge badge-primary">Credit</span>
                                             @endif
                                         </td>
+                                        {{-- <td>{{ $row->createdBy->name ?? '-' }}</td>
+                                        <td>{{ $row->updatedBy->name ?? '-' }}</td> --}}
                                         <td>
                                             <a href="{{ route('backend.reservation.show', $row->id) }}"
                                                 title="Lihat Detail">
@@ -58,6 +62,16 @@
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
                                                     title="Hapus Data">
                                                     <i class="fas fa-trash"></i> Delete
+                                                </button>
+                                            </form>
+                                            <form method="POST"
+                                                action="{{ route('backend.reservation.cancel', $row->id) }}"
+                                                style="display: inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-secondary btn-sm show_cancel"
+                                                    title="Cancel Reservation">
+                                                    <i class="fas fa-ban"></i> Cancel
                                                 </button>
                                             </form>
                                         </td>

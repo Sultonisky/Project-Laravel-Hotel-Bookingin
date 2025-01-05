@@ -18,6 +18,8 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Category</th>
+                                    <th>Number of Rooms</th>
+                                    <th>Description</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -26,6 +28,8 @@
                                     <tr>
                                         <td> {{ $loop->iteration }} </td>
                                         <td> {{ $row->category_name }} </td>
+                                        <td> {{ $row->number_of_rooms }} </td>
+                                        <td> {{ $row->description }} </td>
                                         <td>
                                             <a href="{{ route('backend.category.edit', $row->id) }}" title="Ubah Data">
                                                 <button type="button" class="btn btn-cyan btn-sm"><i

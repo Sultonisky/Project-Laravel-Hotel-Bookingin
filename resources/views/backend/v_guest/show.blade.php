@@ -33,7 +33,7 @@
 
                     </table>
                     <a href="{{ route('backend.guest.index') }}" class="btn btn-secondary mt-3">
-                        <i class="fas fa-arrow-left"></i> Kembali
+                        <i class="fas fa-arrow-left"></i> Back
                     </a>
                 </div>
             </div>

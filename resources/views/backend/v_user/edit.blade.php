@@ -35,15 +35,18 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="form-group">
-                                        <label>Hak Ases</label>
+                                        <label>Role</label>
                                         <select name="role" class="form-control @error('role') is-invalid @enderror">
                                             <option value="" {{ old('role', $edit->role) == '' ? 'selected' : '' }}>
-                                                - Pilih Hak Akses -
+                                                - Select Role -
                                             </option>
                                             <option value="1" {{ old('role', $edit->role) == '1' ? 'selected' : '' }}>
                                                 Administrator</option>
                                             <option value="0" {{ old('role', $edit->role) == '0' ? 'selected' : '' }}>
                                                 Staff
+                                            </option>
+                                            <option value="2" {{ old('role', $edit->role) == '2' ? 'selected' : '' }}>
+                                                User
                                             </option>
                                         </select>
                                         @error('role')
@@ -57,14 +60,14 @@
                                         <select name="status" class="form-control @error('status') is-invalid @enderror">
                                             <option value=""
                                                 {{ old('status', $edit->status) == '' ? 'selected' : '' }}> -
-                                                Pilih Hak Akses -</option>
+                                                Select Status -</option>
                                             <option value="1"
                                                 {{ old('status', $edit->status) == '1' ? 'selected' : '' }}>
-                                                Aktif
+                                                Active
                                             </option>
                                             <option value="0"
                                                 {{ old('status', $edit->status) == '0' ? 'selected' : '' }}>
-                                                NonAktif
+                                                Non-Active
                                             </option>
                                         </select>
                                         @error('status')
@@ -75,11 +78,11 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Nama</label>
-                                        <input type="text" name="nama" value="{{ old('nama', $edit->nama) }}"
-                                            class="form-control @error('nama') is-invalid @enderror"
-                                            placeholder="Masukkan Nama">
-                                        @error('nama')
+                                        <label>Name</label>
+                                        <input type="text" name="name" value="{{ old('name', $edit->name) }}"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            placeholder="Masukkan name">
+                                        @error('name')
                                             <span class="invalid-feedback alert-danger" role="alert">
                                                 {{ $message }}
                                             </span>
@@ -115,9 +118,9 @@
                         </div>
                         <div class="border-top">
                             <div class="card-body">
-                                <button type="submit" class="btn btn-primary">Perbaharui</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                                 <a href="{{ route('backend.user.index') }}">
-                                    <button type="button" class="btn btn-secondary">Kembali</button>
+                                    <button type="button" class="btn btn-secondary">Back</button>
                                 </a>
                             </div>
                         </div>
