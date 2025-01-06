@@ -68,8 +68,9 @@
                                         <select class="form-control @error('payment_method') is-invalid @enderror"
                                             name="payment_method">
                                             <option value="" selected>--Select Payment Method--</option>
-                                            <option value="1">Cash</option>
-                                            <option value="0">Credit</option>
+                                            <option value="0">Credit Card</option>
+                                            <option value="1">Bank Transfer</option>
+                                            <option value="2">e-Wallet</option>
                                         </select>
                                         @error('payment_method')
                                             <span class="invalid-feedback alert-danger"

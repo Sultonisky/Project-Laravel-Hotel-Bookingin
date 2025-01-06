@@ -23,11 +23,4 @@ class Room extends Model
     {
         return $this->hasMany(RoomPhoto::class, 'rooms_id'); // Mengacu pada foreign key "rooms_id"
     }
-
-
-    // // Relasi ke Guest (many-to-one)
-    // public function guest()
-    // {
-    //     return $this->belongsTo(Guest::class, 'guests_id', 'id'); // Foreign key, Primary key
-    // }
 }

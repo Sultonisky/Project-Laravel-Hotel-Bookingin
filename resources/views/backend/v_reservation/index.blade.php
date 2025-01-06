@@ -37,9 +37,11 @@
                                         <td>IDR. {{ number_format($row->total_payment, 0, ',', '.') }}</td>
                                         <td>
                                             @if ($row->payment_method == 1)
-                                                <span class="badge badge-success">Cash</span>
-                                            @else
-                                                <span class="badge badge-primary">Credit</span>
+                                                <span class="badge badge-secondary">Bank Transfer</span>
+                                            @elseif ($row->payment_method == 0)
+                                                <span class="badge badge-success">Credit Card</span>
+                                            @elseif ($row->payment_method == 2)
+                                                <span class="badge badge-primary">e-Wallet</span>
                                             @endif
                                         </td>
                                         {{-- <td>{{ $row->createdBy->name ?? '-' }}</td>

@@ -11,6 +11,5 @@ class RoomCategory extends Model
 
     public $timestamps = false;
     protected $table = "room_categories";
-    // protected $fillable = [nama_kategori]; 
     protected $guarded = ['id'];
 }

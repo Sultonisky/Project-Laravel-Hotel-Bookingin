@@ -18,10 +18,6 @@ Route::get('/', function () {
 Route::get('backend/beranda', [BerandaController::class, 'berandaBackend'])
     ->name('backend.beranda')->middleware('auth');
 
-// Route::middleware(['web'])->group(function () {
-//     // Tambahkan route di sini
-// });
-
 Route::get('backend/login', [LoginController::class, 'loginBackend'])
     ->name('backend.login.view');
 

@@ -48,10 +48,12 @@
                             <tr>
                                 <th>Payment Method</th>
                                 <td>
-                                    @if ($reservation->payment_method)
-                                        <span class="badge badge-success">Cash</span>
-                                    @else
-                                        <span class="badge badge-secondary">Credit</span>
+                                    @if ($reservation->payment_method == 0)
+                                        <span class="badge badge-success">Credit Card</span>
+                                    @elseif ($reservation->payment_method == 1)
+                                        <span class="badge badge-secondary">Bank Transfer</span>
+                                    @elseif($reservation->payment_method == 2)
+                                        <span class="badge badge-primary">e-Wallet</span>
                                     @endif
                                 </td>
                             </tr>

@@ -10,8 +10,6 @@ class RegisterController extends Controller
 {
     public function registrationForm()
     {
-        // dd(session()->all());
-
         return view('backend.v_register.register');
     }
 
@@ -27,20 +25,11 @@ class RegisterController extends Controller
         User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
-            // 'role' => 2, // default role user
             'status' => 1, // aktif
             'password' => Hash::make($validatedData['password']),
             'hp' => $validatedData['hp'],
         ]);
-
-        // Redirect ke halaman login dengan pesan sukses
-        // return redirect()->route('backend.login.view')->with('success', 'Registration successful. Please login.');
-
         session()->flash('success', 'Registration successful. Please login.');
         return view('backend.v_register.register'); // Load view langsung untuk debug
-        // dd(session()->all());
-        // return redirect()->route('backend.login.view')->with('success', 'Registration successful. Please login.');
-        // session()->flash('success', 'Registration successful! Please login.');
-        // return redirect()->route('backend.login.view');
     }
 }

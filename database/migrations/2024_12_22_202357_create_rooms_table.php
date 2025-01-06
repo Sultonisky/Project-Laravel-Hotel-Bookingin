@@ -14,12 +14,9 @@ return new class extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('room_categories_id');
-            // $table->unsignedBigInteger('guests_id');
             $table->boolean('status');
             $table->string('room_name');
-            // $table->text('detail');
             $table->double('price');
-            // $table->integer('number_of_rooms');
             $table->string('foto'); // Thumbnail image 
             $table->timestamps();
             $table->foreign('room_categories_id')
@@ -27,12 +24,6 @@ return new class extends Migration
                 ->on('room_categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-
-            // $table->foreign('guests_id')
-            //     ->references('id')
-            //     ->on('guests')
-            //     ->onDelete('cascade')
-            //     ->onUpdate('cascade');
         });
     }
 

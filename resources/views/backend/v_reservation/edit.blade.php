@@ -82,12 +82,16 @@
                                 <label for="payment_method">Payment Method</label>
                                 <select name="payment_method" id="payment_method"
                                     class="form-control @error('payment_method') is-invalid @enderror">
-                                    <option value="1"
-                                        {{ old('payment_method', $reservation->payment_method) == '1' ? 'selected' : '' }}>
-                                        Cash</option>
                                     <option value="0"
                                         {{ old('payment_method', $reservation->payment_method) == '0' ? 'selected' : '' }}>
-                                        Credit
+                                        Credit Card
+                                    </option>
+                                    <option value="1"
+                                        {{ old('payment_method', $reservation->payment_method) == '1' ? 'selected' : '' }}>
+                                        Bank Transfer</option>
+                                    <option value="2"
+                                        {{ old('payment_method', $reservation->payment_method) == '2' ? 'selected' : '' }}>
+                                        e-Wallet
                                     </option>
                                 </select>
                                 @error('payment_method')

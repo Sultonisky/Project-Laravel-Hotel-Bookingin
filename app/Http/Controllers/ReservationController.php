@@ -57,7 +57,7 @@ class ReservationController extends Controller
             'rooms_id' => 'required|exists:rooms,id',
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
-            'payment_method' => 'required|boolean',
+            'payment_method' => 'required',
         ]);
 
 
@@ -135,7 +135,7 @@ class ReservationController extends Controller
             'rooms_id' => 'required|exists:rooms,id',
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
-            'payment_method' => 'required|boolean',
+            'payment_method' => 'required',
         ]);
 
         // Menambahkan kolom updated_by

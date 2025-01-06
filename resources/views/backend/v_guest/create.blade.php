@@ -1,7 +1,6 @@
 @Extends('Backend.V_Layouts.App')
 @section('content')
     <!-- contentAwal -->
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -76,6 +75,5 @@
             </div>
         </div>
     </div>
-
     <!-- contentAkhir -->
 @endsection

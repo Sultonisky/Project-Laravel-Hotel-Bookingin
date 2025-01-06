@@ -62,10 +62,12 @@
                         <td>{{ $print->checkout_date }}</td>
                         <td>IDR. {{ number_format($print->total_payment, 0, ',', '.') }}</td>
                         <td>
-                            @if ($print->payment_method == 1)
-                                Cash
-                            @else
-                                Credit
+                            @if ($print->payment_method == 0)
+                                Credit Card
+                            @elseif ($print->payment_method == 1)
+                                Bank Transfer
+                            @elseif ($print->payment_method == 2)
+                                e-Wallet
                             @endif
                         </td>
                     </tr>
