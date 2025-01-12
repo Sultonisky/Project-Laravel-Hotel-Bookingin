@@ -13,6 +13,21 @@ class Reservation extends Model
     protected $table = "reservations"; // Nama tabel
     protected $guarded = ['id']; // Kolom yang tidak boleh diisi secara mass-assignment
 
+    protected $fillable = [
+        'guests_id',
+        'rooms_id',
+        'checkin_date',
+        'checkout_date',
+        'new_check_in',
+        'new_check_out',
+        'reschedule_count',
+        'payment_method',
+        'total_payment',
+        'created_by',
+        'updated_by',
+
+    ];
+
     // Relasi ke RoomCategory (many-to-one)
     public function guest()
     {

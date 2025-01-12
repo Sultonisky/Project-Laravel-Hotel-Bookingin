@@ -30,8 +30,8 @@
                                         <td> {{ $row->category_name }} </td>
                                         <td> {{ $row->number_of_rooms }} </td>
                                         <td> {{ $row->description }} </td>
-                                        <td>
-                                            <a href="{{ route('backend.category.edit', $row->id) }}" title="Ubah Data">
+                                        <td class="d-flex">
+                                            <a href="{{ route('backend.category.edit', $row->id) }}" title="Edit Data">
                                                 <button type="button" class="btn btn-cyan btn-sm"><i
                                                         class="far fa-edit"></i> Edit</button>
                                             </a>
@@ -41,7 +41,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                    data-konf-delete="{{ $row->category_name }}" title='Hapus Data'>
+                                                    data-konf-delete="{{ $row->category_name }}" title='Delete Data'>
                                                     <i class="fas fa-trash"></i> Delete</button>
                                             </form>
                                         </td>

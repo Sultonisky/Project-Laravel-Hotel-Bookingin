@@ -35,8 +35,6 @@
                                                 <span class="badge badge-success"></i>Administrator</span>
                                             @elseif($row->role == 0)
                                                 <span class="badge badge-primary"></i>Staff</span>
-                                            @elseif($row->role == 2)
-                                                <span class="badge badge-secondary"></i>User</span>
                                             @endif
                                         </td>
                                         <td>
@@ -47,7 +45,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('backend.user.edit', $row->id) }}" title="Ubah Data">
+                                            <a href="{{ route('backend.user.edit', $row->id) }}" title="Edit Data">
                                                 <button type="button" class="btn btn-cyan btn-sm"><i
                                                         class="far fa-edit"></i> Edit</button>
                                             </a>
@@ -57,7 +55,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                    data-konf-delete="{{ $row->name }}" title='Hapus Data'>
+                                                    data-konf-delete="{{ $row->name }}" title='Delete Data'>
                                                     <i class="fas fa-trash"></i> Delete</button>
                                             </form>
                                         </td>

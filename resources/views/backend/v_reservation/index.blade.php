@@ -46,36 +46,44 @@
                                         </td>
                                         {{-- <td>{{ $row->createdBy->name ?? '-' }}</td>
                                         <td>{{ $row->updatedBy->name ?? '-' }}</td> --}}
+
                                         <td>
-                                            <a href="{{ route('backend.reservation.show', $row->id) }}"
-                                                title="Lihat Detail">
-                                                <button type="button" class="btn btn-info btn-sm"><i
-                                                        class="fas fa-eye"></i> Details</button>
-                                            </a>
-                                            <a href="{{ route('backend.reservation.edit', $row->id) }}" title="Edit Data">
-                                                <button type="button" class="btn btn-warning btn-sm"><i
-                                                        class="far fa-edit"></i> Edit</button>
-                                            </a>
-                                            <form method="POST"
-                                                action="{{ route('backend.reservation.destroy', $row->id) }}"
-                                                style="display: inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                    title="Hapus Data">
-                                                    <i class="fas fa-trash"></i> Delete
-                                                </button>
-                                            </form>
-                                            <form method="POST"
-                                                action="{{ route('backend.reservation.cancel', $row->id) }}"
-                                                style="display: inline-block;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-secondary btn-sm show_cancel"
-                                                    title="Cancel Reservation">
-                                                    <i class="fas fa-ban"></i> Cancel
-                                                </button>
-                                            </form>
+                                            <div class="d-flex gap-2">
+                                                <a href="{{ route('backend.reservation.show', $row->id) }}" title="Details">
+                                                    <button type="button" class="btn btn-info btn-sm"><i
+                                                            class="fas fa-eye"></i></button>
+                                                </a>
+                                                <a href="{{ route('backend.reservation.edit', $row->id) }}"
+                                                    title="Edit Data">
+                                                    <button type="button" class="btn btn-warning btn-sm"><i
+                                                            class="far fa-edit"></i> </button>
+                                                </a>
+                                                <a href="{{ route('backend.reservation.rescheduleForm', $row->id) }}"
+                                                    title="Reschedule">
+                                                    <button type="button" class="btn btn-success btn-sm"><i
+                                                            class="far fa-calendar-plus"></i> </button>
+                                                </a>
+                                                <form method="POST"
+                                                    action="{{ route('backend.reservation.destroy', $row->id) }}"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                        title="Delete Data">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                <form method="POST"
+                                                    action="{{ route('backend.reservation.cancel', $row->id) }}"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-secondary btn-sm show_cancel"
+                                                        title="Cancel Reservation">
+                                                        <i class="fas fa-ban"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

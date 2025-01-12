@@ -35,8 +35,6 @@
                                             </option>
                                             <option value="0" {{ old('role') == '0' ? 'selected' : '' }}> Staff
                                             </option>
-                                            <option value="2" {{ old('role') == '2' ? 'selected' : '' }}> User
-                                            </option>
                                         </select>
                                         @error('role')
                                             <span class="invalid-feedback alert-danger" role="alert">

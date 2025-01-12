@@ -30,12 +30,12 @@
                                         <td>{{ $row->email }}</td>
                                         <td>{{ $row->no_hp }}</td>
                                         <td>
-                                            <a href="{{ route('backend.guest.edit', $row->id) }}" title="Ubah Data">
+                                            <a href="{{ route('backend.guest.edit', $row->id) }}" title="Edit Data">
                                                 <button type="button" class="btn btn-cyan btn-sm">
                                                     <i class="far fa-edit"></i> Edit
                                                 </button>
                                             </a>
-                                            <a href="{{ route('backend.guest.show', $row->id) }}" title="Lihat Detail">
+                                            <a href="{{ route('backend.guest.show', $row->id) }}" title="See Details">
                                                 <button type="button" class="btn btn-info btn-sm">
                                                     <i class="fas fa-eye"></i> Detail Guest
                                                 </button>
@@ -45,7 +45,7 @@
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                    data-konf-delete="{{ $row->name }}" title='Hapus Data'>
+                                                    data-konf-delete="{{ $row->name }}" title='Delete Data'>
                                                     <i class="fas fa-trash"></i> Delete
                                                 </button>
 

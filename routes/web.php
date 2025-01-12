@@ -62,5 +62,10 @@ Route::delete('/reservation/cancel/{id}', [ReservationController::class, 'cancel
     ->name('backend.reservation.cancel');
 
 
+Route::get('backend/reservasi/{id}/rescheduleForm', [ReservationController::class, 'rescheduleForm'])->name('backend.reservation.rescheduleForm');
+Route::put('backend/reservasi/{id}/reschedule', [ReservationController::class, 'reschedule'])->name('backend.reservation.reschedule');
+
+
+
 Route::get('backend/roomGallery', [RoomController::class, 'roomGallery'])
     ->name('backend.room.roomGallery')->middleware('auth');

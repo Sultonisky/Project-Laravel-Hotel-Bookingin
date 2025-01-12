@@ -140,6 +140,11 @@ class="light-logo" /> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
                                 href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src={{ asset('backend/images/img-hotel/cs1.png') }} alt="user"
+                                    class="rounded-circle" width="31">
+                            </a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
+                                href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (Auth::User()->foto)
                                     <img src="{{ asset('storage/img-user/' . Auth::User()->foto) }}" alt="user"
                                         class="rounded-circle" width="31">
@@ -148,10 +153,15 @@ class="light-logo" /> -->
                                         class="rounded-circle" width="31">
                                 @endif
                             </a>
+
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i
                                         class="ti-user m-r-5 m-l-5"></i>
                                     Profile Saya
+                                </a>
+                                <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i
+                                        class="ti-user m-r-5 m-l-5"></i>
+                                    Customer Service
                                 </a>
                                 <a class="dropdown-item" href="href="" class="btn btn-danger"
                                     onclick="event.preventDefault(); document.getElementById('keluar-app').submit();""><i

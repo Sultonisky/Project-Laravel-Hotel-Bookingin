@@ -223,4 +223,30 @@ class ReservationController extends Controller
             'prints' => $reservations,
         ]);
     }
+
+    public function rescheduleForm($id)
+    {
+        $reservasi = Reservation::findOrFail($id);
+        return view('backend.v_reservation.reschedule', compact('reservasi'));
+    }
+
+    public function reschedule(Request $request, $id)
+    {
+        // Validasi input tanggal
+        $validatedData = $request->validate([
+            'checkin_date' => 'required|date|after_or_equal:today',
+            'checkout_date' => 'required|date|after:checkin_date',
+        ]);
+
+        // Ambil data reservasi berdasarkan ID
+        $reservasi = Reservation::findOrFail($id);
+
+        // Update tanggal check_in dan check_out
+        $reservasi->checkin_date = $validatedData['checkin_date'];
+        $reservasi->checkout_date = $validatedData['checkout_date'];
+        $reservasi->save();
+
+        // Redirect ke halaman index reservasi dengan pesan sukses
+        return redirect()->route('backend.reservation.index')->with('success', 'reschedule successfully');
+    }
 }
