@@ -15,18 +15,16 @@
                             With the access rights you have as
                             <b>
                                 @if (Auth::User()->role == 1)
-                                    Administrator
+                                    <h3 style="color: rgb(90, 1, 1);">Administrator</h3>
                                 @elseif(Auth::User()->role == 0)
-                                    Staff
-                                @elseif(Auth::User()->role == 2)
-                                    User
+                                    <h3 style="color: rgb(30, 7, 71);">Staff</h3>
                                 @endif
-                            </b>, This page is designed as the main control center for the <b>Hotel Bookingin
+                            </b>This page is designed as the main control center for the <b>Hotel Bookingin
                                 application</b>.
                         </p>
 
                         <hr>
-                        <p class="mb-0"><b>Bookingin Hotel</b></p>
+                        <p class="mb-0"><b>Bookingin Hotel || {{ Auth::user()->name }}</b></p>
                     </div>
                 </div>
             </div>

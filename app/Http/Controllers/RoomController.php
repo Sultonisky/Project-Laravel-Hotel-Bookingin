@@ -47,7 +47,7 @@ class RoomController extends Controller
             'room_name' => 'required|max:255|unique:rooms',
             'status' => 'required|boolean',
             'price' => 'required',
-            'foto' => 'required|image|mimes:jpeg,jpg,png,gif|file|max:1024',
+            'foto' => 'required|image|mimes:jpeg,jpg,png,gif|file|max:10024',
         ], $messages = [
             'foto.image' => 'Image formats use files with the extension jpeg, jpg, png, or gif.',
             'foto.max' => 'Maximum image file size is 1024 KB.'

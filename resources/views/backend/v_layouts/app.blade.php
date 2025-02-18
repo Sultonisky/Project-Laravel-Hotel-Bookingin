@@ -138,11 +138,7 @@ class="light-logo" /> -->
 
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
-                                href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src={{ asset('backend/images/img-hotel/cs1.png') }} alt="user"
-                                    class="rounded-circle" width="31">
-                            </a>
+
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic"
                                 href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 @if (Auth::User()->foto)
@@ -159,10 +155,7 @@ class="light-logo" /> -->
                                         class="ti-user m-r-5 m-l-5"></i>
                                     Profile Saya
                                 </a>
-                                <a class="dropdown-item" href="{{ route('backend.user.edit', Auth::user()->id) }}"><i
-                                        class="ti-user m-r-5 m-l-5"></i>
-                                    Customer Service
-                                </a>
+
                                 <a class="dropdown-item" href="href="" class="btn btn-danger"
                                     onclick="event.preventDefault(); document.getElementById('keluar-app').submit();""><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
@@ -363,6 +356,16 @@ none">
                 icon: 'success',
                 title: 'Succesfully!',
                 text: "{{ session('success') }}"
+            });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error!!',
+                text: "{{ session('error') }}"
             });
         </script>
     @endif

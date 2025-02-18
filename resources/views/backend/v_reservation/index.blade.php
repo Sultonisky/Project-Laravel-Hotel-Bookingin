@@ -64,16 +64,6 @@
                                                             class="far fa-calendar-plus"></i> </button>
                                                 </a>
                                                 <form method="POST"
-                                                    action="{{ route('backend.reservation.destroy', $row->id) }}"
-                                                    style="display: inline-block;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Delete Data">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                                <form method="POST"
                                                     action="{{ route('backend.reservation.cancel', $row->id) }}"
                                                     style="display: inline-block;">
                                                     @csrf
@@ -83,6 +73,17 @@
                                                         <i class="fas fa-ban"></i>
                                                     </button>
                                                 </form>
+                                                <form method="POST"
+                                                    action="{{ route('backend.reservation.destroy', $row->id) }}"
+                                                    style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm show_confirm"
+                                                        title="Delete Data">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+
                                             </div>
                                         </td>
                                     </tr>
