@@ -33,7 +33,7 @@
                                             </option>
                                             <option value="1" {{ old('role') == '1' ? 'selected' : '' }}> Administrator
                                             </option>
-                                            <option value="0" {{ old('role') == '0' ? 'selected' : '' }}> Staff
+                                            <option value="0" {{ old('role') == '0' ? 'selected' : '' }}> User
                                             </option>
                                         </select>
                                         @error('role')
@@ -65,18 +65,7 @@
                                         @enderror
                                     </div>
 
-                                    <div class="form-group">
-                                        <label>HP</label>
-                                        <input type="text" onkeypress="return hanyaAngka(event)" name="hp"
-                                            value="{{ old('hp') }}"
-                                            class="form-control @error('hp') is-invalid @enderror"
-                                            placeholder="Masukkan Nomor HP">
-                                        @error('hp')
-                                            <span class="invalid-feedback alert-danger" role="alert">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
+
 
                                     <div class="form-group">
                                         <label>Password</label>

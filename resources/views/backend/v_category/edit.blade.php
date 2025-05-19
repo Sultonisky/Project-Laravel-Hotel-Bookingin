@@ -25,6 +25,30 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Capacity</label>
+                                <input type="text" name="capacity" value="{{ old('capacity', $edit->capacity) }}"
+                                    class="form-control @error('capacity') is-invalid @enderror"
+                                    placeholder="Enter Capacity">
+                                @error('capacity')
+                                    <span class="invalid-feedback alert-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Bed Size</label>
+                                <input type="text" name="bed_size" value="{{ old('bed_size', $edit->bed_size) }}"
+                                    class="form-control @error('bed_size') is-invalid @enderror"
+                                    placeholder="Enter Bed Size">
+                                @error('bed_size')
+                                    <span class="invalid-feedback alert-danger" role="alert">
+                                        {{ $message }}
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
                                 <label>Number of Rooms</label>
                                 <input type="text" name="number_of_rooms"
                                     value="{{ old('number_of_rooms', $edit->number_of_rooms) }}"

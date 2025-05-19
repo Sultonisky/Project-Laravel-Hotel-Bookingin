@@ -43,7 +43,7 @@
                                             <option value="1" {{ old('role', $edit->role) == '1' ? 'selected' : '' }}>
                                                 Administrator</option>
                                             <option value="0" {{ old('role', $edit->role) == '0' ? 'selected' : '' }}>
-                                                Staff
+                                                User
                                             </option>
                                         </select>
                                         @error('role')
@@ -92,19 +92,6 @@
                                             class="form-control @error('email') is-invalid @enderror"
                                             placeholder="Masukkan Email">
                                         @error('email')
-                                            <span class="invalid-feedback alert-danger" role="alert">
-                                                {{ $message }}
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>HP</label>
-                                        <input type="text" onkeypress="return hanyaAngka(event)" name="hp"
-                                            value="{{ old('hp', $edit->hp) }}"
-                                            class="form-control @error('hp') is-invalid @enderror"
-                                            placeholder="Masukkan Nomor HP">
-                                        @error('hp')
                                             <span class="invalid-feedback alert-danger" role="alert">
                                                 {{ $message }}
                                             </span>

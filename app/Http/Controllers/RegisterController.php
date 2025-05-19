@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public function registrationForm()
     {
-        return view('backend.v_register.register');
+        return view('backend.v_register.register_new');
     }
 
     public function register(Request $request)
@@ -19,7 +19,6 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'hp' => 'required|string|max:13|unique:users',
         ]);
 
         User::create([
@@ -27,9 +26,8 @@ class RegisterController extends Controller
             'email' => $validatedData['email'],
             'status' => 1, // aktif
             'password' => Hash::make($validatedData['password']),
-            'hp' => $validatedData['hp'],
         ]);
         session()->flash('success', 'Registration successful. Please login.');
-        return view('backend.v_register.register'); // Load view langsung untuk debug
+        return view('backend.v_register.register_new'); // Load view langsung untuk debug
     }
 }

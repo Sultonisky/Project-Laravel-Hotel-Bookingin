@@ -34,6 +34,8 @@
                                     </div>
                                 </div>
 
+
+
                                 <div class="col-md-8">
                                     <div class="form-group">
                                         <label>Status</label>
@@ -52,6 +54,23 @@
                                                 {{ $message }}
                                             </span>
                                         @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Features</label>
+                                        <div class="row">
+                                            @foreach ($features as $feature)
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                                            value="{{ $feature->id }}" id="feature_{{ $feature->id }}"
+                                                            {{ in_array($feature->id, $edit->features->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                                        <label class="form-check-label"
+                                                            for="feature_{{ $feature->id }}">{{ $feature->name }}</label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
 
                                     <div class="form-group">

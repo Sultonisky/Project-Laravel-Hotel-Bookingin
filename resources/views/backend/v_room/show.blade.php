@@ -112,7 +112,7 @@
                 <form action="{{ route('backend.foto_produk.store') }}" method="POST" enctype="multipart/form-data"> 
                     @csrf 
                     <div class="col-md-12"> 
-                        <input type="hidden" name="rooms_id" value="{{ $show->id }}"> 
+                        <input type="hidden" name="room_id" value="{{ $show->id }}"> 
                         <input type="file" name="foto_rooms[]" class="form-control @error('foto_rooms') is-invalid @enderror"> 
                         <button type="submit" class="btn btn-success">Simpan</button> 
                     </div> 

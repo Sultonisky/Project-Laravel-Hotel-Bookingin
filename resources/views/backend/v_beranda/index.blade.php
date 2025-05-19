@@ -16,8 +16,6 @@
                             <b>
                                 @if (Auth::User()->role == 1)
                                     <h3 style="color: rgb(90, 1, 1);">Administrator</h3>
-                                @elseif(Auth::User()->role == 0)
-                                    <h3 style="color: rgb(30, 7, 71);">Staff</h3>
                                 @endif
                             </b>This page is designed as the main control center for the <b>Hotel Bookingin
                                 application</b>.

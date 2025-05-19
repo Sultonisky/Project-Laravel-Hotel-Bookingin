@@ -78,6 +78,24 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label>Features</label>
+                                        <div class="row">
+                                            @foreach ($features as $feature)
+                                                <div class="col-md-4">
+                                                    <div class="form-check">
+                                                        <input type="checkbox" class="form-check-input" name="features[]"
+                                                            value="{{ $feature->id }}" id="feature_{{ $feature->id }}">
+                                                        <label class="form-check-label"
+                                                            for="feature_{{ $feature->id }}">{{ $feature->name }}</label>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+
+
+
+                                    <div class="form-group">
                                         <label>Room Name</label>
                                         <input type="text" name="room_name" value="{{ old('room_name') }}"
                                             class="form-control @error('room_name') is-invalid @enderror"

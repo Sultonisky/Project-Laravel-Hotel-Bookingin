@@ -20,6 +20,7 @@
                                     <th>Category</th>
                                     <th>Status</th>
                                     <th>Room Name</th>
+                                    <th>Capacity</th>
                                     <th>Price</th>
                                     {{-- <th>Number of Rooms</th> --}}
                                     <th>Description</th>
@@ -43,6 +44,7 @@
 
                                         {{-- <td> {{ $row->guest->nama }} </td> --}}
                                         <td> {{ $row->room_name }} </td>
+                                        <td> {{ $row->category->capacity }} person </td>
                                         <td> IDR. {{ number_format($row->price, 0, ',', '.') }}
                                             {{-- <td> {{ $row->category->number_of_rooms }} </td> --}}
                                         </td>
@@ -61,7 +63,8 @@
                                                 </a>
 
 
-                                                <form method="POST" action="{{ route('backend.room.destroy', $row->id) }}">
+                                                <form method="POST"
+                                                    action="{{ route('backend.room.destroy', $row->id) }}">
                                                     @method('delete')
                                                     @csrf
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm"

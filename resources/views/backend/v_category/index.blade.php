@@ -18,7 +18,9 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Category</th>
-                                    <th>Number of Rooms</th>
+                                    <th>Capacity</th>
+                                    <th>Bed Size</th>
+                                    <th>Available Rooms</th>
                                     <th>Description</th>
                                     <th>Action</th>
                                 </tr>
@@ -28,6 +30,8 @@
                                     <tr>
                                         <td> {{ $loop->iteration }} </td>
                                         <td> {{ $row->category_name }} </td>
+                                        <td> {{ $row->capacity }} </td>
+                                        <td> {{ $row->bed_size }}</td>
                                         <td> {{ $row->number_of_rooms }} </td>
                                         <td> {{ $row->description }} </td>
                                         <td class="d-flex">

@@ -40,7 +40,6 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|max:255|email|unique:users',
             'role' => 'required',
-            'hp' => 'required|min:10|max:13',
             'password' => 'required|min:4|confirmed',
             'foto' => 'image|mimes:jpeg,jpg,png,gif|file|max:1024',
         ], $messages = [
@@ -105,7 +104,6 @@ class UserController extends Controller
             'name' => 'required|max:255',
             'role' => 'required',
             'status' => 'required',
-            'hp' => 'required|min:10|max:13',
             'foto' => 'image|mimes:jpeg,jpf,png,gif|file|max:1024',
         ];
         $messages = [

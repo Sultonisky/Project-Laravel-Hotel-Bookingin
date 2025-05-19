@@ -145,7 +145,7 @@ class="light-logo" /> -->
                                     <img src="{{ asset('storage/img-user/' . Auth::User()->foto) }}" alt="user"
                                         class="rounded-circle" width="31">
                                 @else
-                                    <img src="{{ asset('storage/img-user/img-default.jpg') }}" alt="user"
+                                    <img src="{{ asset('storage/img-user/img_default.jpg') }}" alt="user"
                                         class="rounded-circle" width="31">
                                 @endif
                             </a>
@@ -156,8 +156,8 @@ class="light-logo" /> -->
                                     Profile Saya
                                 </a>
 
-                                <a class="dropdown-item" href="href="" class="btn btn-danger"
-                                    onclick="event.preventDefault(); document.getElementById('keluar-app').submit();""><i
+                                <a class="dropdown-item" href="href=" class="btn btn-danger"
+                                    onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><i
                                         class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                                 <div class="dropdown-divider"></div>
                             </div>
@@ -189,8 +189,8 @@ class="light-logo" /> -->
                                 class="sidebar-link waves-effect 
                         waves-dark sidebar-link"
                                 href="{{ route('backend.user.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-account-circle"></i><span class="hide-menu">Staff
-                                    Bookingin</span></a>
+                                    class="mdi mdi-account-circle"></i><span class="hide-menu">Users
+                                </span></a>
                         </li>
 
                         <li class="sidebar-item"> <a
@@ -235,6 +235,13 @@ class="light-logo" /> -->
                                 href="{{ route('backend.report.formReservation') }}" aria-expanded="false"><i
                                     class="mdi mdi-receipt"></i><span class="hide-menu">
                                     Reports</span></a>
+                        </li>
+                        <li class="sidebar-item"> <a
+                                class="sidebar-link waves-effect 
+                            waves-dark sidebar-link"
+                                href="{{ route('backend.contact.index') }}" aria-expanded="false"><i
+                                    class="mdi mdi-comment-processing"></i><span class="hide-menu">
+                                    Contact</span></a>
                         </li>
                     </ul>
                 </nav>
@@ -348,14 +355,15 @@ none">
 
 
     <script src="{{ asset('sweetalert/sweetalert2.all.min.js') }}"></script>
-    <!-- sweetalert End -->
     <!-- konfirmasi success-->
     @if (session('success'))
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'Succesfully!',
-                text: "{{ session('success') }}"
+                title: 'Successfully!',
+                text: @json(session('success')),
+                timer: 2000,
+                showConfirmButton: false
             });
         </script>
     @endif
@@ -365,10 +373,13 @@ none">
             Swal.fire({
                 icon: 'warning',
                 title: 'Error!!',
-                text: "{{ session('error') }}"
+                text: @json(session('error'))
+                timer: 2000,
+                showConfirmButton: false
             });
         </script>
     @endif
+
     <!-- konfirmasi success End-->
 
     {{-- konfirmasi delete --}}

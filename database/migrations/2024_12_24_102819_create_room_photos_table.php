@@ -13,10 +13,10 @@
         {
             Schema::create('room_photos', function (Blueprint $table) {
                 $table->id();
-                $table->unsignedBigInteger('rooms_id');
+                $table->unsignedBigInteger('room_id');
                 $table->string('foto');
                 $table->timestamps();
-                $table->foreign('rooms_id')
+                $table->foreign('room_id')
                     ->references('id')
                     ->on('rooms')
                     ->onDelete('cascade');

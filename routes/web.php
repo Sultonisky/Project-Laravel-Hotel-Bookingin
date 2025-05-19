@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Room;
 use App\Models\Reservation;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
@@ -7,14 +8,19 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BerandaController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FrontendRoomController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoomCategoryController;
 
 Route::get('/', function () {
-    // return view('welcome');
+    // return view('welcome'); 
     return redirect()->route('backend.login.view');
 });
+
+
 
 // ROUTE AUTENTIKASI (Bisa diakses tanpa login)
 Route::get('backend/login', [LoginController::class, 'loginBackend'])->name('backend.login.view');
@@ -43,10 +49,7 @@ Route::middleware(['auth', 'role:1'])->group(function () {
     // Upload dan Hapus Foto Kamar
     Route::post('room/store', [RoomController::class, 'storeFoto'])->name('backend.foto_produk.store');
     Route::delete('room/{id}', [RoomController::class, 'destroyFoto'])->name('backend.foto_produk.destroy');
-});
 
-// ** ROUTE ADMIN & STAFF (role = 0 atau 1) **
-Route::middleware('auth')->group(function () {
     // Manajemen Tamu
     Route::resource('backend/guest', GuestController::class, ['as' => 'backend']);
 
@@ -66,4 +69,22 @@ Route::middleware('auth')->group(function () {
 
     // Galeri Kamar
     Route::get('backend/roomGallery', [RoomController::class, 'roomGallery'])->name('backend.room.roomGallery');
+
+    Route::resource('backend/contact', ContactController::class, ['as' => 'backend']);
+});
+
+// ** ROUTE USER (role = 0) **
+Route::middleware('auth', 'role:0')->group(function () {
+    // Frontend 
+    Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
+    Route::get('/beranda/profile', [BerandaController::class, 'profileUser'])->name('profile');
+    Route::get('/about', [BerandaController::class, 'about'])->name('about');
+    Route::get('/room', [BerandaController::class, 'room'])->name('room');
+    Route::get('/contact', [BerandaController::class, 'contact'])->name('contact');
+    Route::post('contact/send', [BerandaController::class, 'contactStore'])->name('contact.store')->middleware('auth');
+    Route::get('/room/detail/{id}', [FrontendRoomController::class, 'room_detail'])->name('room.detail');
+    Route::get('/room/reservation', [FrontendRoomController::class, 'reservation'])->name('room.reservation');
+    Route::get('/room/select', [BerandaController::class, 'selectRoomByDate'])->name('room.select');
+    Route::put('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 });

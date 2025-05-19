@@ -37,6 +37,8 @@ class RoomCategoryController extends Controller
         // dd($request); 
         $validatedData = $request->validate([
             'category_name' => 'required|max:255|unique:room_categories',
+            'capacity' => 'required|integer',
+            'bed_size' => 'required',
             'number_of_rooms' => 'required|integer',
             'description' => 'required|max:255',
         ]);
@@ -71,6 +73,8 @@ class RoomCategoryController extends Controller
     {
         $rules = [
             'category_name' => 'required|max:255|unique:room_categories,category_name,' . $id,
+            'capacity' => 'required|integer',
+            'bed_size' => 'required',
             'number_of_rooms' => 'required|integer',
             'description' => 'required|max:255',
         ];

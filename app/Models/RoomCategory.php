@@ -9,7 +9,12 @@ class RoomCategory extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
+    public $timestamps = true;
     protected $table = "room_categories";
     protected $guarded = ['id'];
+
+    public function rooms()
+    {
+        return $this->hasMany(Room::class, 'room_categories_id');
+    }
 }

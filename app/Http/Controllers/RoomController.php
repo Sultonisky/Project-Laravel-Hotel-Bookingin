@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
-use App\Helpers\ImageHelper;
 use App\Models\Guest;
-use App\Models\RoomCategory;
+use App\Models\Feature;
 use App\Models\RoomPhoto;
+use App\Helpers\ImageHelper;
+use App\Models\RoomCategory;
 use Illuminate\Http\Request;
 
 class RoomController extends Controller
@@ -29,10 +30,12 @@ class RoomController extends Controller
     public function create()
     {
         $roomCategory = RoomCategory::orderBy('category_name', 'asc')->get();
+        $features = Feature::all(); // ambil semua fitur
         // $guest = Guest::orderBy('nama', 'asc')->get();
         return view('backend.v_room.create', [
             'judul' => 'Add Room',
             'categories' => $roomCategory,
+            'features' => $features
             // 'guests' => $guest
         ]);
     }
@@ -47,11 +50,14 @@ class RoomController extends Controller
             'room_name' => 'required|max:255|unique:rooms',
             'status' => 'required|boolean',
             'price' => 'required',
+            'features' => 'array|nullable', // fitur boleh kosong
+            'features.*' => 'exists:features,id',
             'foto' => 'required|image|mimes:jpeg,jpg,png,gif|file|max:10024',
         ], $messages = [
             'foto.image' => 'Image formats use files with the extension jpeg, jpg, png, or gif.',
-            'foto.max' => 'Maximum image file size is 1024 KB.'
+            'foto.max' => 'Maximum image file size is 10024 KB.'
         ]);
+
 
         if ($request->file('foto')) {
             $file = $request->file('foto');
@@ -77,8 +83,14 @@ class RoomController extends Controller
             // Simpan nama file asli di database 
             $validatedData['foto'] = $originalFileName;
         }
+
+
         // dd($request);
-        Room::create($validatedData, $messages);
+        $room = Room::create($validatedData, $messages);
+        // Simpan fitur ke room
+        if ($request->has('features')) {
+            $room->features()->attach($request->features);
+        }
         return redirect()->route('backend.room.index')->with('success', 'Data Saved Successfully');
     }
 
@@ -102,10 +114,12 @@ class RoomController extends Controller
     public function edit(string $id)
     {
         $room = Room::findOrFail($id);
+        $features = Feature::all();
         $roomCategory = RoomCategory::orderBy('category_name', 'asc')->get();
         return view('backend.v_room.edit', [
             'judul' => 'Edit This Room',
             'edit' => $room,
+            'features' => $features,
             'categories' => $roomCategory
         ]);
     }
@@ -124,7 +138,7 @@ class RoomController extends Controller
             // 'detail' => 'required',
             'price' => 'required',
             // 'number_of_rooms' => 'required',
-            'foto' => 'nullable|image|mimes:jpeg,jpg,png,gif|file|max:1024',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png,gif|file|max:10024',
         ];
         $messages = [
             'foto.image' => 'Format gambar gunakan file dengan ekstensi jpeg, jpg, png, atau gif.',
@@ -216,7 +230,7 @@ class RoomController extends Controller
             }
         }
         // Hapus foto produk lainnya di tabel foto_produk 
-        $fotoRooms = RoomPhoto::where('rooms_id', $id)->get();
+        $fotoRooms = RoomPhoto::where('room_id', $id)->get();
         foreach ($fotoRooms as $fotoRoom) {
             $fotoPath = $directory . $fotoRoom->foto;
             if (file_exists($fotoPath)) {
@@ -234,8 +248,8 @@ class RoomController extends Controller
     {
         // Validasi input 
         $request->validate([
-            'rooms_id' => 'required|exists:rooms,id',
-            'foto_rooms.*' => 'image|mimes:jpeg,jpg,png,gif|file|max:1024',
+            'room_id' => 'required|exists:rooms,id',
+            'foto_rooms.*' => 'image|mimes:jpeg,jpg,png,gif|file|max:10024',
         ]);
         if ($request->hasFile('foto_rooms')) {
             foreach ($request->file('foto_rooms') as $file) {
@@ -244,26 +258,29 @@ class RoomController extends Controller
                 $filename = date('YmdHis') . '_' . uniqid() . '.' . $extension;
                 $directory = 'storage/img-room/';
 
+
                 // Simpan dan resize gambar menggunakan ImageHelper 
                 ImageHelper::uploadAndResize($file, $directory, $filename, 800, null);
                 // Simpan data ke database 
                 RoomPhoto::create([
-                    'rooms_id' => $request->rooms_id,
+                    'room_id' => $request->room_id,
                     'foto' => $filename,
                 ]);
+
+
 
                 // dd($request);
                 // dd($request->all());
             }
         }
-        return redirect()->route('backend.room.show', $request->rooms_id)->with('success', 'Photo Added Successfully.');
+        return redirect()->route('backend.room.show', $request->room_id)->with('success', 'Photo Added Successfully.');
     }
 
     // Method untuk menghapus foto 
     public function destroyFoto($id)
     {
         $foto = RoomPhoto::findOrFail($id);
-        $roomId = $foto->rooms_id;
+        $roomId = $foto->room_id;
 
         // Hapus file gambar dari storage 
         $imagePath = public_path('storage/img-room/') . $foto->foto;
@@ -280,4 +297,33 @@ class RoomController extends Controller
     {
         return view('backend.v_room.gallery');
     }
+
+    public function room_detail($id)
+    {
+        $room = Room::with('photos', 'features')->findOrFail($id);
+        return view('frontend.v_room_details.detail_room', compact('room'));
+    }
+
+    // public function roomCategory($id)
+    // {
+    //     $category = RoomCategory::orderBy('category_name', 'desc')->get();
+    //     $room = Room::where('room_categories_id', $id)->where('status', 0)
+    //         ->orderBy('updated_at', 'desc')->paginate(6);
+    //     return view('v_room.roomCategory', [
+    //         'title' => 'Filter category',
+    //         'category' => $category,
+    //         'room' => $room,
+    //     ]);
+    // }
+
+    // public function roomAll()
+    // {
+    //     $category = roomCategory::orderBy('category_name', 'desc')->get();
+    //     $room = Room::where('status', 1)->orderBy('updated_at', 'desc')->paginate(6);
+    //     return view('v_room.index', [
+    //         'title' => 'Room All',
+    //         'category' => $category,
+    //         'room' => $room,
+    //     ]);
+    // }
 }

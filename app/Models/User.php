@@ -23,7 +23,6 @@ class User extends Authenticatable
         'role',
         'status',
         'password',
-        'hp',
         'foto',
     ];
 
@@ -45,4 +44,19 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function reservationsCreated()
+    {
+        return $this->hasMany(Reservation::class, 'created_by');
+    }
+
+    public function reservationsUpdated()
+    {
+        return $this->hasMany(Reservation::class, 'updated_by');
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class, 'users_id');
+    }
 }

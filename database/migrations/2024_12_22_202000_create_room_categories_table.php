@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('room_categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name');
+            $table->integer('capacity');
+            $table->string('bed_size');
             $table->integer('number_of_rooms');
             $table->string('description');
             $table->timestamps();

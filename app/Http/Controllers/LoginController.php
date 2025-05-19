@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function loginBackend()
     {
-        return view('backend.v_login.login', [
+        return view('backend.v_login.login_new', [
             'judul' => 'Login Bookingin',
         ]);
     }
@@ -22,13 +22,23 @@ class LoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            if (Auth::user()->status == 0) {
+            $user = Auth::user();
+
+            if ($user->status == 0) {
                 Auth::logout();
                 return back()->with('error', 'User Status is Not Active!');
             }
+
             $request->session()->regenerate();
-            return redirect()->intended(route('backend.beranda'));
+
+            // Redirect sesuai role
+            if ($user->role == 1) {
+                return redirect()->route('backend.beranda'); // Admin
+            } else {
+                return redirect()->route('beranda'); // User biasa
+            }
         }
+
         return back()->with('error', 'Incorrect email or password');
     }
 
@@ -37,6 +47,6 @@ class LoginController extends Controller
         Auth::logout();
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        return redirect(route('backend.login.view'));
+        return redirect()->route('backend.login.view');
     }
 }
