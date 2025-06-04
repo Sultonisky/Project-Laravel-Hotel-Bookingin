@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('password');
             $table->text('address')->nullable();
-            $table->enum('role', ['donatur', 'penerima'])->default('penerima');
+            $table->enum('role', ['admin', 'donatur', 'penerima'])->default('penerima');
             $table->string('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();

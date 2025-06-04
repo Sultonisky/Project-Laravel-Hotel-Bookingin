@@ -13,8 +13,10 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/img/logo-2.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/img/logo_icon.png') }}">
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin_assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
 </head>
@@ -72,7 +74,7 @@
     </a>
 
     <!-- form keluar app -->
-    <form id="keluar-app" action="{{ route('backend.logout') }}" method="POST" class="d-none">
+    <form id="keluar-app" action="{{ route('logout') }}" method="POST" class="d-none">
         @csrf
     </form>
     <!-- form keluar app end -->
@@ -80,6 +82,12 @@
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('admin_assets/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin_assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"
+        integrity="sha384-RuyvpeZCxMJCqVUGFI0Do1mQrods/hhxYlcVfGPOfQtPJh0JCw12tUAZ/Mv10S7D" crossorigin="anonymous">
+    </script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('admin_assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
@@ -90,7 +98,7 @@
 
     <script>
         function previewFoto() {
-            const foto = document.querySelector('input[name="main_image"]');
+            const foto = document.querySelector('input[name="foto"]');
             const fotoPreview = document.querySelector('.foto-preview');
             fotoPreview.style.display = 'block';
             const fotoReader = new FileReader();

@@ -8,9 +8,9 @@
             <!-- Gambar di kiri -->
             <div class="col-md-4">
                 <img class="foto-preview img-fluid mb-3" style="max-height: 250px; object-fit: cover;">
-                <input type="file" name="main_image" class="form-control @error('main_image') is-invalid @enderror"
+                <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
                     onchange="previewFoto()">
-                @error('main_image')
+                @error('foto')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>

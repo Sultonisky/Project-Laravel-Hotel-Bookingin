@@ -16,6 +16,9 @@
     <!-- Custom fonts for this template-->
 
     <link href="{{ asset('admin_assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{{ asset('admin_assets/css/login_register.css') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('admin_assets/img/logo_icon.png') }}">
+
 
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -27,85 +30,54 @@
 </head>
 
 <body class="bg-light">
-    <div class="container">
-        <div class="card o-hidden bg-light my-5">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
-                        <img src="{{ asset('admin_assets/img/logo-2.png') }}" class="img-fluid h-100 w-100"
-                            style="object-fit: cover;" alt="Login Image">
-                    </div>
-                    <div class="col-lg-7">
-                        <div class="p-5">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card card-modern">
+                    <div class="row no-gutters">
+                        <div class="col-lg-5 bg-side-image">
+                            <img src="{{ asset('admin_assets/img/logo_putih.png') }}" alt="Register Image">
+                        </div>
+                        <div class="col-lg-7 p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h2 class="text-success font-weight-bold mb-4">Create an Account!</h2>
                             </div>
-                            <form action="{{ route('backend.register.submit') }}" method="POST" class="user">
+                            <form action="{{ route('registerSave') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <input name="nama" type="text"
-                                        class="form-control form-control-user @error('name')is-invalid @enderror"
-                                        id="exampleInputName" placeholder="Name">
-                                    @error('name')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-
+                                    <input name="nama" type="text" class="form-control" placeholder="Name">
                                 </div>
                                 <div class="form-group">
-                                    <input name="email" type="email"
-                                        class="form-control form-control-user @error('email')is-invalid @enderror"
-                                        id="exampleInputEmail" placeholder="Email Address">
-                                    @error('email')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-
+                                    <input name="email" type="email" class="form-control"
+                                        placeholder="Email Address">
                                 </div>
                                 <div class="form-group">
-                                    <input name="phone" type="number"
-                                        class="form-control form-control-user @error('phone')is-invalid @enderror"
-                                        id="exampleInputEmail" placeholder="Phone">
-                                    @error('phone')
-                                        <span class="invalid-feedback">{{ $message }}</span>
-                                    @enderror
-
+                                    <input name="phone" type="number" class="form-control" placeholder="Phone">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input name="password" type="password"
-                                            class="form-control form-control-user @error('password')is-invalid @enderror"
-                                            id="exampleInputPassword" placeholder="Password">
-                                        @error('password')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                        @enderror
-
+                                        <input name="password" type="password" class="form-control"
+                                            placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input name="password_confirmation" type="password"
-                                            class="form-control form-control-user @error('password_confirmation')is-invalid @enderror"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
-                                        @error('password_confirmation')
-                                            <span class="invalid-feedback">{{ $message }}</span>
-                                        @enderror
-
+                                        <input name="password_confirmation" type="password" class="form-control"
+                                            placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">Register
-                                    Account</button>
+                                <button type="submit" class="btn btn-success btn-block">Register Account</button>
                             </form>
-
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{{ route('backend.login.view') }}">Already have an account?
-                                    Login!</a>
+                                <a class="small text-success" href="{{ route('login') }}">Already have an
+                                    account? Login!</a>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Bootstrap core JavaScript-->
 
     <script src="{{ asset('admin_assets/vendor/jquery/jquery.min.js') }}"></script>

@@ -9,12 +9,12 @@
         <div class="row">
             <!-- Gambar di kiri -->
             <div class="col-md-4">
-                <img class="foto-preview img-fluid mb-3 " src="{{ asset('storage/img-items/' . $item->main_image) }}"
+                <img class="foto-preview img-fluid mb-3 " src="{{ asset('storage/img-items/' . $item->foto) }}"
                     style="max-height: 250px; object-fit: cover; object-position: center;">
 
-                <input type="file" name="main_image" class="form-control @error('main_image') is-invalid @enderror"
+                <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
                     onchange="previewFoto()">
-                @error('main_image')
+                @error('foto')
                     <div class="invalid-feedback d-block">{{ $message }}</div>
                 @enderror
             </div>
@@ -65,8 +65,8 @@
                                 Tersedia</option>
                             <option value="proses" {{ old('status', $item->status) == 'proses' ? 'selected' : '' }}>Proses
                             </option>
-                            <option value="didoonasikan"
-                                {{ old('status', $item->status) == 'didoonasikan' ? 'selected' : '' }}>Didoonasikan
+                            <option value="didonasikan"
+                                {{ old('status', $item->status) == 'didonasikan' ? 'selected' : '' }}>Didonasikan
                             </option>
                         </select>
                         @error('status')
@@ -92,7 +92,7 @@
 
     {{-- <script>
         function previewFoto() {
-            const input = document.querySelector('input[name="main_image"]');
+            const input = document.querySelector('input[name="foto"]');
             const imgPreview = document.querySelector('.foto-preview');
             const file = input.files[0];
 

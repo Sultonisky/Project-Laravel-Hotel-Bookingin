@@ -1,8 +1,8 @@
 @extends('backend.layouts.app')
-@section('title', 'List Category')
+@section('title', 'List Contacts')
 @section('contents')
     <div class="d-flex align-items-center justify-content-between">
-        <a href="{{ route('backend.categories.create') }}" class="btn btn-success">Add Category</a>
+        <a href="{{ route('backend.messages.create') }}" class="btn btn-success">Add Messages</a>
     </div>
 
     <hr />
@@ -16,50 +16,47 @@
         <thead class="table-success">
             <tr>
                 <th>No.</th>
-                <th>Category Name</th>
-                {{-- <th>Price</th>
-                <th>Product Code</th>
-                <th>Description</th>
-                 --}}
+                <th>Name</th>
+                <th>Email</th>
+                <th>Messages</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>+
-            @if ($categories->count() > 0)
-                @foreach ($categories as $category)
+            @if ($messages->count() > 0)
+                @foreach ($messages as $message)
                     <tr>
                         <td class="align-middle">{{ $loop->iteration }}</td>
-                        <td class="align-middle">{{ $category->name }}</td>
-                        {{-- <td class="align-middle">{{ $categories->price }}</td>
-                        <td class="align-middle">{{ $rs->product_code }}</td>
-                        <td class="align-middle">{{ $rs->description }}</td> --}}
+                        <td class="align-middle">{{ $message->name }}</td>
+                        <td class="align-middle">{{ $message->email }}</td>
+                        <td class="align-middle">{{ $message->messages }}</td>
                         <td class="align-middle">
                             <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('backend.categories.show', $category->id) }}" type="button"
+                                <a href="{{ route('backend.messages.show', $message->id) }}" type="button"
                                     class="btn btn-secondary">Detail</a>
-                                <a href="{{ route('backend.categories.edit', $category->id) }}" type="button"
+                                <a href="{{ route('backend.messages.edit', $message->id) }}" type="button"
                                     class="btn btn-warning">Edit</a>
                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal{{ $category->id }}">
+                                    data-bs-target="#deleteModal{{ $message->id }}">
                                     Hapus
                                 </button>
 
-                                <div class="modal fade" id="deleteModal{{ $category->id }}" tabindex="-1"
-                                    aria-labelledby="deleteModalLabel{{ $category->id }}" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal{{ $message->id }}" tabindex="-1"
+                                    aria-labelledby="deleteModalLabel{{ $message->id }}" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header bg-success text-white">
-                                                <h5 class="modal-title" id="deleteModalLabel{{ $category->id }}">Konfirmasi
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $message->id }}">Konfirmasi
                                                     Hapus</h5>
                                             </div>
                                             <div class="modal-body">
                                                 Apakah kamu yakin ingin menghapus barang
-                                                <strong>{{ $category->name }}</strong>?
+                                                <strong>{{ $message->name }}</strong>?
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Batal</button>
-                                                <form action="{{ route('backend.categories.destroy', $category->id) }}"
+                                                <form action="{{ route('backend.messages.destroy', $message->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -76,7 +73,7 @@
                 @endforeach
             @else
                 <tr>
-                    <td class="text-center" colspan="5">Category not found</td>
+                    <td class="text-center" colspan="5">Message not found</td>
                 </tr>
 
             @endif

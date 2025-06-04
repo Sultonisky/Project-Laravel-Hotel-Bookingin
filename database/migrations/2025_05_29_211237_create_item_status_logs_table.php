@@ -15,8 +15,8 @@ return new class extends Migration
         Schema::create('item_status_logs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->constrained('items')->onDelete('cascade');
-            $table->enum('status', ['tersedia', 'dalam_proses', 'sudah_didonasikan']);
-            $table->timestamp('changed_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->enum('status', ['tersedia', 'proses', 'didonasikan']);
+            $table->timestamp('changed_at')->nullable();
         });
     }
 

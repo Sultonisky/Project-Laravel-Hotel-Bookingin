@@ -8,6 +8,7 @@ use App\Models\ItemImage;
 use Illuminate\Support\Str;
 use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
+use App\Models\ItemStatusLog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -31,20 +32,18 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'main_image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'condition' => 'nullable|string|max:255',
-            // 'address' => 'nullable|string|max:255',
-            // 'phone' => 'nullable|string|max:20',
             'status' => 'required|in:tersedia,proses,didonasikan',
             'description' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('main_image')) {
-            $filename = time() . '_' . uniqid() . '.' . $request->main_image->getClientOriginalExtension();
-            $request->main_image->storeAs('public/img-items', $filename);
-            $validatedData['main_image'] = $filename;
+        if ($request->hasFile('foto')) {
+            $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+            $request->foto->storeAs('public/img-items', $filename);
+            $validatedData['foto'] = $filename;
         }
 
         // Simpan item
@@ -55,6 +54,7 @@ class ItemController extends Controller
 
         return redirect()->route('backend.items.index')->with('success', 'Item berhasil disimpan!');
     }
+
 
 
 
@@ -74,19 +74,20 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $validatedData = $request->validate([
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'condition' => 'nullable|string|max:255',
+            'status' => 'required|in:tersedia,proses,didonasikan',
             // 'address' => 'nullable|string|max:255',
             // 'phone' => 'nullable|string|max:20',
             'description' => 'nullable|string',
         ]);
 
-        if ($request->hasFile('main_image')) {
-            $filename = time() . '_' . uniqid() . '.' . $request->main_image->getClientOriginalExtension();
-            $request->main_image->storeAs('public/img-items', $filename);
-            $validatedData['main_image'] = $filename;
+        if ($request->hasFile('foto')) {
+            $filename = time() . '_' . uniqid() . '.' . $request->foto->getClientOriginalExtension();
+            $request->foto->storeAs('public/img-items', $filename);
+            $validatedData['foto'] = $filename;
         }
 
         $item->update($validatedData);
@@ -100,5 +101,11 @@ class ItemController extends Controller
     {
         $item->delete();
         return redirect()->route('backend.items.index')->with('success', 'Barang berhasil dihapus.');
+    }
+
+    public function showLogStatus(Item $item)
+    {
+        $logs = ItemStatusLog::with('item')->latest('changed_at')->get();
+        return view('backend.items.logStatus', compact('logs'));
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Claim;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,76 +11,105 @@ use Illuminate\Support\Facades\Auth;
 class ClaimController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the claims.
      */
-    // ✅ Tampilkan daftar klaim
     public function index()
     {
-        $claims = Claim::with(['item', 'user'])->latest()->paginate(10);
+        $claims = Claim::with(['item', 'user'])->latest()->get();
         return view('backend.claims.index', compact('claims'));
     }
 
-    // ✅ Form klaim item
+    /**
+     * Show the form for creating a new claim.
+     */
     public function create()
     {
-        $items = Item::where('donor_id', Auth::id())->get(); // hanya item milik user
-        return view('backend.claims.create', compact('items'));
+        $items = Item::where('status', 'tersedia')->get(); // Donatur akan pilih item yang ingin diklaim
+        $users = User::where('role', 'penerima')->get();
+
+
+        return view('backend.claims.create', compact('items', 'users'));
     }
 
-    // ✅ Simpan klaim
+    /**
+     * Store a newly created claim in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
             'item_id' => 'required|exists:items,id',
-            'note' => 'nullable|string|max:1000',
+            'receiver_id' => 'required|exists:users,id',
         ]);
 
-        Claim::create([
-            'user_id' => Auth::id(),
+        $claim = Claim::create([
             'item_id' => $request->item_id,
-            'status' => 'pending', // default
-            'note' => $request->note,
+            'receiver_id' => $request->receiver_id,
+            'status' => 'menunggu',
+            'claimed_at' => now()->toDateTimeString(),
         ]);
 
-        return redirect()->route('backend.claims.index')->with('success', 'Claim submitted successfully!');
+        // Ubah status item menjadi "proses"
+        $claim->item->update([
+            'status' => 'proses',
+        ]);
+
+        return redirect()->route('backend.claims.index')->with('success', 'Claim berhasil dibuat.');
     }
 
-    // ✅ Detail klaim
+
+    /**
+     * Display the specified claim.
+     */
     public function show(Claim $claim)
     {
-        $claim->load(['item', 'user']);
         return view('backend.claims.show', compact('claim'));
     }
 
-    // ✅ Form edit klaim
+    /**
+     * Show the form for editing the specified claim.
+     */
     public function edit(Claim $claim)
     {
-        $this->authorize('update', $claim); // opsional: jika pakai policy
-        $items = Item::where('donor_id', Auth::id())->get();
-        return view('backend.claims.edit', compact('claim', 'items'));
+        $items = Item::all();
+        $users = User::where('role', 'penerima')->get();
+        return view('backend.claims.edit', compact('claim', 'items', 'users'));
     }
 
-    // ✅ Update klaim
+    /**
+     * Update the specified claim in storage.
+     */
     public function update(Request $request, Claim $claim)
     {
         $request->validate([
             'item_id' => 'required|exists:items,id',
-            'note' => 'nullable|string|max:1000',
+            'status' => 'required|in:menunggu,disetujui,ditolak',
         ]);
 
         $claim->update([
             'item_id' => $request->item_id,
-            'note' => $request->note,
+            'status' => $request->status,
+            'approved_at' => in_array($request->status, ['disetujui', 'ditolak']) ? now()->toDateTimeString() : null,
         ]);
 
-        return redirect()->route('backend.claims.index')->with('success', 'Claim updated.');
-    }
+        if ($request->status === 'disetujui') {
+            $claim->item->update([
+                'status' => 'didonasikan',
+            ]);
+        }
 
-    // ✅ Hapus klaim
+        if ($request->status === 'ditolak') {
+            $claim->item->update([
+                'status' => 'tersedia',
+            ]);
+            $claim->delete();
+        }
+
+        return redirect()->route('backend.claims.index')->with('success', 'Claim berhasil diperbarui.');
+    }
     public function destroy(Claim $claim)
     {
-        $this->authorize('delete', $claim); // opsional: jika pakai policy
         $claim->delete();
-        return back()->with('success', 'Claim deleted.');
+
+        return redirect()->route('backend.claims.index')->with('success', 'Claim berhasil dihapus.');
     }
 }

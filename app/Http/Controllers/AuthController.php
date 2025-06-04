@@ -32,7 +32,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('backend.login.view');
+        return redirect()->route('login');
     }
 
     public function login()
@@ -55,7 +55,14 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->route('dashboard');
+        $user = Auth::user();
+
+        // Redirect sesuai role
+        if ($user->role == 'donatur' || $user->role == 'admin') {
+            return redirect()->route('backend.dashboard'); // donatur
+        } else {
+            return redirect()->route('frontend.home'); // User biasa
+        }
     }
 
     public function logout(Request $request)
@@ -65,10 +72,5 @@ class AuthController extends Controller
         $request->session()->invalidate();
 
         return redirect('/');
-    }
-
-    public function profile()
-    {
-        return view('backend.profile.profile');
     }
 }

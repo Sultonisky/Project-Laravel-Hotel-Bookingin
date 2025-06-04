@@ -21,7 +21,7 @@ return new class extends Migration
             // $table->text('address');
             // $table->string('phone');
             $table->enum('status', ['tersedia', 'proses', 'didonasikan'])->default('tersedia');
-            $table->string('main_image')->nullable();
+            $table->string('foto')->nullable();
             // $table->string('images')->nullable();
             $table->timestamps();
         });

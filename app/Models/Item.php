@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\ItemStatusLog;
 
 class Item extends Model
 {
@@ -16,7 +17,7 @@ class Item extends Model
         'category_id',
         'donor_id',
         'status',
-        'main_image',
+        'foto',
         // 'images',
     ];
 
@@ -38,6 +39,19 @@ class Item extends Model
     public function images()
     {
         return $this->hasMany(ItemImage::class);
+    }
+
+    protected static function booted()
+    {
+        static::updated(function ($item) {
+            if ($item->isDirty('status')) {
+                ItemStatusLog::create([
+                    'item_id' => $item->id,
+                    'status' => $item->status,
+                    'changed_at' => now()->toDateTimeString(),
+                ]);
+            }
+        });
     }
 
     public function statusLogs()

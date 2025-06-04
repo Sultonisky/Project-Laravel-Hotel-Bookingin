@@ -5,10 +5,10 @@
     <div class="row">
         <!-- Gambar di kiri -->
         <div class="col-md-4">
-            <img src="{{ asset('storage/img-items/' . $item->main_image) }}" class="foto-preview img-fluid mb-3"
+            <img src="{{ asset('storage/img-items/' . $item->foto) }}" class="foto-preview img-fluid mb-3"
                 style="max-height: 250px; object-fit: cover;">
-            <input type="file" name="main_image" class="form-control @error('main_image') is-invalid @enderror"
-                value="{{ $item->main_image }}" disabled>
+            <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+                value="{{ $item->foto }}" disabled>
         </div>
 
         <!-- Form input di kanan -->

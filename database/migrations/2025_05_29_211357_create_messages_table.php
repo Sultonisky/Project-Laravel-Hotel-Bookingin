@@ -15,9 +15,10 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('sender_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('receiver_id')->constrained('users')->onDelete('cascade');
-            $table->text('content');
-            $table->timestamp('sent_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->text('messages');
+            $table->timestamps();
         });
     }
 
