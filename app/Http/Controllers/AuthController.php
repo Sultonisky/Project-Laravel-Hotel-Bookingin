@@ -58,10 +58,10 @@ class AuthController extends Controller
         $user = Auth::user();
 
         // Redirect sesuai role
-        if ($user->role == 'donatur' || $user->role == 'admin') {
-            return redirect()->route('backend.dashboard'); // donatur
+        if ($user->role === 'admin' || $user->role === 'donatur') {
+            return redirect()->route('backend.dashboard');
         } else {
-            return redirect()->route('frontend.home'); // User biasa
+            return redirect()->route('frontend.home');
         }
     }
 

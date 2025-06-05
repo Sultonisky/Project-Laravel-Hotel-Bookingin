@@ -22,6 +22,7 @@
                     <th>Email</th>
                     <th>Telepon</th>
                     <th>Alamat</th>
+                    <th>Role</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -33,17 +34,43 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->phone ?? '-' }}</td>
                         <td>{{ $user->address ?? '-' }}</td>
+                        <td>{{ $user->role ?? '-' }}</td>
                         <td>
                             <a href="{{ route('backend.users.edit', $user->id) }}" class="btn btn-sm btn-warning">Edit</a>
                             <a href="{{ route('backend.users.show', $user->id) }}"
                                 class="btn btn-sm btn-secondary">Detail</a>
 
-                            <form action="{{ route('backend.users.destroy', $user->id) }}" method="POST" class="d-inline"
-                                onsubmit="return confirm('Yakin ingin menghapus user ini?')">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-sm btn-danger">Hapus</button>
-                            </form>
+                            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal{{ $user->id }}">
+                                Hapus
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1"
+                                aria-labelledby="deleteModalLabel{{ $user->id }}" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-success text-white">
+                                            <h5 class="modal-title" id="deleteModalLabel{{ $user->id }}">
+                                                Konfirmasi Hapus</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            Apakah kamu yakin ingin menghapus barang
+                                            <strong>{{ $user->name }}</strong>?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ route('backend.users.destroy', $user->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-success">Ya, Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                 @empty

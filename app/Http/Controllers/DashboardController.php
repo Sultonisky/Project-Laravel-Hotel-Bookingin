@@ -13,8 +13,15 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $user = auth()->user();
+
+        $totalUsersOrPenerima = $user->role === 'admin'
+            ? User::count()
+            : User::where('role', 'penerima')->count();
+
         return view('backend.dashboard.dashboard', [
-            'totalPenerima' => User::where('role', 'penerima')->count(),
+            'totalUsersOrPenerima' => $totalUsersOrPenerima,
+            'labelUsersOrPenerima' => $user->role === 'admin' ? 'Total Users' : 'Total Penerima',
             'totalItems' => Item::count(),
             'totalClaims' => Claim::count(),
             'totalMessages' => Message::count(),

@@ -9,6 +9,7 @@ use App\Http\Controllers\ClaimController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PenerimaController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
@@ -25,40 +26,26 @@ Route::post('backend/register', [AuthController::class, 'registerSave'])->name('
 
 
 // ROUTES UNTUK ADMIN
-Route::middleware(['auth', 'role:admin'])->prefix('backend')->name('backend.')->group(function () {
+Route::middleware(['auth', 'role:admin,donatur'])->prefix('backend')->name('backend.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('items', ItemController::class);
+    Route::resource('penerima', PenerimaController::class);
     Route::resource('claims', ClaimController::class);
-    Route::resource('messages', MessageController::class);
-
     Route::get('items/status/logs', [ItemController::class, 'showLogStatus'])->name('showStatusLogs');
+
+    // Hanya admin yang bisa akses 'users' dan 'messages'
+    Route::middleware('role:admin')->group(function () {
+        Route::resource('users', UserController::class);
+        Route::resource('messages', MessageController::class);
+    });
 
     Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
 });
 
-
-// ROUTES UNTUK DONATUR
-Route::middleware(['auth', 'role:donatur'])->prefix('backend')->name('backend.')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::resource('categories', CategoryController::class);
-    Route::resource('items', ItemController::class);
-    Route::resource('claims', ClaimController::class);
-
-    Route::get('items/status/logs', [ItemController::class, 'showLogStatus'])->name('showStatusLogs');
-
-    // Penerima = users dengan role penerima
-    Route::get('users', [UserController::class, 'index'])->name('users.index');
-
-    Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
-});
 
 
 // ROUTE KHUSUS UNTUK PENERIMA

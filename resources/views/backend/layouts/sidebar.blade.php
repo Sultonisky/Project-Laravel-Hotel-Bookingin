@@ -20,7 +20,7 @@
         </a>
     </li>
 
-    @if (auth()->user()->role == 'admin')
+    @if (auth()->user()->role === 'admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.users.index') }}">
                 <i class="fas fa-solid fa-users"></i>
@@ -30,7 +30,7 @@
     @endif
 
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('backend.users.index') }}">
+        <a class="nav-link" href="{{ route('backend.penerima.index') }}">
             <i class="fas fa-solid fa-users"></i>
             <span>Penerima</span>
         </a>
@@ -64,7 +64,7 @@
         </a>
     </li>
 
-    @if (auth()->user()->role == 'admin')
+    @if (auth()->user()->role === 'admin')
         <li class="nav-item">
             <a class="nav-link" href="{{ route('backend.messages.index') }}">
                 <i class="fas fa-solid fa-comments"></i>
