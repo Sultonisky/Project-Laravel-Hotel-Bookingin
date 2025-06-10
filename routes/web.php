@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ClaimController;
+use App\Http\Controllers\BerandaController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
@@ -50,5 +51,10 @@ Route::middleware(['auth', 'role:admin,donatur'])->prefix('backend')->name('back
 
 // ROUTE KHUSUS UNTUK PENERIMA
 Route::middleware(['auth', 'role:penerima'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('frontend.home');
+    Route::get('/beranda', [BerandaController::class, 'beranda'])->name('beranda');
+    Route::get('/items/claims', [BerandaController::class, 'claimItems'])->name('itemsClaim');
+    Route::get('/items', [BerandaController::class, 'items'])->name('items');
+    Route::get('/about', [BerandaController::class, 'about'])->name('about');
+    Route::get('/contact', [BerandaController::class, 'contact'])->name('contact');
+    Route::post('/contact/post', [BerandaController::class, 'contactStore'])->name('contactStore');
 });

@@ -1,0 +1,409 @@
+/* public/assets/css/style.css */
+
+/*HOME CSS*/
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-icons img {
+    width: 24px;
+    height: 24px;
+    padding: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.btn-primary {
+    background-color: #27ae60;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #27ae60;
+    padding: 0.4rem 1rem;
+    border: 2px solid #27ae60;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-outline:hover {
+    background-color: #1c5e2c;
+}
+
+/* Hero */
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px 60px;
+    margin-bottom: 250px;
+}
+
+.hero-left {
+    position: relative;
+    width: 600px; /* beri ruang untuk overlap horizontal */
+    height: 400px; /* cukup untuk overlap vertikal */
+}
+
+.hero-left img {
+    position: absolute;
+    width: 472px;
+    height: 314px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: 0.3s ease;
+}
+
+/* Gambar belakang */
+.hero-left img:first-child {
+    top: 80px; /* geser ke bawah */
+    left: 130px; /* geser ke kanan */
+    z-index: 1;
+}
+
+/* Gambar depan (di atas sedikit dan geser ke kanan) */
+.hero-left img:last-child {
+    top: 250px; /* geser ke bawah */
+    left: 300px; /* geser ke kanan */
+    z-index: 2;
+}
+
+.hero-right {
+    flex: 1;
+    padding-left: 20px;
+    padding-top: 130px;
+    max-width: 600px;
+}
+
+.hero-right h1 {
+    font-size: 48px;
+    color: #28a745;
+    font-weight: bold;
+    margin-bottom: 16px;
+}
+
+.hero-right p {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    color: white;
+    font-size: 16px;
+    padding: 10px 16px;
+    font-weight: 200;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Produk */
+.produk-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+.produk-kiri {
+    flex: 1;
+    min-width: 300px;
+}
+
+.produk-kiri h1 {
+    font-size: 48px;
+    margin-bottom: 16px;
+    color: #28a745;
+}
+
+.produk-kiri p {
+    font-size: 20px;
+    color: #4b5563;
+    margin-bottom: 20px;
+    max-width: 400px;
+}
+
+.lihat-btn {
+    display: inline-block;
+    background-color: #28a745;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.lihat-btn:hover {
+    background-color: #1c5e2c;
+}
+
+.produk-kanan {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px; /* sesuai jarak antar card di Figma */
+    justify-content: center; /* tengah */
+    padding: 20px 0;
+}
+
+/* Card produk */
+.produk-card {
+    background: #ffffff;
+    border: 1.3px solid #d9d8d8;
+    border-radius: 24px;
+    width: 300px;
+    min-height: 370px; /* disesuaikan */
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.produk-card img {
+    width: 310px;
+    height: 291.37px;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+.produk-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.produk-info h3 {
+    margin: 0;
+    font-weight: 500;
+    font-size: 26.6368px;
+}
+
+.produk-info p {
+    margin: 4px 0;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 23px;
+    color: #929292;
+}
+
+.produk-info button {
+    background-color: #e8f5e9;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 31px;
+    gap: 15px;
+    width: 310px;
+    height: 56px;
+    border: 1px solid #4abd86;
+    border-radius: 204px;
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #4abd86;
+}
+
+.produk-info button:hover {
+    background-color: #c8e6c9;
+}
+
+/* Masukan */
+.masukan-section {
+    position: relative;
+    padding: 80px 0;
+    background: #fff;
+}
+
+.masukan-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: 1028px;
+    height: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.masukan-heading {
+    font-size: 48px;
+    font-weight: bold;
+    color: #1f8760; /* Warna hijau seperti Figma */
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.masukan-subheading {
+    font-size: 16px;
+    margin-top: 4px;
+    margin-bottom: 14px;
+    color: #333;
+    text-align: center;
+}
+
+.testimoni-wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    width: 100%;
+}
+
+.testimoni-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 16px;
+    background: #fff;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.testimoni-card p {
+    font-size: 14px;
+    color: #444;
+    margin: 0;
+}
+
+.btn-masukan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 24px;
+    gap: 8px;
+    width: 236px;
+    height: 64px;
+    background: #ffffff;
+    border: 1px solid #4abd86;
+    border-radius: 100px;
+    color: #4abd86;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Footer */
+.footer {
+    background-color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.footer-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 0;
+}
+
+.footer-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding-top: 24px;
+}
+
+.footer-logo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 16px;
+}
+
+.footer-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.footer-socials a {
+    color: #1f8760;
+    font-size: 20px;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+    color: #0f5e3c;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .produk-list {
+        justify-content: center;
+    }
+
+    .nav-icons {
+        gap: 0.5rem;
+    }
+}
