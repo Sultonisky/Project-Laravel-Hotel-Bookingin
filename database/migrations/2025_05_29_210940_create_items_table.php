@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('donor_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('condition')->nullable();
-            // $table->text('address');
-            // $table->string('phone');
             $table->enum('status', ['tersedia', 'proses', 'didonasikan'])->default('tersedia');
             $table->string('foto')->nullable();
-            // $table->string('images')->nullable();
             $table->timestamps();
         });
     }

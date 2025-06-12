@@ -33,7 +33,7 @@
                             <td class="align-middle">{{ $item->name }}</td>
                             <td class="align-middle">{{ $item->category->name ?? '-' }}</td>
                             <td class="align-middle">{{ $item->condition }}</td>
-                            <td class="align-middle">{{ $item->donor->address }}</td>
+                            <td class="align-middle">{{ $item->user->address }}</td>
                             <td class="align-middle">
                                 @if ($item->status == 'tersedia')
                                     <span class="badge badge-primary"></i>

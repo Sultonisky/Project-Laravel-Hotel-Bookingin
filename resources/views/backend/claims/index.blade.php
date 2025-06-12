@@ -20,6 +20,9 @@
                     <th>No</th>
                     <th>Item</th>
                     <th>Claimed By</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Address</th>
                     <th>Status</th>
                     <th>Claim Date</th>
                     <th>Approval Date</th>
@@ -32,6 +35,9 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $claim->item->name }}</td>
                         <td>{{ $claim->user->nama }}</td>
+                        <td>{{ $claim->name }}</td>
+                        <td>{{ $claim->email }}</td>
+                        <td>{{ $claim->address }}</td>
                         <td>
                             @if ($claim->status == 'menunggu')
                                 <span class="badge badge-warning"></i>
@@ -49,7 +55,8 @@
                         <td class="d-flex gap-1">
                             <a href="{{ route('backend.claims.show', $claim->id) }}"
                                 class="btn btn-sm btn-secondary">Detail</a>
-                            <a href="{{ route('backend.claims.edit', $claim->id) }}" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="{{ route('backend.claims.edit', $claim->id) }}"
+                                class="btn btn-sm btn-warning">Edit</a>
 
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal{{ $claim->id }}">
@@ -90,6 +97,6 @@
                 @endforelse
             </tbody>
         </table>
-    </div>      
+    </div>
 
 @endsection

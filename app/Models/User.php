@@ -49,7 +49,7 @@ class User extends Authenticatable
     // Relasi: user sebagai donor
     public function donatedItems()
     {
-        return $this->hasMany(Item::class, 'donor_id');
+        return $this->hasMany(Item::class, 'user_id');
     }
 
     // Relasi: user sebagai pengklaim

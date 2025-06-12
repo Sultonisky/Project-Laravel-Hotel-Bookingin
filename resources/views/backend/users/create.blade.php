@@ -33,6 +33,15 @@
                         @enderror
                     </div>
                     <div class="col-md-6">
+                        <select class="form-control @error('status') is-invalid @enderror" name="role">
+                            <option value="penerima" selected>Penerima</option>
+                            <option value="donatur">Donatur</option>
+                        </select>
+                        @error('status')
+                            <div class="invalid-feedback d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="col-md-6">
                         <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                             placeholder="Password">
                         @error('password')

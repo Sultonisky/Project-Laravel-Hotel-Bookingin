@@ -16,7 +16,7 @@ class ItemController extends Controller
 {
     public function index()
     {
-        $items = Item::with(['donor', 'category', 'images', 'claims'])
+        $items = Item::with(['user', 'category', 'images', 'claims'])
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -47,7 +47,7 @@ class ItemController extends Controller
         }
 
         // Simpan item
-        $validatedData['donor_id'] = auth()->id(); // Jika ingin catat donor
+        $validatedData['user_id'] = auth()->id(); // Jika ingin catat user
         $validatedData['status'] = 'tersedia';     // Atur default status
 
         Item::create($validatedData);

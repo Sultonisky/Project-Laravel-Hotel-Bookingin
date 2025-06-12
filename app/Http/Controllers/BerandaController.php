@@ -21,33 +21,49 @@ class BerandaController extends Controller
     }
     public function items()
     {
-        $items = Item::with('category', 'donor')->where('status', 'tersedia')->get();
+        $items = Item::with('category', 'user')->where('status', 'tersedia')->get();
         return view('frontend.beranda.items', compact('items'));
+    }
+
+    public function formClaim($itemId)
+    {
+        $item = Item::findOrFail($itemId); // Ambil item berdasarkan ID
+        return view('frontend.beranda.formClaim', compact('item'));
     }
 
     public function claimitems(Request $request)
     {
         $request->validate([
             'item_id' => 'required|exists:items,id',
+            'receiver_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:250',
+            'email' => 'required|email',
+            'address' => 'required|string|max:250',
         ]);
 
-        $claim = Claim::create([
+        Claim::create([
             'item_id' => $request->item_id,
-            'receiver_id' => Auth::user()->id,
+            'receiver_id' => $request->receiver_id,
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
             'status' => 'menunggu',
-            'claimed_at' => now()->toDateTimeString(),
+            'claimed_at' => now(),
         ]);
 
-        // Ubah status item menjadi "proses"
-        $claim->item->update([
-            'status' => 'proses',
-        ]);
+        // Update status item ke "proses"
+        Item::where('id', $request->item_id)->update(['status' => 'proses']);
 
         return redirect()->back()->with('success', 'Claim berhasil dibuat.');
     }
     public function about()
     {
         return view('frontend.beranda.about');
+    }
+    public function history()
+    {
+        $claims = Claim::with(['item', 'user'])->latest()->get();
+        return view('frontend.beranda.history', compact('claims'));
     }
     public function contact()
     {

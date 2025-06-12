@@ -15,7 +15,7 @@ class Item extends Model
         // 'address',
         // 'phone',
         'category_id',
-        'donor_id',
+        'user_id',
         'status',
         'foto',
         // 'images',
@@ -26,9 +26,9 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function donor()
+    public function user()
     {
-        return $this->belongsTo(User::class, 'donor_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function claims()

@@ -27,7 +27,7 @@ Route::post('backend/register', [AuthController::class, 'registerSave'])->name('
 
 
 // ROUTES UNTUK ADMIN
-Route::middleware(['auth', 'role:admin,donatur'])->prefix('backend')->name('backend.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('backend')->name('backend.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('categories', CategoryController::class);
@@ -52,9 +52,11 @@ Route::middleware(['auth', 'role:admin,donatur'])->prefix('backend')->name('back
 // ROUTE KHUSUS UNTUK PENERIMA
 Route::middleware(['auth', 'role:penerima'])->group(function () {
     Route::get('/beranda', [BerandaController::class, 'beranda'])->name('beranda');
-    Route::get('/items/claims', [BerandaController::class, 'claimItems'])->name('itemsClaim');
+    Route::post('/items/claims', [BerandaController::class, 'claimItems'])->name('itemsClaim');
     Route::get('/items', [BerandaController::class, 'items'])->name('items');
+    Route::get('/claim-form/{item}', [BerandaController::class, 'formClaim'])->name('claims.form');
     Route::get('/about', [BerandaController::class, 'about'])->name('about');
     Route::get('/contact', [BerandaController::class, 'contact'])->name('contact');
+    Route::get('/history', [BerandaController::class, 'history'])->name('history');
     Route::post('/contact/post', [BerandaController::class, 'contactStore'])->name('contactStore');
 });

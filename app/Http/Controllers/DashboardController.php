@@ -25,7 +25,7 @@ class DashboardController extends Controller
             'totalItems' => Item::count(),
             'totalClaims' => Claim::count(),
             'totalMessages' => Message::count(),
-            'latestItems' => Item::with(['category', 'donor'])->whereHas('donor', function ($query) {
+            'latestItems' => Item::with(['category', 'user'])->whereHas('user', function ($query) {
                 $query->where('role', 'donatur');
             })->latest()->take(5)->get(),
         ]);

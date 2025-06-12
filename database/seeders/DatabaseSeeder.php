@@ -24,15 +24,15 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin',
             'foto' => '',
         ]);
-        User::create([
-            'nama' => 'donatur123',
-            'email' => 'donatur123@gmail.com',
-            'phone' => '08176543211',
-            'password' => bcrypt('donatur123'),
-            'address' => 'Jakarta',
-            'role' => 'donatur',
-            'foto' => '',
-        ]);
+        // User::create([
+        //     'nama' => 'donatur123',
+        //     'email' => 'donatur123@gmail.com',
+        //     'phone' => '6288289210559',
+        //     'password' => bcrypt('donatur123'),
+        //     'address' => 'Jakarta',
+        //     'role' => 'donatur',
+        //     'foto' => '',
+        // ]);
         User::create([
             'nama' => 'user123',
             'email' => 'user123@gmail.com',
@@ -44,9 +44,9 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'nama' => 'user_penerima',
-            'email' => 'userpenerima@gmail.com',
+            'email' => 'yayasanjakartaberkah@gmail.com',
             'phone' => '00816543211',
-            'password' => bcrypt('penerima123'),
+            'password' => bcrypt('yayasana123'),
             'address' => 'Jakarta',
             'role' => 'penerima',
             'foto' => '',
@@ -69,7 +69,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '1',
             'name' => 'Celana Jeans Pria Wanita',
             'description' => 'Celana dengan kondisi bagus',
@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
             'foto' => ''
         ]);
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '2',
             'name' => 'Baju Olahraga',
             'description' => 'Baju dengan kondisi bagus',
@@ -87,7 +87,7 @@ class DatabaseSeeder extends Seeder
             'foto' => ''
         ]);
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '2',
             'name' => 'Baju Reguler Lengan Pendek',
             'description' => 'Baju dengan kondisi bagus',
@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
             'foto' => ''
         ]);
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '3',
             'name' => 'jacket Pria',
             'description' => 'jacket dengan kondisi bagus',
@@ -105,7 +105,7 @@ class DatabaseSeeder extends Seeder
             'foto' => ''
         ]);
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '4',
             'name' => 'Sepatu Putih Pria Wanita',
             'description' => 'Sepatu dengan kondisi bagus',
@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
             'foto' => ''
         ]);
         Item::create([
-            'donor_id' => '1',
+            'user_id' => '1',
             'category_id' => '5',
             'name' => 'Sandal Pria',
             'description' => 'Sandal dengan kondisi bagus',

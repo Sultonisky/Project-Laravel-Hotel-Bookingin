@@ -30,9 +30,6 @@
                     <tr>
                         <td class="align-middle">{{ $loop->iteration }}</td>
                         <td class="align-middle">{{ $category->name }}</td>
-                        {{-- <td class="align-middle">{{ $categories->price }}</td>
-                        <td class="align-middle">{{ $rs->product_code }}</td>
-                        <td class="align-middle">{{ $rs->description }}</td> --}}
                         <td class="align-middle">
                             <div class="btn-group" role="group" aria-label="Basic example">
                                 <a href="{{ route('backend.categories.show', $category->id) }}" type="button"

@@ -25,9 +25,11 @@
                 <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
             </ul>
             <div class="nav-icons">
-                <img src="{{ asset('admin_assets/icons/search-1.svg') }}" alt="Search">
-                <img src="{{ asset('admin_assets/icons/bell.svg') }}" alt="Notif">
+                <a href="{{ route('history') }}">
+                    <img src="{{ asset('admin_assets/icons/history.png') }}" alt="Notif" class="notif-icon"></a>
                 <button class="btn-primary">{{ Auth::user()->role }}</button>
+                <a href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><img
+                        src="{{ asset('admin_assets/icons/logout.png') }}" alt="Logout" class="logout-icons"></a>
             </div>
         </div>
     </nav>
@@ -67,6 +69,7 @@
             <div class="produk-kanan">
                 <div class="produk-card">
                     <form action="{{ route('itemsClaim', $item->id) }}" action="POST">
+                        @csrf
                         <input type="hidden" name="item_id" value="{{ $item->id }}">
                         <img src="{{ asset('storage/img-items/' . $item->foto) }}" alt="Produk">
                         <div class="produk-info">
@@ -147,7 +150,7 @@
                 </div>
             </div>
 
-            <a href="#" class="btn-masukan">Beri Masukan</a>
+            <a href="{{ route('contact') }}" class="btn-masukan">Beri Masukan</a>
         </div>
     </section>
 

@@ -39,22 +39,29 @@ class ClaimController extends Controller
         $request->validate([
             'item_id' => 'required|exists:items,id',
             'receiver_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:250',
+            'email' => 'required|email|max:250',
+            'address' => 'required|string|max:250',
+            'status' => 'required|in:menunggu,disetujui,ditolak',
         ]);
 
         $claim = Claim::create([
             'item_id' => $request->item_id,
             'receiver_id' => $request->receiver_id,
-            'status' => 'menunggu',
-            'claimed_at' => now()->toDateTimeString(),
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'status' => $request->status,
+            'claimed_at' => now(),
         ]);
 
-        // Ubah status item menjadi "proses"
         $claim->item->update([
             'status' => 'proses',
         ]);
 
         return redirect()->route('backend.claims.index')->with('success', 'Claim berhasil dibuat.');
     }
+
 
 
     /**

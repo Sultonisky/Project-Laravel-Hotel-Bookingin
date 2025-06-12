@@ -25,9 +25,11 @@
                 <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
             </ul>
             <div class="nav-icons">
-                <img src="{{ asset('admin_assets/icons/search-1.svg') }}" alt="Search">
-                <img src="{{ asset('admin_assets/icons/bell.svg') }}" alt="Notif">
+                <a href="{{ route('history') }}">
+                    <img src="{{ asset('admin_assets/icons/history.png') }}" alt="Notif" class="notif-icon"></a>
                 <button class="btn-primary">{{ Auth::user()->role }}</button>
+                <a href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><img
+                        src="{{ asset('admin_assets/icons/logout.png') }}" alt="Logout" class="logout-icons"></a>
             </div>
         </div>
     </nav>
@@ -109,6 +111,10 @@
             </div>
         </section>
     </main>
+
+    <form id="keluar-app" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 
     <footer class="footer">
         <hr class="footer-divider" />

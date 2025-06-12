@@ -25,9 +25,11 @@
                 <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
             </ul>
             <div class="nav-icons">
-                <img src="{{ asset('admin_assets/icons/search-1.svg') }}" alt="Search">
-                <img src="{{ asset('admin_assets/icons/bell.svg') }}" alt="Notif">
+                <a href="{{ route('history') }}">
+                    <img src="{{ asset('admin_assets/icons/history.png') }}" alt="Notif" class="notif-icon"></a>
                 <button class="btn-primary">{{ Auth::user()->role }}</button>
+                <a href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><img
+                        src="{{ asset('admin_assets/icons/logout.png') }}" alt="Logout" class="logout-icons"></a>
             </div>
         </div>
     </nav>
@@ -54,35 +56,39 @@
         <div class="produk-container">
             @foreach ($items as $item)
                 <div class="produk-card baju">
-                    <form action="{{ route('itemsClaim', $item->id) }}" method="POST">
+                    {{-- <form action="{{ route('itemsClaim', $item->id) }}" method="POST">
                         @csrf
-                        <input type="hidden" name="item_id" value="{{ $item->id }}">
-                        <img src="{{ asset('storage/img-items/' . $item->foto) }}" alt="Produk">
-                        <div class="produk-info">
-                            <h3>{{ $item->category->name }} - {{ $item->name }}</h3>
-                            <p>
-                                @if ($item->status == 'tersedia')
-                                    <span>Tersedia</span>
-                                @elseif($item->status == 'proses')
-                                    <span>Proses</span>
-                                @elseif($item->status == 'didonasikan')
-                                    <span>Didonasikan</span>
-                                @endif | {{ $item->condition }}
-                            </p>
-                            <div class="button-group">
-                                <a href="https://wa.me/{{ $item->donor->phone }}" target="_blank" aria-label="WhatsApp"
+                        <input type="hidden" name="item_id" value="{{ $item->id }}"> --}}
+                    <img src="{{ asset('storage/img-items/' . $item->foto) }}" alt="Produk">
+                    <div class="produk-info">
+                        <h3>{{ $item->category->name }} - {{ $item->name }}</h3>
+                        <p>
+                            @if ($item->status == 'tersedia')
+                                <span>Tersedia</span>
+                            @elseif($item->status == 'proses')
+                                <span>Proses</span>
+                            @elseif($item->status == 'didonasikan')
+                                <span>Didonasikan</span>
+                            @endif | {{ $item->condition }}
+                        </p>
+                        <div class="button-group">
+                            {{-- <a href="https://wa.me/{{ $item->user->phone }}" target="_blank" aria-label="WhatsApp"
                                     class="wa-button">
                                     <i class="fab fa-whatsapp"></i>
-                                </a>
-                                <button type="submit">Ajukan Permintaan +</button>
-                            </div>
+                                </a> --}}
+                            <a type="button" href="{{ route('claims.form', $item->id) }}">Ajukan Permintaan +</a>
                         </div>
-                    </form>
+                    </div>
+                    {{-- </form> --}}
                 </div>
             @endforeach
 
         </div>
     </div>
+
+    <form id="keluar-app" action="{{ route('logout') }}" method="POST" class="d-none">
+        @csrf
+    </form>
 
 
     <footer class="footer">

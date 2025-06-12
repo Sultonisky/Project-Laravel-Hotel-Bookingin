@@ -10,9 +10,12 @@ class Claim extends Model
     protected $fillable = [
         'item_id',
         'receiver_id',
+        'name',
+        'email',
+        'address',
         'status',
         'claimed_at',
-        'approved_at',
+        'approved_at'
     ];
 
     protected $casts = [

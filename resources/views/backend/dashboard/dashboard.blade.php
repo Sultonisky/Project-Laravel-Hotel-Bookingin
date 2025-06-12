@@ -80,7 +80,7 @@
                                             Didonasikan</span>
                                     @endif
                                 </td>
-                                <td>{{ $item->donor->nama ?? '-' }}</td>
+                                <td>{{ $item->user->nama ?? '-' }}</td>
                                 <td>{{ $item->created_at->format('d M Y') }}</td>
                             </tr>
                         @empty

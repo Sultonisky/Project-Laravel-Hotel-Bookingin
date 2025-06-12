@@ -29,6 +29,20 @@
                     @endforeach
                 </select>
             </div>
+            <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" name="name" class="form-control" placeholder="Name" value="{{ $user->name }}">
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="text" name="email" class="form-control" placeholder="email" value="{{ $user->email }}">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Address</label>
+                <input type="text" name="address" class="form-control" placeholder="address"
+                    value="{{ $user->address }}">
+            </div>
         </div>
 
         <div class="row mb-3">
