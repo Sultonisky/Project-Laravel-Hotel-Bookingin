@@ -7,7 +7,7 @@
         <div class="col-md-3">
             <div class="card border-left-primary shadow-sm mb-4">
                 <div class="card-body">
-                    <h6 class="text-muted">{{ $labelUsersOrPenerima }}</h6>
+                    <h6 class="text-muted">Total Users / Penerima</h6>
                     <h4>{{ $totalUsersOrPenerima }}</h4>
                 </div>
             </div>

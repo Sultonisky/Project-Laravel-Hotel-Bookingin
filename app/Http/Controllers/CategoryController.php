@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index() // method index untuk menampilkan data
     {
         $categories = Category::latest()->get();
         return view('backend.categories.index', compact('categories'));
     }
 
-    public function create()
+    public function create() // untuk tampilan form create
     {
         return view('backend.categories.create');
     }
 
-    public function store(Request $request)
+    public function store(Request $request) // untuk menyimpan data / submit ke DB
     {
         $request->validate([
             'name' => 'required|string|max:100|unique:categories,name',

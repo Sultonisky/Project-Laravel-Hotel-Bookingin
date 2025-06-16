@@ -11,13 +11,16 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    // buat method untuk form register
     public function register()
     {
-        return view('auth.register');
+        return view('auth.register'); // buat view untuk tampilkan halaman register
     }
 
+    // buat method untuk submit form register yg diisi user
     public function registerSave(Request $request)
     {
+        // buat validasi
         Validator::make($request->all(), [
             'nama' => 'required',
             'email' => 'required|email|unique:users,email',
@@ -25,6 +28,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed',
         ])->validate();
 
+        // buat user baru dan masukkan ke DB
         User::create([
             'nama' => $request->nama,
             'email' => $request->email,
@@ -32,32 +36,38 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        // redirect ke halaman login setelah register berhasil
         return redirect()->route('login');
     }
 
+    // buat method untuk halaman login
     public function login()
     {
-        return view('auth.login');
+        return view('auth.login'); // buat view untuk tampilkan halaman login
     }
 
+    // buat method untuk submit form login yg diisi oleh user
     public function loginAction(Request $request)
     {
+        // buat validasi
         Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
         ])->validate();
 
+        // buat login
         if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed')
             ]);
         }
 
+        // buat session
         $request->session()->regenerate();
 
         $user = Auth::user();
 
-        // Redirect sesuai role
+        // Redirect sesuai role (jika admin ke dashboard dan jika penerima ke beranda/frontend)
         if ($user->role === 'admin') {
             return redirect()->route('backend.dashboard');
         } else {
@@ -65,6 +75,7 @@ class AuthController extends Controller
         }
     }
 
+    // buat method untuk logout
     public function logout(Request $request)
     {
         Auth::guard('web')->logout();

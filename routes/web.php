@@ -18,12 +18,12 @@ Route::get('/', function () {
 });
 
 // ROUTE AUTENTIKASI (Tanpa login)
-Route::get('backend/login', [AuthController::class, 'login'])->name('login');
-Route::post('backend/login', [AuthController::class, 'loginAction'])->name('loginAction');
-Route::post('backend/logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('backend/login', [AuthController::class, 'login'])->name('login'); // menampilkan halaman login
+Route::post('backend/login', [AuthController::class, 'loginAction'])->name('loginAction'); // proses login
+Route::post('backend/logout', [AuthController::class, 'logout'])->name('logout'); // proses logout
 
-Route::get('backend/register', [AuthController::class, 'register'])->name('register');
-Route::post('backend/register', [AuthController::class, 'registerSave'])->name('registerSave');
+Route::get('backend/register', [AuthController::class, 'register'])->name('register'); // menampilkan halaman register 
+Route::post('backend/register', [AuthController::class, 'registerSave'])->name('registerSave'); // proses register
 
 
 // ROUTES UNTUK ADMIN

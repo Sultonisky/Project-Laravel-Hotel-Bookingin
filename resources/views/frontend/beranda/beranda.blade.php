@@ -53,8 +53,7 @@
             <form id="keluar-app" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
             </form>
-            <a href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"
-                class="lihat-btn">Mulai Donasi </a>
+            <a href="https://instagram.com/berbagilagi.id" target="_blank" class="lihat-btn">Mulai Donasi </a>
         </div>
     </section>
 

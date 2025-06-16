@@ -58,6 +58,7 @@ class User extends Authenticatable
         return $this->hasMany(Claim::class);
     }
 
+    // Relasi: user untuk chat ngasih feedback
     public function messages()
     {
         return $this->hasMany(Message::class);
