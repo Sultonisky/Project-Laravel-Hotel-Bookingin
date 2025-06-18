@@ -25,6 +25,7 @@ body {
     list-style: none;
     display: flex;
     gap: 2rem;
+    margin-left: 675px;
 }
 
 .nav-links a {
@@ -33,18 +34,63 @@ body {
     font-weight: 500;
 }
 
+.nav-link {
+    position: relative;
+    color: #333;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: #27ae60;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+    content: "";
+    display: block;
+    margin: 0 auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #27ae60;
+    margin-top: 6px;
+}
+
 .nav-icons {
     display: flex;
     align-items: center;
     gap: 1rem;
+    height: 40px;
 }
 
 .nav-icons img {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     padding: 0.3rem;
     border: 1px solid #ccc;
     border-radius: 8px;
+    object-fit: contain;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icons img.logout-icons {
+    border: none;
+}
+
+.nav-icons img.history-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 8px;
+    object-fit: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary {
@@ -54,6 +100,10 @@ body {
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-outline {

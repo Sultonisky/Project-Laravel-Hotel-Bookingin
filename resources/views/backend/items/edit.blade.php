@@ -9,7 +9,7 @@
         <div class="row">
             <!-- Gambar di kiri -->
             <div class="col-md-4">
-                <img class="foto-preview img-fluid mb-3 " src="{{ asset('storage/img-items/' . $item->foto) }}"
+                <img class="foto-preview img-fluid mb-3 " src="{{ asset('storage/' . $item->foto) }}"
                     style="max-height: 250px; object-fit: cover; object-position: center;">
 
                 <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
@@ -90,19 +90,4 @@
         </div>
     </form>
 
-    {{-- <script>
-        function previewFoto() {
-            const input = document.querySelector('input[name="foto"]');
-            const imgPreview = document.querySelector('.foto-preview');
-            const file = input.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = e => {
-                    imgPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-    </script> --}}
 @endsection

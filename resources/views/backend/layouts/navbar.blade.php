@@ -91,7 +91,7 @@
                     <small>{{ auth()->user()->role }}</small>
                 </span>
                 <img class="img-profile rounded-circle"
-                    src="{{ auth()->user()->foto ? asset('storage/img-users/' . auth()->user()->foto) : asset('storage/img-users/profile.png') }}">
+                    src="{{ auth()->user()->foto ? asset('storage/' . auth()->user()->foto) : asset('storage/img-users/profile.png') }}">
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -17,7 +17,7 @@
 
                     {{-- Foto Profil --}}
                     <div class="text-center mb-3">
-                        <img src="{{ $user->foto ? asset('storage/img-users/' . $user->foto) : asset('storage/img-users/profile.png') }}"
+                        <img src="{{ $user->foto ? asset('storage/' . $user->foto) : asset('storage/img-users/profile.png') }}"
                             class="rounded-circle" width="120" height="120" alt="Foto Profil">
                     </div>
 

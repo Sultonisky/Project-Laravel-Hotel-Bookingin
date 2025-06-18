@@ -57,21 +57,20 @@
         </a>
     </li>
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link" href="{{ route('backend.showStatusLogs') }}">
             <i class="fas fa-regular fa-clock"></i>
             <span>Logs</span>
         </a>
+    </li> --}}
+
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('backend.messages.index') }}">
+            <i class="fas fa-solid fa-comments"></i>
+            <span>Feedback</span>
+        </a>
     </li>
 
-    @if (auth()->user()->role === 'admin')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('backend.messages.index') }}">
-                <i class="fas fa-solid fa-comments"></i>
-                <span>Feedback</span>
-            </a>
-        </li>
-    @endif
 
 
     <!-- Divider -->

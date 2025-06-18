@@ -19,19 +19,25 @@
                 <img src="{{ asset('admin_assets/img/logo_berbagilagi.png') }}" width="250">
             </div>
             <ul class="nav-links">
-                <li><a href="{{ route('beranda') }}">Home</a></li>
-                <li><a href="{{ route('items') }}">Barang</a></li>
-                <li><a href="{{ route('about') }}">Tentang Kami</a></li>
-                <li><a href="{{ route('contact') }}">Kontak Kami</a></li>
+                <li><a href="{{ route('beranda') }}"
+                        class="nav-link {{ Request::is('beranda') ? 'active' : '' }}">Home</a>
+                </li>
+                <li><a href="{{ route('items') }}"
+                        class="nav-link {{ Request::is('items') ? 'active' : '' }}">Barang</a></li>
+                <li><a href="{{ route('about') }}" class="nav-link {{ Request::is('about') ? 'active' : '' }}">Tentang
+                        Kami</a></li>
+                <li><a href="{{ route('contact') }}"
+                        class="nav-link {{ Request::is('contact') ? 'active' : '' }}">Kontak Kami</a></li>
             </ul>
             <div class="nav-icons">
-                <a href="{{ route('history') }}">
-                    <img src="{{ asset('admin_assets/icons/history.png') }}" alt="Notif" class="notif-icon"></a>
-                <button class="btn-primary">{{ Auth::user()->role }}</button>
-                <a href="" onclick="event.preventDefault(); document.getElementById('keluar-app').submit();"><img
-                        src="{{ asset('admin_assets/icons/logout.png') }}" alt="Logout" class="logout-icons"></a>
+                <a href="{{ url('/history') }}">
+                    <img src="{{ asset('admin_assets/icons/history.png') }}" alt="History" class="history-icon"></a>
+                <button class="btn-primary">Penerima</button>
+                <img src="{{ asset('admin_assets/icons/logout.png') }}" alt="Logout" class="logout-icons">
             </div>
+
         </div>
+
     </nav>
     @if (Session::has('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">

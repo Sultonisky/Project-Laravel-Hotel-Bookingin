@@ -26,25 +26,23 @@ Route::get('backend/register', [AuthController::class, 'register'])->name('regis
 Route::post('backend/register', [AuthController::class, 'registerSave'])->name('registerSave'); // proses register
 
 
-// ROUTES UNTUK ADMIN
+// ROUTES HANYA BISA DIAKSES OLEH ADMIN DAN ADMIN WAJIB LOGIN DAHULU
 Route::middleware(['auth', 'role:admin'])->prefix('backend')->name('backend.')->group(function () {
+    Route::resource('categories', CategoryController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('penerima', PenerimaController::class);
+
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::resource('categories', CategoryController::class);
     Route::resource('items', ItemController::class);
-    Route::resource('penerima', PenerimaController::class);
     Route::resource('claims', ClaimController::class);
-    Route::get('items/status/logs', [ItemController::class, 'showLogStatus'])->name('showStatusLogs');
+    // Route::get('items/status/logs', [ItemController::class, 'showLogStatus'])->name('showStatusLogs');
+    Route::resource('messages', MessageController::class);
 
-    // Hanya admin yang bisa akses 'users' dan 'messages'
-    Route::middleware('role:admin')->group(function () {
-        Route::resource('users', UserController::class);
-        Route::resource('messages', MessageController::class);
-    });
 
-    Route::get('/profile/show', [ProfileController::class, 'show'])->name('profile.show');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/profile/show', [UserController::class, 'profile'])->name('profile.show');
+    Route::get('/profile/edit', [UserController::class, 'editProfile'])->name('profile.edit');
+    Route::post('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
 });
 
 

@@ -5,7 +5,7 @@
     <div class="row">
         <!-- Gambar di kiri -->
         <div class="col-md-4">
-            <img src="{{ asset('storage/img-users/' . $user->foto) }}" class="foto-preview img-fluid mb-3"
+            <img src="{{ asset('storage/' . $user->foto) }}" class="foto-preview img-fluid mb-3"
                 style="max-height: 250px; object-fit: cover;">
             <input type="file" name="foto" class="form-control" value="{{ $user->foto }}" disabled>
         </div>

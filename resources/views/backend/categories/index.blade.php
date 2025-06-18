@@ -17,10 +17,6 @@
             <tr>
                 <th>No.</th>
                 <th>Category Name</th>
-                {{-- <th>Price</th>
-                <th>Product Code</th>
-                <th>Description</th>
-                 --}}
                 <th>Action</th>
             </tr>
         </thead>

@@ -2,15 +2,6 @@
 @section('title', 'Lists Penerima')
 @section('contents')
 
-
-
-    {{-- @if (Session::has('success'))
-        <div class="alert alert-success" role="alert">
-            {{ Session::get('success') }}
-        </div>
-    @endif --}}
-
-
     <div class="table-responsive">
         <table class="table table-hover">
             <thead class="table-success">

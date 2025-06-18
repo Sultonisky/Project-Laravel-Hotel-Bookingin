@@ -12,50 +12,24 @@ class Item extends Model
         'name',
         'description',
         'condition',
-        // 'address',
-        // 'phone',
         'category_id',
         'user_id',
         'status',
         'foto',
-        // 'images',
     ];
 
-    public function category()
+    public function category() // relasi ke model/tabel category
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class); // many-to-one
     }
 
-    public function user()
+    public function user() // relasi ke model/tabel user
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id'); // many-to-one
     }
 
-    public function claims()
+    public function claims() // relasi ke model/tabel claim
     {
-        return $this->hasMany(Claim::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(ItemImage::class);
-    }
-
-    protected static function booted()
-    {
-        static::updated(function ($item) {
-            if ($item->isDirty('status')) {
-                ItemStatusLog::create([
-                    'item_id' => $item->id,
-                    'status' => $item->status,
-                    'changed_at' => now()->toDateTimeString(),
-                ]);
-            }
-        });
-    }
-
-    public function statusLogs()
-    {
-        return $this->hasMany(ItemStatusLog::class);
+        return $this->hasMany(Claim::class); // one-to-many
     }
 }
