@@ -15,8 +15,7 @@
                                         <img src="{{ asset('storage/img-user/' . $contact->users->foto) }}"
                                             class="foto-preview" width="100%">
                                     @else
-                                        <img src="{{ asset('storage/img-user/img-default.jpg') }}" class="foto-preview"
-                                            width="100%">
+                                        <img src="{{ asset('img/img_default.jpg') }}" class="foto-preview" width="100%">
                                     @endif
                                 </div>
                             </div>

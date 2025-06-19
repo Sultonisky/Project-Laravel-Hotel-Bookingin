@@ -20,7 +20,7 @@
                                             <img src="{{ asset('storage/img-room/' . $edit->foto) }}"
                                                 class="foto-preview img-fluid mb-2" alt="Room Image">
                                         @else
-                                            <img src="{{ asset('storage/img-room/img-default.jpg') }}"
+                                            <img src="{{ asset('img/img_default.jpg') }}"
                                                 class="foto-preview img-fluid mb-2" alt="Default Image">
                                         @endif
 

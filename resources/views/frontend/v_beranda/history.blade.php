@@ -164,6 +164,58 @@
                             </div>
                         </div>
                     </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const form = document.getElementById('rescheduleForm{{ $reservation->id }}');
+                            const modal = new bootstrap.Modal(document.getElementById('rescheduleModal{{ $reservation->id }}'));
+
+                            form.addEventListener('submit', function(e) {
+                                e.preventDefault();
+
+                                const formData = new FormData(form);
+
+                                fetch("{{ route('booking.reschedule', $reservation->id) }}", {
+                                        method: 'POST',
+                                        headers: {
+                                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                            'X-Requested-With': 'XMLHttpRequest',
+                                            'Accept': 'application/json',
+                                        },
+                                        body: formData
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) return response.json().then(err => Promise.reject(err));
+                                        return response.json();
+                                    })
+                                    .then(data => {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: 'Berhasil',
+                                            text: data.message,
+                                        }).then(() => {
+                                            modal.hide();
+                                            location.reload(); // reload halaman untuk update tampilan
+                                        });
+                                    })
+                                    .catch(error => {
+                                        if (error.errors) {
+                                            const firstError = Object.values(error.errors)[0][0];
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Gagal Reschedule',
+                                                text: firstError
+                                            });
+                                        } else {
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: 'Terjadi Kesalahan',
+                                                text: 'Silakan coba lagi.'
+                                            });
+                                        }
+                                    });
+                            });
+                        });
+                    </script>
                 @endforeach
             </div>
         @endif
@@ -206,57 +258,6 @@
         </script>
     @endif
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('rescheduleForm{{ $reservation->id }}');
-            const modal = new bootstrap.Modal(document.getElementById('rescheduleModal{{ $reservation->id }}'));
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                const formData = new FormData(form);
-
-                fetch("{{ route('booking.reschedule', $reservation->id) }}", {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            'X-Requested-With': 'XMLHttpRequest',
-                            'Accept': 'application/json',
-                        },
-                        body: formData
-                    })
-                    .then(response => {
-                        if (!response.ok) return response.json().then(err => Promise.reject(err));
-                        return response.json();
-                    })
-                    .then(data => {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil',
-                            text: data.message,
-                        }).then(() => {
-                            modal.hide();
-                            location.reload(); // reload halaman untuk update tampilan
-                        });
-                    })
-                    .catch(error => {
-                        if (error.errors) {
-                            const firstError = Object.values(error.errors)[0][0];
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal Reschedule',
-                                text: firstError
-                            });
-                        } else {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Terjadi Kesalahan',
-                                text: 'Silakan coba lagi.'
-                            });
-                        }
-                    });
-            });
-        });
-    </script>
 
 @endsection
