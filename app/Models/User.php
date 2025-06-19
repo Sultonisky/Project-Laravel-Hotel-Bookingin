@@ -18,11 +18,20 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+<<<<<<< HEAD
         'name',
         'email',
         'role',
         'status',
         'password',
+=======
+        'nama',
+        'email',
+        'phone',
+        'password',
+        'address',
+        'role',
+>>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
         'foto',
     ];
 
@@ -43,6 +52,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+<<<<<<< HEAD
         'role' => 'integer',
 
     ];
@@ -60,5 +70,25 @@ class User extends Authenticatable
     public function contacts()
     {
         return $this->hasMany(Contact::class, 'users_id');
+=======
+    ];
+
+    // Relasi: user sebagai donor
+    public function donatedItems()
+    {
+        return $this->hasMany(Item::class, 'user_id');
+    }
+
+    // Relasi: user sebagai pengklaim
+    public function claims()
+    {
+        return $this->hasMany(Claim::class);
+    }
+
+    // Relasi: user untuk chat ngasih feedback
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+>>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
     }
 }

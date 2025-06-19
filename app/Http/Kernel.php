@@ -2,6 +2,10 @@
 
 namespace App\Http;
 
+<<<<<<< HEAD
+=======
+use App\Http\Middleware\RoleHandle;
+>>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,8 +68,13 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+<<<<<<< HEAD
 
     protected $routeMiddleware = [
         'role' => \App\Http\Middleware\RoleMiddleware::class,
+=======
+    protected $routeMiddleware = [
+        'role' => RoleHandle::class,
+>>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
     ];
 }
