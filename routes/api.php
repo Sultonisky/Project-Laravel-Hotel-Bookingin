@@ -2,10 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-<<<<<<< HEAD
 use App\Http\Controllers\MidtransWebhookController;
-=======
->>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +18,5 @@ use App\Http\Controllers\MidtransWebhookController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-<<<<<<< HEAD
 
 Route::post('/midtrans/webhook', [MidtransWebhookController::class, 'handle']);
-=======
->>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -52,15 +51,4 @@ class ProfileController extends Controller
 
         return redirect()->back()->with('success', 'Password updated successfully.');
     }
-=======
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-
-class ProfileController extends Controller
-{
-    // menampilkan view profile untuk admin di dashboard
-
->>>>>>> 3d9f03e28f0f29b18fa29872119da2dbd9d6154d
 }
