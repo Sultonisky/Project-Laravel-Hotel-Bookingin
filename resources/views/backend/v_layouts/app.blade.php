@@ -145,8 +145,8 @@ class="light-logo" /> -->
                                     <img src="{{ asset('storage/img-user/' . Auth::User()->foto) }}" alt="user"
                                         class="rounded-circle" width="31">
                                 @else
-                                    <img src="{{ asset('storage/img-user/img_default.jpg') }}" alt="user"
-                                        class="rounded-circle" width="31">
+                                    <img src="{{ asset('img/img_default.jpg') }}" alt="user" class="rounded-circle"
+                                        width="31">
                                 @endif
                             </a>
 
@@ -176,79 +176,93 @@ class="light-logo" /> -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
         <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-10">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="{{ route('backend.beranda') }}" aria-expanded="false"><i
-                                    class="mdi mdi-home"></i><span class="hide-menu">Home</span></a>
-                        </li>
-                        <li class="sidebar-item"> <a
-                                class="sidebar-link waves-effect 
-                        waves-dark sidebar-link"
-                                href="{{ route('backend.user.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-account-circle"></i><span class="hide-menu">Users
-                                </span></a>
+                        {{-- Umum (Untuk Semua Role) --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('backend.beranda') }}" aria-expanded="false">
+                                <i class="mdi mdi-home"></i><span class="hide-menu">Home</span>
+                            </a>
                         </li>
 
-                        <li class="sidebar-item"> <a
-                                class="sidebar-link waves-effect 
-                            waves-dark sidebar-link"
-                                href="{{ route('backend.guest.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-account-box"></i><span class="hide-menu">Guests Data</span></a>
+                        {{-- Admin Saja --}}
+                        @if (auth()->user()->role == 1)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{{ route('backend.user.index') }}" aria-expanded="false">
+                                    <i class="mdi mdi-account-circle"></i><span class="hide-menu">Users</span>
+                                </a>
+                            </li>
+                        @endif
+
+                        {{-- Umum (Admin & Resepsionis) --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('backend.guest.index') }}" aria-expanded="false">
+                                <i class="mdi mdi-account-box"></i><span class="hide-menu">Guests Data</span>
+                            </a>
                         </li>
 
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark"
-                                href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-hotel"></i><span
-                                    class="hide-menu"> Rooms Data</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="{{ route('backend.category.index') }}"
-                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
-                                            class="hide-menu"> Room Categories
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ route('backend.room.roomGallery') }}"
-                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
-                                            class="hide-menu"> Room Galleries
-                                        </span></a>
-                                </li>
-                                <li class="sidebar-item"><a href="{{ route('backend.room.index') }}"
-                                        class="sidebar-link"><i class="mdi mdi-chevron-right"></i><span
-                                            class="hide-menu"> Rooms
-                                        </span></a>
-                                </li>
-                            </ul>
+                        {{-- Admin Saja --}}
+                        @if (auth()->user()->role == 1)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                                    aria-expanded="false">
+                                    <i class="mdi mdi-hotel"></i><span class="hide-menu"> Rooms Data</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('backend.category.index') }}" class="sidebar-link">
+                                            <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Room
+                                                Categories</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('backend.room.roomGallery') }}" class="sidebar-link">
+                                            <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Room
+                                                Galleries</span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="{{ route('backend.room.index') }}" class="sidebar-link">
+                                            <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Rooms</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
+
+                        {{-- Umum (Admin & Resepsionis) --}}
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="{{ route('backend.reservation.index') }}" aria-expanded="false">
+                                <i class="mdi mdi-book-multiple"></i><span class="hide-menu">Reservations</span>
+                            </a>
                         </li>
 
-                        <li class="sidebar-item"> <a
-                                class="sidebar-link waves-effect 
-                            waves-dark sidebar-link"
-                                href="{{ route('backend.reservation.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-book-multiple"></i><span class="hide-menu">Reservations</span></a>
-                        </li>
+                        {{-- Admin Saja --}}
+                        @if (auth()->user()->role == 1)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{{ route('backend.report.formReservation') }}" aria-expanded="false">
+                                    <i class="mdi mdi-receipt"></i><span class="hide-menu">Reports</span>
+                                </a>
+                            </li>
 
-                        <li class="sidebar-item"> <a
-                                class="sidebar-link waves-effect 
-                            waves-dark sidebar-link"
-                                href="{{ route('backend.report.formReservation') }}" aria-expanded="false"><i
-                                    class="mdi mdi-receipt"></i><span class="hide-menu">
-                                    Reports</span></a>
-                        </li>
-                        <li class="sidebar-item"> <a
-                                class="sidebar-link waves-effect 
-                            waves-dark sidebar-link"
-                                href="{{ route('backend.contact.index') }}" aria-expanded="false"><i
-                                    class="mdi mdi-comment-processing"></i><span class="hide-menu">
-                                    Contact</span></a>
-                        </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                    href="{{ route('backend.contact.index') }}" aria-expanded="false">
+                                    <i class="mdi mdi-comment-processing"></i><span class="hide-menu">Contact</span>
+                                </a>
+                            </li>
+                        @endif
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
         </aside>
+
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->

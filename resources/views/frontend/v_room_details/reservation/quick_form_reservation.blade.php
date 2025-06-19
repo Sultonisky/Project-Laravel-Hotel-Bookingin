@@ -7,9 +7,7 @@
     <title>Reservation - Bookingin</title>
     <link href="{{ asset('frontend/style/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/images/logo-putih.png') }}">
-
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-bCKqIGztz1MBy-si"></script>
-
     <style>
         body {
             background-color: #000;
@@ -32,9 +30,14 @@
             color: white;
         }
 
+        /* .identity-form {
+            height: 90vh;
+        } */
+
         .room-summary {
             background-color: #111;
             color: white;
+            /* height: 90vh; */
         }
 
         .room-summary img {
@@ -69,7 +72,22 @@
                 <div class="p-4 border rounded identity-form">
                     <h5 class="fw-bold mb-4">Your Identity</h5>
 
-                    <form id="bookingForm">
+                    @if (session('success'))
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
+                    <form id="bookingForm" action="{{ route('frontend.quick.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="room_id" value="{{ $room->id }}">
 
@@ -86,24 +104,32 @@
                                 placeholder="Enter Your Phone Number" value="{{ old('no_hp') }}" required>
                         </div>
                         <div class="mb-4">
-                            <input type="date" name="checkin_date" class="form-control"
-                                value="{{ old('checkin_date', $checkin ?? '') }}" required>
+                            <input type="date" name="checkin_date" value="{{ $checkin }}" class="form-control"
+                                readonly>
+
                         </div>
                         <div class="mb-4">
-                            <input type="date" name="checkout_date" class="form-control"
-                                value="{{ old('checkout_date', $checkout ?? '') }}" required>
+                            <input type="date" name="checkout_date" value="{{ $checkout }}" class="form-control"
+                                readonly>
+
                         </div>
                         <div class="mb-4">
                             <select name="payment_method" class="form-control" required>
-                                <option value="">Select Payment Method</option>
-                                <option value="0">Credit Card</option>
-                                <option value="1">Bank Transfer</option>
-                                <option value="2">e-Wallet</option>
+                                <option value="" {{ old('payment_method') === null ? 'selected' : '' }}>Select
+                                    Payment Method</option>
+                                <option value="0" {{ old('payment_method') == '0' ? 'selected' : '' }}>Credit Card
+                                </option>
+                                <option value="1" {{ old('payment_method') == '1' ? 'selected' : '' }}>Bank
+                                    Transfer</option>
+                                <option value="2" {{ old('payment_method') == '2' ? 'selected' : '' }}>e-Wallet
+                                </option>
                             </select>
+
                         </div>
 
                         <button type="button" id="pay-button" class="btn btn-primary w-100 mt-2">Confirm
                             Reservation</button>
+                        {{-- <a href="{{ route('room.detail', $room->id) }}" class="btn btn-secondary w-100 mt-2">Back</a> --}}
                     </form>
                 </div>
             </div>
@@ -154,12 +180,6 @@
                         <span class="fw-semibold text-white">IDR {{ number_format($service, 0, ',', '.') }}
                             /night</span>
                     </div>
-                    {{-- <hr class="border-light">
-                    <div class="d-flex justify-content-between py-1 fw-bold">
-                        <span>Total per Night</span>
-                        <span class="text-white">IDR {{ number_format($totalPerNight, 0, ',', '.') }}</span>
-                    </div> --}}
-
 
                     <hr class="border-light">
 
@@ -201,10 +221,13 @@
             }
         }
 
-
         checkinInput.addEventListener('change', updateSummary);
         checkoutInput.addEventListener('change', updateSummary);
-        document.addEventListener("DOMContentLoaded", updateSummary);
+
+        // Auto update saat halaman dibuka
+        document.addEventListener("DOMContentLoaded", () => {
+            updateSummary();
+        });
 
         document.getElementById('pay-button').addEventListener('click', function() {
             const form = document.getElementById('bookingForm');

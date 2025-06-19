@@ -21,6 +21,14 @@ class UsersSeeder extends Seeder
             'password' => bcrypt('admin123'),
             'foto' => '',
         ]);
+        User::create([
+            'name' => 'Resepsionis Hotel',
+            'email' => 'resepsionis@gmail.com',
+            'role' => '2',
+            'status' => '1',
+            'password' => bcrypt('resepsionis123'),
+            'foto' => '',
+        ]);
 
         User::create([
             'name' => 'user Hotel',

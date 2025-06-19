@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->string('booking_code')->unique();
             $table->unsignedBigInteger('guests_id');
             $table->unsignedBigInteger('rooms_id');
             $table->date('checkin_date');
             $table->date('checkout_date');
             $table->boolean('payment_method');
             $table->decimal('total_payment', 10, 2)->default(0);
+            $table->enum('status', ['pending', 'success', 'canceled'])->default('pending');
             $table->timestamps();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();

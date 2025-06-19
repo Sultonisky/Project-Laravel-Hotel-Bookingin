@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->enum('role', [0, 1])->default(0); //0 = user, 1 = SuperAdmin, 2 = user
+            $table->enum('role', [0, 1, 2])->default(0); //0 = user, 1 = SuperAdmin, 2 = Resepsionis
             $table->boolean('status', [0, 1])->default(1); // 0 = belum aktif, 1 = aktif
             $table->string('password');
             $table->string('foto')->nullable();

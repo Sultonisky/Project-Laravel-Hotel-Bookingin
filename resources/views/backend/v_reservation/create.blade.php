@@ -77,6 +77,20 @@
                                                 role="alert">{{ $message }}</span>
                                         @enderror
                                     </div>
+
+                                    <div class="form-group">
+                                        <label>Status</label>
+                                        <select name="status" id="status"
+                                            class="form-control @error('status') is-invalid @enderror" name="status">
+                                            <option value="pending" selected>Pending</option>
+                                            <option value="success">Success</option>
+                                            <option value="canceled">Canceled</option>
+                                        </select>
+                                        @error('status')
+                                            <span class="invalid-feedback alert-danger"
+                                                role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
                         </div>

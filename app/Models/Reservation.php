@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reservation extends Model
 {
@@ -11,9 +12,10 @@ class Reservation extends Model
 
     public $timestamps = true; // Mengaktifkan timestamps (created_at dan updated_at)
     protected $table = "reservations"; // Nama tabel
-    protected $guarded = ['id']; // Kolom yang tidak boleh diisi secara mass-assignment
+    // protected $guarded = ['id']; // Kolom yang tidak boleh diisi secara mass-assignment
 
     protected $fillable = [
+        'booking_code',
         'guests_id',
         'rooms_id',
         'checkin_date',
@@ -23,6 +25,7 @@ class Reservation extends Model
         'reschedule_count',
         'payment_method',
         'total_payment',
+        'status',
         'created_by',
         'updated_by',
 
@@ -52,12 +55,22 @@ class Reservation extends Model
 
 
 
-    public function getTotalPaymentAttribute()
-    {
-        $checkin = \Carbon\Carbon::parse($this->checkin_date);
-        $checkout = \Carbon\Carbon::parse($this->checkout_date);
-        $duration = $checkout->diffInDays($checkin); // Menghitung jumlah hari menginap
+    // public function getTotalPaymentAttribute()
+    // {
+    //     $checkin = Carbon::parse($this->checkin_date);
+    //     $checkout = Carbon::parse($this->checkout_date);
+    //     $duration = $checkout->diffInDays($checkin); // Menghitung jumlah hari menginap
 
-        return $duration * $this->room->price; // Total pembayaran
+    //     return $duration * $this->room->price; // Total pembayaran
+    // }
+
+    public function calculateTotalPayment($checkin_date, $checkout_date)
+    {
+        $days = Carbon::parse($checkout_date)->diffInDays(Carbon::parse($checkin_date));
+        $roomPriceTotal = $days * $this->room->price;
+        $tax = $roomPriceTotal * 0.01;
+        $service = 50000;
+
+        return $roomPriceTotal + $tax + $service;
     }
 }

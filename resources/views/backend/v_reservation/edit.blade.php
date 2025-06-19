@@ -98,6 +98,27 @@
                                     <span class="invalid-feedback">{{ $message }}</span>
                                 @enderror
                             </div>
+
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select name="status" id="status"
+                                    class="form-control @error('status') is-invalid @enderror">
+                                    <option value="0"
+                                        {{ old('status', $reservation->status) == 'pending' ? 'selected' : '' }}>
+                                        Pending
+                                    </option>
+                                    <option value="success"
+                                        {{ old('status', $reservation->status) == 'success' ? 'selected' : '' }}>
+                                        Success</option>
+                                    <option value="canceled"
+                                        {{ old('status', $reservation->status) == 'canceled' ? 'selected' : '' }}>
+                                        Canceled
+                                    </option>
+                                </select>
+                                @error('status')
+                                    <span class="invalid-feedback">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="border-top">

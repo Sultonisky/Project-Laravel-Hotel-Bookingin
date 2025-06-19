@@ -32,8 +32,8 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Redirect sesuai role
-            if ($user->role == 1) {
-                return redirect()->route('backend.beranda'); // Admin
+            if ($user->role === 1 || $user->role === 2) {
+                return redirect()->route('backend.beranda'); // Admin & resepsionis
             } else {
                 return redirect()->route('beranda'); // User biasa
             }

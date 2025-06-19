@@ -76,6 +76,33 @@ body {
     position: relative;
     margin-bottom: 20px;
 }
+.icon-input {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.icon-input input {
+    padding-right: 40px; /* kasih ruang kanan untuk icon */
+}
+
+.icon-right,
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 18px;
+}
+
+.toggle-password {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-password:hover {
+    color: #00bfff;
+}
 
 .form-floating input {
     width: 100%;
@@ -136,6 +163,22 @@ body {
 
 .input-form button:hover {
     background-color: #0056b3;
+}
+
+.google-btn {
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: none;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    cursor: pointer;
+}
+
+.google-btn:hover {
+    background-color: #f0f0f0;
 }
 
 /* Link & Text */

@@ -38,6 +38,7 @@
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('about') }}">About</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('room') }}">Room</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="{{ route('contact') }}">Contact</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="{{ route('history') }}">Booking</a></li>
             </ul>
 
             <!-- User Dropdown -->
@@ -45,9 +46,14 @@
                 <div class="dropdown text-center text-lg-end mt-3 mt-lg-0">
                     <button class="btn dropdown-toggle fw-bold text-white d-flex align-items-center" type="button"
                         id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ asset('storage/img-user/' . (Auth::user()->foto ?? 'img_default.jpg')) }}"
-                            alt="user" class="rounded-circle me-2" width="22">
-                        {{-- {{ Auth::user()->name }} --}}
+
+                        @if (Auth::user()->foto)
+                            <img src="{{ asset('storage/img-user/' . Auth::user()->foto) }}" alt="user"
+                                class="rounded-circle me-2" width="22">
+                        @else
+                            <img src="{{ asset('img/img_default.jpg') }}" alt="user" class="rounded-circle me-2"
+                                width="22">
+                        @endif
                     </button>
                     <ul class="dropdown-menu dropdown-menu shadow">
                         <li><a class="dropdown-item text-primary" href="{{ route('profile') }}"><i class="bi bi-person"></i>

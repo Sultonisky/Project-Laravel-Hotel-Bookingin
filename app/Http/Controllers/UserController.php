@@ -78,7 +78,11 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('backend.v_user.show', [
+            'judul' => 'show User',
+            'show' => $user
+        ]);
     }
 
     /**

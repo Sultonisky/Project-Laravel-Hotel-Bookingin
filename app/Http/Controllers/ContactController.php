@@ -12,7 +12,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contact = Contact::orderBy('updated_at', 'desc')->get();
+        $contact = Contact::with('users')->get();
         return view('backend.v_contact.index', [
             'judul' => 'Contact Data',
             'index' => $contact

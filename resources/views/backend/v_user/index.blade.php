@@ -33,6 +33,8 @@
                                                 <span class="badge badge-success"></i>Administrator</span>
                                             @elseif($row->role == 0)
                                                 <span class="badge badge-primary"></i>User</span>
+                                            @elseif($row->role == 2)
+                                                <span class="badge badge-info"></i>Resepsionis</span>
                                             @endif
                                         </td>
                                         <td>
@@ -46,6 +48,10 @@
                                             <a href="{{ route('backend.user.edit', $row->id) }}" title="Edit Data">
                                                 <button type="button" class="btn btn-cyan btn-sm"><i
                                                         class="far fa-edit"></i> Edit</button>
+                                            </a>
+                                            <a href="{{ route('backend.user.show', $row->id) }}" title="Show Data">
+                                                <button type="button" class="btn btn-info btn-sm"><i
+                                                        class="far fa-edit"></i> Detail</button>
                                             </a>
                                             <form method="POST" action="{{ route('backend.user.destroy', $row->id) }}"
                                                 style="display: 

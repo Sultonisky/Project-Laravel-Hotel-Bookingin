@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="{{ asset('frontend/style/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/style/css/style.css') }}" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/images/logo-putih.png') }}">
     <title>Bookingin | Room Details</title>
 </head>
 
@@ -41,7 +42,10 @@
                         <p class="room-price">IDR. {{ number_format($room->price, 0, ',', '.') }}/<span
                                 class="text-secondary">Night</span></p>
                         <a href="{{ route('room') }}" class="book-now-btn bg-secondary">Back</a>
-                        <a href="{{ route('room.reservation') }}" class="book-now-btn">Book Now</a>
+                        <!-- Button trigger modal -->
+                        <a class="btn btn-primary" href="{{ route('booking.form', $room->id) }}">
+                            Book Now
+                        </a>
                     </div>
                 </div>
                 <div class="right-content">
@@ -53,11 +57,49 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Booking Button -->
-            <!-- <div class="room-booking"></div> -->
         </div>
+
+        <!-- Modal -->
+        {{-- <div class="modal fade" id="bookingModal{{ $room->id }}" tabindex="-1"
+            aria-labelledby="bookingModalLabel{{ $room->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-white text-light">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-dark" id="bookingModalLabel{{ $room->id }}">Please Select
+                            Booking Dates
+                        </h5>
+                        <button type="button" class="btn-close btn-close-primary" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <form action="{{ route('booking.select.date', $room->id) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="room_id" value="{{ $room->id }}">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="checkin{{ $room->id }}" class="form-label text-dark">Check-in
+                                    Date</label>
+                                <input type="date" class="form-control" id="checkin{{ $room->id }}"
+                                    name="checkin_date" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="checkout{{ $room->id }}" class="form-label text-dark">Check-out
+                                    Date</label>
+                                <input type="date" class="form-control" id="checkout{{ $room->id }}"
+                                    name="checkout_date" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Continue Booking</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> --}}
+
     </section>
+
+
+
     <script>
         const thumbnails = document.querySelectorAll('.thumb-img');
         const mainImage = document.querySelector('.main-image img');
@@ -69,6 +111,7 @@
         });
     </script>
 
+    <script src="{{ asset('frontend/style/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

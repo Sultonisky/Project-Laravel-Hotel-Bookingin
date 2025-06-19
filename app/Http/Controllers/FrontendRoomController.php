@@ -14,8 +14,8 @@ class FrontendRoomController extends Controller
         return view('frontend.v_room_details.detail_room', compact('room'));
     }
 
-    public function reservation()
-    {
-        return view('frontend.v_room_details.reservation.reservation');
-    }
+    // public function reservation()
+    // {
+    //     return view('frontend.v_room_details.reservation.reservation');
+    // }
 }

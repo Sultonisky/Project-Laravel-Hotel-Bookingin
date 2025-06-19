@@ -16,16 +16,16 @@
             <h2 class="mb-1">Available Rooms For Book</h2>
             <p class="mb-5">You can book a room for the selected dates.</p>
             <div class="row">
-                @forelse ($room as $row)
+                @forelse ($rooms as $room)
                     <div class="col-md-4 mb-4">
                         <div class="card bg-transparent room-card h-100">
-                            <img src="{{ asset('storage/img-room/' . $row->foto) }}" class="card-img-top"
-                                alt="{{ $row->category->category_name }}" style="object-fit: cover; height: 250px;">
+                            <img src="{{ asset('storage/img-room/' . $room->foto) }}" class="card-img-top"
+                                alt="{{ $room->category->category_name }}" style="object-fit: cover; height: 250px;">
                             <div class="card-body">
-                                <h5 class="card-title text-white">{{ $row->category->category_name }}</h5>
-                                <p class="card-text text-white">{{ $row->category->description }}</p>
+                                <h5 class="card-title text-white">{{ $room->category->category_name }}</h5>
+                                <p class="card-text text-white">{{ $room->category->description }}</p>
                                 <a href="{{ route('frontend.quick.form', [
-                                    'id' => $row->id,
+                                    'id' => $room->id,
                                     'checkin_date' => request('checkin_date'),
                                     'checkout_date' => request('checkout_date'),
                                 ]) }}"

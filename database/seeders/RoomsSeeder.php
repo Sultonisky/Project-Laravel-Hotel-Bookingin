@@ -24,7 +24,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 2, // Deluxe Room
+                'room_categories_id' => 3, // Deluxe Room
                 'status' => 1,
                 'room_name' => 'Deluxe Room 201',
                 'price' => 500000,
@@ -33,7 +33,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 3, // Suite Room
+                'room_categories_id' => 2, // Suite Room
                 'status' => 1,
                 'room_name' => 'Suite Room 301',
                 'price' => 800000,
@@ -42,7 +42,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 4, // Junior Suite Room
+                'room_categories_id' => 7, // Junior Suite Room
                 'status' => 1,
                 'room_name' => 'Junior Suite Room 401',
                 'price' => 650000,
@@ -51,7 +51,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 5, // Superior Room
+                'room_categories_id' => 4, // Superior Room
                 'status' => 1,
                 'room_name' => 'Superior Room 501',
                 'price' => 550000,
@@ -69,7 +69,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 7, // Cabana Room
+                'room_categories_id' => 8, // Cabana Room
                 'status' => 1,
                 'room_name' => 'Cabana Room 701',
                 'price' => 850000,
@@ -78,7 +78,7 @@ class RoomsSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'room_categories_id' => 8, // Presidential Room
+                'room_categories_id' => 5, // Presidential Room
                 'status' => 1,
                 'room_name' => 'Presidential Room 801',
                 'price' => 1500000,

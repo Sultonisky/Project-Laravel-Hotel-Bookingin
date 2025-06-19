@@ -4,16 +4,33 @@ namespace App\Http\Controllers;
 
 use PDO;
 use App\Models\Room;
+use App\Models\User;
+use App\Models\Guest;
 use App\Models\Contact;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class BerandaController extends Controller
 {
     public function berandaBackend()
     {
-        return view('backend.v_beranda.index', [
-            'judul' => 'Dashboard Hotel Bookingin',
-        ]);
+        $data = [
+            'judul' => 'Dashboard',
+            'totalReservations' => Reservation::count(),
+            'totalSuccessReservations' => Reservation::where('status', 'success')->count(),
+            'totalPendingReservations' => Reservation::where('status', 'pending')->count(),
+            'totalGuests' => Guest::count(),
+            'totalMoney' => Reservation::where('status', 'success')->sum('total_payment'),
+        ];
+
+        if (auth()->user()->role == 1) {
+            $data['totalUsers'] = User::count();
+            $data['totalReadyRooms'] = Room::where('status', 1)->count();
+            $data['totalBookedRooms'] = Room::where('status', 0)->count();
+            $data['totalRooms'] = Room::count();
+            $data['totalContacts'] = Contact::count();
+        }
+        return view('backend.v_beranda.index', $data);
     }
     public function index()
     {
@@ -30,28 +47,22 @@ class BerandaController extends Controller
         $request->validate([
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
-        ], [
-            'checkin_date.required' => 'Checkin Date must be filled in.',
-            'checkout_date.required' => 'Checkout Date must be filled in.',
-            'checkout_date.after_or_equal' => 'The Checkout Date must be greater than or equal to the Checkin Date.',
-
         ]);
 
         $startDate = $request->checkin_date;
         $endDate = $request->checkout_date;
 
-        // Ambil kamar yang ready
-        $rooms = Room::with('category')
-            ->where('status', '1') // hanya kamar yang ready
-            ->orderBy('updated_at', 'desc')
+        $rooms = Room::with('category') // biar tidak N+1 saat akses $row->category
+            ->where('status', 1)
             ->get();
 
-        return view('frontend.v_beranda.select_room', [
-            'room' => $rooms,
-            'checkin' => $startDate,
-            'checkout' => $endDate,
+        return view('frontend.v_room_details.selectRoomByDate', [
+            'rooms' => $rooms,
+            'checkin_date' => $startDate,
+            'checkout_date' => $endDate,
         ]);
     }
+
 
 
     public function about()
@@ -69,6 +80,12 @@ class BerandaController extends Controller
     public function contact()
     {
         return view('frontend.v_beranda.contact', []);
+    }
+
+    public function historyBooking()
+    {
+        $reservations = Reservation::with(['room.category'])->where('created_by', auth()->id())->orderBy('id', 'desc')->latest()->get();
+        return view('frontend.v_beranda.history', compact('reservations'));
     }
 
     public function contactStore(Request $request)

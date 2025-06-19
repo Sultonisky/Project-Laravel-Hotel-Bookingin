@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/images/logo-putih.png') }}">
     <title>Bookingin | @yield('title')</title>
     <link href="{{ asset('frontend/style/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/style/css/style.css') }}" rel="stylesheet">
@@ -60,6 +61,33 @@
     @endif
 
     <!-- konfirmasi success End-->
+    {{-- 
+    <script type="text/javascript">
+        // Konfirmasi untuk membatalkan reservasi
+        $(document).on('click', '.show_cancel', function(event) {
+            var form = $(this).closest("form");
+            var konfCancel = $(this).data("konf-cancel");
+            event.preventDefault();
+            Swal.fire({
+                title: 'Confirm to Cancel Reservation?',
+                html: "Reservation for <strong>" + konfCancel + "</strong> will be cancelled.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, cancel',
+                cancelButtonText: 'No, keep it',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire('Cancelled!', 'Reservation has been successfully cancelled.', 'success')
+                        .then(() => {
+                            form.submit();
+                        });
+                }
+            });
+        });
+    </script> --}}
+
 
     <script src="{{ asset('frontend/style/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 </body>

@@ -20,7 +20,7 @@
                                                 width="100%">
                                             <p></p>
                                         @else
-                                            <img src="{{ asset('storage/img-user/img-default.jpg') }}" class="foto-preview"
+                                            <img src="{{ asset('img/img_default.jpg') }}" class="foto-preview"
                                                 width="100%">
                                             <p></p>
                                         @endif

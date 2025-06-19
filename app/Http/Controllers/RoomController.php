@@ -29,7 +29,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        $roomCategory = RoomCategory::orderBy('category_name', 'asc')->get();
+        $roomCategory = RoomCategory::where('number_of_rooms', '>', 0)->orderBy('category_name', 'asc')->get();
         $features = Feature::all(); // ambil semua fitur
         // $guest = Guest::orderBy('nama', 'asc')->get();
         return view('backend.v_room.create', [
@@ -115,7 +115,7 @@ class RoomController extends Controller
     {
         $room = Room::findOrFail($id);
         $features = Feature::all();
-        $roomCategory = RoomCategory::orderBy('category_name', 'asc')->get();
+        $roomCategory = RoomCategory::where('number_of_rooms', '>', 0)->orderBy('category_name', 'asc')->get();
         return view('backend.v_room.edit', [
             'judul' => 'Edit This Room',
             'edit' => $room,
@@ -132,12 +132,9 @@ class RoomController extends Controller
         $room = Room::findOrFail($id);
         $rules = [
             'room_name' => 'required|max:255|unique:rooms,room_name,' . $id,
-            // 'room_categories_id' => 'required|unique:room_categories,category_name,' . $id,
             'room_categories_id' => 'required|exists:room_categories,id',
             'status' => 'required|boolean',
-            // 'detail' => 'required',
             'price' => 'required',
-            // 'number_of_rooms' => 'required',
             'foto' => 'nullable|image|mimes:jpeg,jpg,png,gif|file|max:10024',
         ];
         $messages = [
@@ -194,6 +191,7 @@ class RoomController extends Controller
         }
 
         $room->update($validatedData);
+        $room->features()->sync($request->input('features', []));
         return redirect()->route('backend.room.index')->with('success', 'Data Updated Successfully');
     }
 

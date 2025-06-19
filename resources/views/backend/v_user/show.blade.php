@@ -11,8 +11,8 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Foto</label>
-                                    @if ($guest->foto)
-                                        <img src="{{ asset('storage/img-user/' . $guest->foto) }}" class="foto-preview"
+                                    @if ($show->foto)
+                                        <img src="{{ asset('storage/img-user/' . $show->foto) }}" class="foto-preview"
                                             width="100%">
                                     @else
                                         <img src="{{ asset('img/img_default.jpg') }}" class="foto-preview" width="100%">
@@ -21,23 +21,35 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
+                                    <label>User ID</label>
+                                    <input type="text" class="form-control" value="{{ $show->id }}" readonly>
+                                </div>
+                                <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="form-control" value="{{ $guest->name }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $show->name }}" readonly>
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" class="form-control" value="{{ $guest->email }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $show->email }}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label>No. HP</label>
-                                    <input type="text" class="form-control" value="{{ $guest->no_hp }}" readonly>
+                                    <label>Role</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $show->role == 0 ? 'User' : ($show->role == 1 ? 'Admin' : 'Resepsionis') }}"
+                                        readonly>
                                 </div>
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <input type="text" class="form-control"
+                                        value="{{ $show->status == 0 ? 'Non-Active' : 'Active' }}" readonly>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="border-top">
                         <div class="card-body">
-                            <a href="{{ route('backend.guest.index') }}">
+                            <a href="{{ route('backend.user.index') }}">
                                 <button type="button" class="btn btn-secondary">Back</button>
                             </a>
                         </div>

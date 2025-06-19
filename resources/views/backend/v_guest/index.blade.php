@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $judul }}</h5>
                     <div class="table-responsive">
-                        <table id="guest_table" class="table table-striped table-bordered">
+                        <table id="zero_config  " class="table table-striped table-bordered">
                             <thead>
                                 <tr>
                                     <th>No</th>

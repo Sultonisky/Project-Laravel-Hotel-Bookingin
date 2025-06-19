@@ -15,13 +15,11 @@
                                     <th>No.</th>
                                     <th>Guest Name</th>
                                     <th>Room Name</th>
-                                    <th>Room Price</th>
                                     <th>Check-in Date</th>
                                     <th>Check-out Date</th>
                                     <th>Total Payment</th>
                                     <th>Payment Method</th>
-                                    {{-- <th>Created By</th>
-                                    <th>Updated By</th> --}}
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -31,7 +29,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $row->guest->name }}</td>
                                         <td>{{ $row->room->room_name }}</td>
-                                        <td> IDR. {{ number_format($row->room->price, 0, ',', '.') }}</td>
+                                        {{-- <td> IDR. {{ number_format($row->room->price, 0, ',', '.') }}</td> --}}
                                         <td>{{ $row->checkin_date }}</td>
                                         <td>{{ $row->checkout_date }}</td>
                                         <td>IDR. {{ number_format($row->total_payment, 0, ',', '.') }}</td>
@@ -42,6 +40,15 @@
                                                 <span class="badge badge-success">Credit Card</span>
                                             @elseif ($row->payment_method == 2)
                                                 <span class="badge badge-primary">e-Wallet</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($row->status == 'pending')
+                                                <span class="badge badge-warning fw-bold">Pending</span>
+                                            @elseif ($row->status == 'success')
+                                                <span class="badge badge-success fw-bold">Success</span>
+                                            @elseif ($row->status == 'canceled')
+                                                <span class="badge badge-danger fw-bold">Canceled</span>
                                             @endif
                                         </td>
                                         {{-- <td>{{ $row->createdBy->name ?? '-' }}</td>
@@ -69,6 +76,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-secondary btn-sm show_cancel"
+                                                        data-konf-cancel="{{ $row->booking_code }}"
                                                         title="Cancel Reservation">
                                                         <i class="fas fa-ban"></i>
                                                     </button>
@@ -79,7 +87,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm show_confirm"
-                                                        title="Delete Data">
+                                                        data-konf-delete="{{ $row->booking_code }}" title="Delete Data">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
                                                 </form>

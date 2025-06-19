@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\Room;
 use App\Models\Guest;
 use App\Models\Reservation;
@@ -10,9 +12,6 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $reservation = Reservation::orderBy('updated_at', 'desc')->get();
@@ -22,23 +21,16 @@ class ReservationController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        // Ambil data tamu, diurutkan berdasarkan nama
         $guest = Guest::orderBy('name', 'asc')->get();
-
-        // Ambil hanya kamar yang berstatus Ready dan kategori dengan jumlah kamar > 0
-        $room = Room::where('status', 1) // Filter kamar dengan status "Ready"
+        $room = Room::where('status', 1)
             ->whereHas('category', function ($query) {
-                $query->where('number_of_rooms', '>', 0); // Filter kategori dengan kamar yang tersedia
+                $query->where('number_of_rooms', '>', 0);
             })
-            ->orderBy('room_name', 'asc') // Urutkan berdasarkan nama kamar
+            ->orderBy('room_name', 'asc')
             ->get();
 
-        // Kirim data ke view
         return view('backend.v_reservation.create', [
             'judul' => 'Add Reservation Data',
             'guests' => $guest,
@@ -46,10 +38,6 @@ class ReservationController extends Controller
         ]);
     }
 
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -58,58 +46,48 @@ class ReservationController extends Controller
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
             'payment_method' => 'required',
+            'status' => 'required|in:pending,success,canceled',
         ]);
 
+        // $validatedData['status'] = 'pending';
+        $validatedData['created_by'] = auth()->id();
+        $validatedData['updated_by'] = auth()->id();
 
-        $validatedData['created_by'] = auth()->user()->id;
-        $validatedData['updated_by'] = auth()->user()->id;
+        // Tambahkan booking_code unik
+        $validatedData['booking_code'] = 'BOOK-' . now()->format('Ymd') . '-' . strtoupper(Str::random(8));
 
-        // Ambil data kamar berdasarkan rooms_id
-        $room = Room::findOrFail($request->rooms_id);
-
-        // Ambil kategori kamar terkait
+        // Hitung total pembayaran
+        $room = Room::findOrFail($validatedData['rooms_id']);
         $category = RoomCategory::findOrFail($room->room_categories_id);
 
-        // Menghitung total pembayaran
-        $room = Room::findOrFail($validatedData['rooms_id']);
-        $days = (new \Carbon\Carbon($validatedData['checkout_date']))
-            ->diffInDays(new \Carbon\Carbon($validatedData['checkin_date']));
-        $validatedData['total_payment'] = $days * $room->price;
-
-
+        $days = Carbon::parse($validatedData['checkout_date'])->diffInDays(
+            Carbon::parse($validatedData['checkin_date'])
+        );
+        $room_price_total = $days * $room->price;
+        $tax = $room_price_total * 0.01; // 0.1%
+        $service = 50000 * $days;
+        $validatedData['total_payment'] = $room_price_total + $tax + $service;
         // Periksa ketersediaan kamar di kategori
         if ($category->number_of_rooms <= 0) {
             return redirect()->back()->withErrors(['rooms_id' => 'Room category is no longer available.']);
         }
 
-        // Kurangi jumlah kamar di kategori
+        // Update stok kamar dan status
         $category->decrement('number_of_rooms');
+        $room->update(['status' => 0]);
 
-        // Ubah status kamar menjadi booked
-        $room->update(['status' => '0']);
-
-        // Simpan data reservasi
         Reservation::create($validatedData);
 
         return redirect()->route('backend.reservation.index')->with('success', 'Data Saved Successfully');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show($id)
     {
         $reservation = Reservation::with(['guest', 'room'])->findOrFail($id);
-
         return view('backend.v_reservation.show', compact('reservation'));
     }
 
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit($id)
     {
         $reservation = Reservation::with(['guest', 'room'])->findOrFail($id);
         $guests = Guest::orderBy('name', 'asc')->get();
@@ -123,68 +101,59 @@ class ReservationController extends Controller
         ]);
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        // Validasi input
         $validatedData = $request->validate([
             'guests_id' => 'required|exists:guests,id',
             'rooms_id' => 'required|exists:rooms,id',
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
             'payment_method' => 'required',
+            'status' => 'required|in:pending,success,canceled',
         ]);
 
-        // Menambahkan kolom updated_by
         $validatedData['updated_by'] = auth()->id();
 
-        // Update data
+        // Ambil data kamar & hitung ulang total
+        $room = Room::findOrFail($validatedData['rooms_id']);
+        $days = Carbon::parse($validatedData['checkout_date'])->diffInDays(
+            Carbon::parse($validatedData['checkin_date'])
+        );
+        $room_price_total = $days * $room->price;
+        $tax = $room_price_total * 0.01;
+        $service = 50000;
+        $validatedData['total_payment'] = $room_price_total + $tax + $service;
+
         Reservation::where('id', $id)->update($validatedData);
 
-        // Redirect ke halaman index
         return redirect()->route('backend.reservation.index')->with('success', 'Data Updated Successfully');
     }
 
 
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $reservation = Reservation::findOrFail($id);
         $reservation->delete();
-        return redirect()->route('backend.reservation.index')->with('success', 'Data Saved Successfully');
+        return redirect()->route('backend.reservation.index')->with('success', 'Data Deleted Successfully');
     }
 
-
-    // cancel reservation
     public function cancel($id)
     {
-        // Cari reservasi berdasarkan ID
         $reservation = Reservation::findOrFail($id);
 
-        // Ambil data kamar terkait
+        // Set kamar jadi ready
         $room = Room::findOrFail($reservation->rooms_id);
-        $room->update(['status' => '1']);
+        $room->update(['status' => 1]);
 
-        // Kembalikan jumlah kamar di kategori terkait
+        // Tambah stok kamar kategori
         $category = RoomCategory::findOrFail($room->room_categories_id);
         $category->increment('number_of_rooms');
 
-        // Hapus data reservasi
         $reservation->delete();
 
-        // Redirect ke halaman daftar reservasi dengan pesan sukses
         return redirect()->route('backend.reservation.index')->with('success', 'Reservation successfully canceled.');
     }
 
-
-
-    // Method untuk Form Laporan Produk 
     public function formReservation()
     {
         return view('backend.v_reservation.form', [
@@ -192,10 +161,8 @@ class ReservationController extends Controller
         ]);
     }
 
-    // Method untuk Cetak Laporan Produk 
     public function printReport(Request $request)
     {
-        // Validasi input
         $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -205,17 +172,14 @@ class ReservationController extends Controller
             'end_date.after_or_equal' => 'The End Date must be greater than or equal to the Start Date.',
         ]);
 
-        // Ambil input tanggal
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
 
-        // Query data reservasi berdasarkan rentang tanggal
-        $reservations = Reservation::with(['guest', 'room']) // Pastikan relasi di-load
+        $reservations = Reservation::with(['guest', 'room'])
             ->whereBetween('checkin_date', [$startDate, $endDate])
             ->orderBy('id', 'desc')
             ->get();
 
-        // Kirim data ke view cetak
         return view('backend.v_reservation.print', [
             'judul' => 'Reservation Data Report',
             'startDate' => $startDate,
@@ -232,21 +196,25 @@ class ReservationController extends Controller
 
     public function reschedule(Request $request, $id)
     {
-        // Validasi input tanggal
         $validatedData = $request->validate([
             'checkin_date' => 'required|date|after_or_equal:today',
             'checkout_date' => 'required|date|after:checkin_date',
         ]);
 
-        // Ambil data reservasi berdasarkan ID
         $reservasi = Reservation::findOrFail($id);
-
-        // Update tanggal check_in dan check_out
         $reservasi->checkin_date = $validatedData['checkin_date'];
         $reservasi->checkout_date = $validatedData['checkout_date'];
+        $reservasi->total_payment = $reservasi->calculateTotalPayment(
+            $validatedData['checkin_date'],
+            $validatedData['checkout_date']
+        );
+
+        // Gunakan helper di model
+        $reservasi->total_payment = $reservasi->calculateTotalPayment();
+        $reservasi->updated_by = auth()->id();
+
         $reservasi->save();
 
-        // Redirect ke halaman index reservasi dengan pesan sukses
-        return redirect()->route('backend.reservation.index')->with('success', 'reschedule successfully');
+        return redirect()->route('backend.reservation.index')->with('success', 'Reschedule successfully.');
     }
 }
