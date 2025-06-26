@@ -72,6 +72,24 @@ Route::middleware(['auth'])->group(function () {
 
         // Kontak
         Route::resource('backend/contact', ContactController::class, ['as' => 'backend']);
+
+        // Route untuk data trashed dan restore (khusus admin)
+        Route::prefix('backend/reservation')->name('backend.reservation.')->group(function () {
+            Route::get('trashed', [\App\Http\Controllers\ReservationController::class, 'trashed'])->name('trashed');
+            Route::post('restore/{id}', [\App\Http\Controllers\ReservationController::class, 'restore'])->name('restore');
+        });
+        Route::prefix('backend/guest')->name('backend.guest.')->group(function () {
+            Route::get('trashed', [\App\Http\Controllers\GuestController::class, 'trashed'])->name('trashed');
+            Route::post('restore/{id}', [\App\Http\Controllers\GuestController::class, 'restore'])->name('restore');
+        });
+        Route::prefix('backend/room')->name('backend.room.')->group(function () {
+            Route::get('trashed', [\App\Http\Controllers\RoomController::class, 'trashed'])->name('trashed');
+            Route::post('restore/{id}', [\App\Http\Controllers\RoomController::class, 'restore'])->name('restore');
+        });
+        Route::prefix('backend/user')->name('backend.user.')->group(function () {
+            Route::get('trashed', [\App\Http\Controllers\UserController::class, 'trashed'])->name('trashed');
+            Route::post('restore/{id}', [\App\Http\Controllers\UserController::class, 'restore'])->name('restore');
+        });
     });
 });
 

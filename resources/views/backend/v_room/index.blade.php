@@ -9,6 +9,11 @@
                 <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i>
                     Add Room</button>
             </a>
+            @if(auth()->user() && auth()->user()->role == 1)
+            <a href="{{ route('backend.room.trashed') }}">
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Lihat Data Dihapus</button>
+            </a>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title"> {{ $judul }} </h5>

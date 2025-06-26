@@ -1,5 +1,3 @@
-
-
 @extends('frontend.v_layouts.app')
 @section('title', 'Contact')
 @section('content')
@@ -9,9 +7,9 @@
         <div class="container">
             <h2 class="text-center mb-1">Contact Us</h2>
             <p class="text-white mb-4 text-center">You can contact us here and we will help you </p>
-            <div class="row">
+            <div class="row contact-row">
                 <!-- Contact Form -->
-                <div class="col-md-6">
+                <div class="col-md-6 contact-form-col">
                     <form action="{{ route('contact.store') }}" method="POST">
                         @csrf
                         <div class="mb-3">
@@ -36,7 +34,7 @@
                 </div>
 
                 <!-- Google Map -->
-                <div class="col-md-6 mt-4 mt-md-0">
+                <div class="col-md-6 mt-4 mt-md-0 contact-map-col">
                     <div class="map-responsive rounded shadow border border-secondary">
 
                         <iframe

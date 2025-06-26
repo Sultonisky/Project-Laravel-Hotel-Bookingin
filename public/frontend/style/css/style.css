@@ -371,7 +371,7 @@ nav .navbar-own {
 
 .form-control:focus {
     border-color: #0d6efd !important;
-    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.15);
+    box-shadow: 0 0 0 0.15rem rgba(13, 110, 253, 0.15);
     background-color: #181d2a;
     color: #fff;
 }
@@ -494,7 +494,7 @@ nav .navbar-own {
     overflow: hidden;
 }
 .nav-link::after {
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     left: 0;
@@ -503,7 +503,7 @@ nav .navbar-own {
     height: 3px;
     background: #fff;
     transform: scaleX(0);
-    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-radius: 2px;
     transform-origin: left;
 }
@@ -590,6 +590,133 @@ nav .navbar-own {
     }
 }
 @media (max-width: 576px) {
-    .footer-icon { font-size: 1.4rem; }
-    .footer-pro .fw-bold.fs-5 { font-size: 1.1rem; }
+    .footer-icon {
+        font-size: 1.4rem;
+    }
+    .footer-pro .fw-bold.fs-5 {
+        font-size: 1.1rem;
+    }
 }
+
+/* =====================
+   CUSTOM FIX: Date Input Visibility (index.blade.php)
+   ===================== */
+input[type="date"] {
+  color: #232323 !important;
+  background: #fff !important;
+  border: 1px solid #b3b3b3 !important;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+@media (max-width: 700px) {
+    .content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .right-content {
+        position: static;
+        width: 100%;
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .right-thumbnails {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        width: 100%;
+        justify-content: center;
+    }
+    .thumb-img {
+        width: 100%;
+        max-width: 320px;
+        height: 120px;
+        margin: 0 auto;
+        display: block;
+    }
+    #room-details {
+        padding: 16px 0;
+    }
+    .room-content {
+        max-width: 100%;
+        padding: 0 6px;
+    }
+    .main-image img {
+        height: 180px;
+        min-height: 120px;
+        border-radius: 8px;
+    }
+    .room-features {
+        gap: 4px;
+        margin-bottom: 12px;
+    }
+    .feature-item {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+    .room-description p {
+        font-size: 14px;
+        margin-bottom: 12px;
+    }
+    .room-title h1 {
+        font-size: 20px;
+        margin-bottom: 4px;
+    }
+    .room-title h6 {
+        font-size: 13px;
+    }
+    .room-price {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    .book-now-btn,
+    .room-title .btn {
+        width: 100%;
+        margin: 8px 0 0 0;
+        padding: 10px 0;
+        font-size: 15px;
+    }
+    .room-title {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+}
+
+.room-actions {
+    display: flex;
+    gap: 10px;
+}
+
+@media (max-width: 576px) {
+    .room-title {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+    .room-actions {
+        flex-direction: column-reverse;
+        gap: 8px;
+    }
+    .room-actions .book-now-btn,
+    .room-actions .btn {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media (max-width: 576px) {
+    .contact-row {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+    .contact-map-col {
+        order: 1;
+    }
+    .contact-form-col {
+        order: 2;
+    }
+}
+

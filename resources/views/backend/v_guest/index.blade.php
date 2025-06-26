@@ -8,6 +8,11 @@
                     <i class="fas fa-plus"></i> Add Guest
                 </button>
             </a>
+            @if(auth()->user() && auth()->user()->role == 1)
+            <a href="{{ route('backend.guest.trashed') }}">
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Lihat Data Dihapus</button>
+            </a>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ $judul }}</h5>

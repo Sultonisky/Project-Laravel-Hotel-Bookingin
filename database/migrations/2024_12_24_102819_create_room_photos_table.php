@@ -16,6 +16,7 @@
                 $table->unsignedBigInteger('room_id');
                 $table->string('foto');
                 $table->timestamps();
+                
                 $table->foreign('room_id')
                     ->references('id')
                     ->on('rooms')

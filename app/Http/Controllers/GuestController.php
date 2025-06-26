@@ -134,4 +134,26 @@ class GuestController extends Controller
         $guest->delete();
         return redirect()->route('backend.guest.index')->with('success', 'Data Deleted Successfully');
     }
+
+    /**
+     * Tampilkan data tamu yang sudah dihapus (soft delete)
+     */
+    public function trashed()
+    {
+        $trashed = Guest::onlyTrashed()->get();
+        return view('backend.v_guest.trashed', [
+            'judul' => 'Trashed Guests',
+            'trashed' => $trashed,
+        ]);
+    }
+
+    /**
+     * Restore data tamu yang sudah dihapus (soft delete)
+     */
+    public function restore($id)
+    {
+        $guest = Guest::onlyTrashed()->findOrFail($id);
+        $guest->restore();
+        return redirect()->route('backend.guest.trashed')->with('success', 'Data tamu berhasil dipulihkan!');
+    }
 }

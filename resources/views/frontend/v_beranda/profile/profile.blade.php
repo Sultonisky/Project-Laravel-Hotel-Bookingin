@@ -1,99 +1,100 @@
 @extends('frontend.v_layouts.app')
-@section('title', 'Contact')
+@section('title', 'Profile')
 @section('content')
 
-    <div class="hero-bg">
-        <div class="hero-content">
-            <h1>Get In Touch</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Ut enim ad minim veniam, quis nostrud</p>
+<div class="container py-5">
+    <div class="section-title mb-4">My Profile</div>
+    <div id="profile-view-mode">
+        <div class="profile-card mx-auto mb-5">
+            @if (Auth::user()->foto)
+            <img src="{{ asset('storage/img-user/' . (Auth::user()->foto)) }}" alt="Foto Profil"
+                class="profile-img shadow rounded-circle border border-3 border-primary mb-3" style="width:120px;height:120px;object-fit:cover;">
+            @else 
+            <img src="{{ asset('img/img_default.jpg') }}" alt="user" class="rounded-circle me-2"
+            width="120px" height="120px" style="object-fit:cover;">
+            @endif
+            <div class="profile-name">{{ Auth::user()->name }}</div>
+            <span class="profile-email">{{ Auth::user()->email }}</span>
+            
+            <button class="profile-edit-btn" id="editProfileBtn">Edit</button>
         </div>
     </div>
-    <div class="section-title">My Contact</div>
-    <div class="profile-card">
-        @auth
-            <img src="{{ asset('storage/img-user/' . (Auth::user()->foto ?? 'img-default.jpg')) }}" alt="Foto Profil"
-                class="profile-img shadow">
-            <div class="profile-name">{{ Auth::user()->name }}</div>
-            <div class="profile-info">
-                <span class="material-symbols-outlined">mail</span>
-                {{ Auth::user()->email }}
+    <div id="profile-edit-mode" style="display:none;">
+        <div class="profile-figma-container" style="box-shadow:0 8px 32px rgba(0,0,0,0.10);background:#ededed;border-radius:24px;">
+            <!-- Kiri: Info User -->
+            <div class="col-md-5 profile-figma-left d-flex flex-column align-items-center justify-content-center p-4 position-relative" style="background:#ededed;border-radius:24px 0 0 24px;">
+                @if (Auth::user()->foto)
+                <img src="{{ asset('storage/img-user/' . (Auth::user()->foto)) }}"
+                    alt="Foto Profil" class="profile-figma-img rounded-circle border border-3 border-primary mb-3" style="width:120px;height:120px;object-fit:cover;">
+                @else
+                <img src="{{ asset('img/img_default.jpg') }}" alt="user" class="rounded-circle me-2"
+                width="120px" height="120px" style="object-fit:cover;">
+                @endif
+                <div class="profile-figma-name mb-2">{{ Auth::user()->name }}</div>
+                <span>{{ Auth::user()->email }}</span>
+               
             </div>
-
-            <button class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
-        @endauth
-    </div>
-    <!-- Modal Edit Profile -->
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content profile-figma-container">
-                <!-- Kiri: Info User -->
-                <div class="profile-figma-left">
-                    <img src="{{ asset('storage/img-user/' . (Auth::user()->foto ?? 'img-default.jpg')) }}"
-                        alt="Foto Profil" class="profile-figma-img">
-                    <div class="profile-figma-name">{{ Auth::user()->name }}</div>
-                    <div class="profile-figma-info">
-                        <div class="profile-figma-row">
-                            <span class="material-symbols-outlined profile-figma-icon">mail</span>
-                            <span>{{ Auth::user()->email }}</span>
+            <!-- Kanan: Form Edit -->
+            <div class="col-md-7 profile-figma-right position-relative p-4" style="background:#ededed;border-radius:0 24px 24px 0;">
+                <div class="profile-figma-title mb-1">Edit Profile</div>
+                <div class="profile-figma-desc text-white mb-3">Update your profile information below</div>
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data" style="width:100%">
+                    @csrf
+                    @method('put')
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Full Name</label>
+                            <input type="text" name="name" class="form-control text-black" value="{{ Auth::user()->name }}">
                         </div>
-                        <div class="profile-figma-row">
-                            <span class="material-symbols-outlined profile-figma-icon">call</span>
-                            <span>{{ Auth::user()->no_telp ?? '-' }}</span>
+                        <div class="col-md-6 mb-3">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control text-black" value="{{ Auth::user()->email }}">
                         </div>
                     </div>
-                </div>
-                <!-- Kanan: Form Edit -->
-                <div class="profile-figma-right">
-                    <button type="button" class="profile-figma-close" data-bs-dismiss="modal"
-                        aria-label="Close">&times;</button>
-                    <div class="profile-figma-title">Edit Profile</div>
-                    <div class="profile-figma-desc">Update your profile information below</div>
-                    <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data"
-                        style="width:100%">
-                        @csrf
-                        @method('put')
-                        <div class="profile-figma-form-row">
-                            <div class="profile-figma-form-group">
-                                <label>Full Name</label>
-                                <input type="text" name="name" class="form-control" value="{{ Auth::user()->name }}">
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>Password Baru <span class="text-muted">(opsional)</span></label>
+                            <input type="password" name="new_password" class="form-control" placeholder="Min 8 karakter">
                         </div>
-                        <div class="profile-figma-form-row">
-                            <div class="profile-figma-form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}">
-                            </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Konfirmasi Password Baru <span class="text-muted">(opsional)</span></label>
+                            <input type="password" name="new_password_confirmation" class="form-control" placeholder="Min 8 karakter">
                         </div>
-
-                        <div class="profile-figma-form-row">
-                            <div class="profile-figma-form-group">
-                                <label>Password Baru <span class="text-muted">(opsional)</span></label>
-                                <input type="password" name="new_password" class="form-control"
-                                    placeholder="Min 8 karakter">
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label>Profile Photo</label>
+                            <input type="file" name="foto" class="form-control">
                         </div>
-                        <div class="profile-figma-form-row">
-                            <div class="profile-figma-form-group">
-                                <label>Konfirmasi Password Baru <span class="text-muted">(opsional)</span></label>
-                                <input type="password" name="new_password_confirmation" class="form-control"
-                                    placeholder="Min 8 karakter">
-                            </div>
-                        </div>
-                        <div class="profile-figma-form-row">
-                            <div class="profile-figma-form-group">
-                                <label>Profile Photo</label>
-                                <input type="file" name="foto" class="form-control">
-                            </div>
-                        </div>
-                        <div class="profile-figma-form-row">
-                            <button type="submit" class="profile-figma-btn">Save Changes</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="profile-figma-btn w-100">Save Changes</button>
+                        <button type="button" class="btn btn-secondary ms-2" id="cancelEditBtn">Cancel</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var editBtn = document.getElementById('editProfileBtn');
+        var cancelBtn = document.getElementById('cancelEditBtn');
+        var viewMode = document.getElementById('profile-view-mode');
+        var editMode = document.getElementById('profile-edit-mode');
+        if(editBtn) {
+            editBtn.addEventListener('click', function() {
+                viewMode.style.display = 'none';
+                editMode.style.display = 'block';
+            });
+        }
+        if(cancelBtn) {
+            cancelBtn.addEventListener('click', function() {
+                editMode.style.display = 'none';
+                viewMode.style.display = 'block';
+            });
+        }
+    });
+</script>
 @endsection

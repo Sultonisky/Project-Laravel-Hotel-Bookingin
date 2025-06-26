@@ -133,6 +133,7 @@ class ReservationController extends Controller
     public function destroy($id)
     {
         $reservation = Reservation::findOrFail($id);
+        // Soft delete: data tidak dihapus permanen, hanya disembunyikan
         $reservation->delete();
         return redirect()->route('backend.reservation.index')->with('success', 'Data Deleted Successfully');
     }
@@ -140,17 +141,14 @@ class ReservationController extends Controller
     public function cancel($id)
     {
         $reservation = Reservation::findOrFail($id);
-
         // Set kamar jadi ready
         $room = Room::findOrFail($reservation->rooms_id);
         $room->update(['status' => 1]);
-
         // Tambah stok kamar kategori
         $category = RoomCategory::findOrFail($room->room_categories_id);
         $category->increment('number_of_rooms');
-
+        // Soft delete: data tidak dihapus permanen, hanya disembunyikan
         $reservation->delete();
-
         return redirect()->route('backend.reservation.index')->with('success', 'Reservation successfully canceled.');
     }
 
@@ -216,5 +214,27 @@ class ReservationController extends Controller
         $reservasi->save();
 
         return redirect()->route('backend.reservation.index')->with('success', 'Reschedule successfully.');
+    }
+
+    /**
+     * Tampilkan data reservasi yang sudah dihapus (soft delete)
+     */
+    public function trashed()
+    {
+        $trashed = Reservation::onlyTrashed()->with(['guest', 'room'])->get();
+        return view('backend.v_reservation.trashed', [
+            'judul' => 'Trashed Reservations',
+            'trashed' => $trashed,
+        ]);
+    }
+
+    /**
+     * Restore data reservasi yang sudah dihapus (soft delete)
+     */
+    public function restore($id)
+    {
+        $reservation = Reservation::onlyTrashed()->findOrFail($id);
+        $reservation->restore();
+        return redirect()->route('backend.reservation.trashed')->with('success', 'Data berhasil dipulihkan!');
     }
 }

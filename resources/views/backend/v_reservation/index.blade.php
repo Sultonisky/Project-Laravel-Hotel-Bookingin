@@ -5,8 +5,16 @@
             <a href="{{ route('backend.reservation.create') }}">
                 <button type="button" class="btn btn-primary"><i class="fas fa-plus"></i> Add Data Reservation</button>
             </a>
+            @if(auth()->user() && auth()->user()->role == 1)
+            <a href="{{ route('backend.reservation.trashed') }}">
+                <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i> Lihat Data Dihapus</button>
+            </a>
+            @endif
             <div class="card">
                 <div class="card-body">
+                    <div class="alert alert-info">
+                        <strong>Catatan:</strong> Data reservasi yang dihapus hanya disembunyikan (soft delete), tidak dihapus permanen. Data masih bisa dipulihkan oleh admin jika diperlukan.
+                    </div>
                     <h5 class="card-title"> {{ $judul }} </h5>
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-striped table-bordered">

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->double('price');
             $table->string('foto'); // Thumbnail image 
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('room_categories_id')
                 ->references('id')
                 ->on('room_categories')

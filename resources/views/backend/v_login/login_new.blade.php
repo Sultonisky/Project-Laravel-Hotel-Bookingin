@@ -12,14 +12,14 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="left-panel">
+    <div class="login-container">
+        <div class="login-left-panel">
             <div class="logo">
                 <img src="{{ asset('frontend/images/logo-hd.png') }}" alt="Logo Bookingin" />
             </div>
         </div>
 
-        <div class="right-panel">
+        <div class="login-right-panel">
             <div class="input-form">
                 <h2>Login</h2>
 
@@ -27,6 +27,7 @@
                 @if (session()->has('error'))
                     <div class="alert-error">
                         {{ session('error') }}
+                        <span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span>
                     </div>
                 @endif
 
@@ -60,7 +61,10 @@
                         <a href="#">Forgot password?</a>
                     </div> --}}
 
-                    <button type="submit" name="login">LOGIN</button>
+                    <button type="submit" name="login">
+                        <span class="spinner"></span>
+                        <span>LOGIN</span>
+                    </button>
                     <a href="{{ url('auth/google') }}" class="google-btn">
                         <i class="fab fa-google"></i> Login with Google
                     </a>
@@ -85,6 +89,17 @@
             this.classList.toggle('fa-eye');
             this.classList.toggle('fa-eye-slash');
         });
+    </script>
+    <script>
+    document.querySelectorAll('.input-form form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.classList.add('button-loading');
+                btn.disabled = true;
+            }
+        });
+    });
     </script>
 
 </body>

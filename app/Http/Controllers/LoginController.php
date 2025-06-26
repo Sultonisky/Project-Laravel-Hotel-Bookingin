@@ -21,25 +21,28 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-
-            if ($user->status == 0) {
-                Auth::logout();
-                return back()->with('error', 'User Status is Not Active!');
-            }
-
-            $request->session()->regenerate();
-
-            // Redirect sesuai role
-            if ($user->role === 1 || $user->role === 2) {
-                return redirect()->route('backend.beranda'); // Admin & resepsionis
-            } else {
-                return redirect()->route('beranda'); // User biasa
-            }
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
+        if (!$user) {
+            return back()->with('error', 'Email is incorrect, please enter the correct email!');
         }
 
-        return back()->with('error', 'Incorrect email or password');
+        if (!\Illuminate\Support\Facades\Hash::check($credentials['password'], $user->password)) {
+            return back()->with('error', 'Password is incorrect, please enter the correct password!');
+        }
+
+        if ($user->status == 0) {
+            return back()->with('error', 'User Status is Not Active!');
+        }
+
+        Auth::login($user);
+        $request->session()->regenerate();
+
+        // Redirect sesuai role
+        if ($user->role === 1 || $user->role === 2) {
+            return redirect()->route('backend.beranda'); // Admin & resepsionis
+        } else {
+            return redirect()->route('beranda'); // User biasa
+        }
     }
 
     public function logoutBackend()

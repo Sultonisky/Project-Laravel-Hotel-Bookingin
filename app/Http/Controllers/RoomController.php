@@ -324,4 +324,26 @@ class RoomController extends Controller
     //         'room' => $room,
     //     ]);
     // }
+
+    /**
+     * Tampilkan data kamar yang sudah dihapus (soft delete)
+     */
+    public function trashed()
+    {
+        $trashed = Room::onlyTrashed()->get();
+        return view('backend.v_room.trashed', [
+            'judul' => 'Trashed Rooms',
+            'trashed' => $trashed,
+        ]);
+    }
+
+    /**
+     * Restore data kamar yang sudah dihapus (soft delete)
+     */
+    public function restore($id)
+    {
+        $room = Room::onlyTrashed()->findOrFail($id);
+        $room->restore();
+        return redirect()->route('backend.room.trashed')->with('success', 'Data kamar berhasil dipulihkan!');
+    }
 }

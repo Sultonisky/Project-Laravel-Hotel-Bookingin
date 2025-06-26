@@ -8,10 +8,11 @@ use App\Models\Reservation;
 use App\Models\RoomCategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Room extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     public $timestamps = true; // Mengaktifkan timestamps (created_at dan updated_at)
     protected $table = "rooms"; // Nama tabel

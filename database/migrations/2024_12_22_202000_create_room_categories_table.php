@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('number_of_rooms');
             $table->string('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -1,4 +1,4 @@
-@extends('frontend.v_layouts.app')
+{{-- @extends('frontend.v_layouts.app')
 @section('title', 'Contact')
 @section('content')
 
@@ -106,4 +106,4 @@
     </div>
 
 
-@endsection
+@endsection --}}

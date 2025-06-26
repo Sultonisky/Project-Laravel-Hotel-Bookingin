@@ -11,8 +11,13 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="right-panel">
+    <div class="register-container">
+        <div class="register-left-panel">
+            <div class="logo">
+                <img src="{{ asset('frontend/images/logo-hd.png') }}" alt="Logo Bookingin" />
+            </div>
+        </div>
+        <div class="register-right-panel">
             <div class="input-form">
                 <h2>Register</h2>
                 <form action="{{ route('backend.register.submit') }}" method="post">
@@ -22,31 +27,29 @@
                             required />
                         <label for="name">Username</label>
                         <i class="fa-regular fa-user icon-right"></i>
-                        @error('name')
-                            <div class="input-error">{{ $message }}</div>
-                        @enderror
                     </div>
+                    @error('name')
+                        <div class="input-error"><span class="error-icon">⚠️</span>{{ $message }}<span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    @enderror
 
                     <div class="form-floating icon-input">
                         <input type="text" name="email" id="email" value="{{ old('email') }}" placeholder=" "
                             required />
                         <label for="email">Email</label>
                         <i class="fa-regular fa-envelope icon-right"></i>
-                        @error('email')
-                            <div class="input-error">{{ $message }}</div>
-                        @enderror
                     </div>
-
-
+                    @error('email')
+                        <div class="input-error"><span class="error-icon">⚠️</span>{{ $message }}<span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    @enderror
 
                     <div class="form-floating icon-input">
                         <input type="password" name="password" id="password" placeholder=" " required />
                         <label for="password">Password</label>
                         <i class="fa-regular fa-eye toggle-password" id="togglePassword"></i>
-                        @error('password')
-                            <div class="input-error">{{ $message }}</div>
-                        @enderror
                     </div>
+                    @error('password')
+                        <div class="input-error"><span class="error-icon">⚠️</span>{{ $message }}<span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    @enderror
 
                     <div class="form-floating icon-input">
                         <input type="password" name="password_confirmation" id="password_confirmation"
@@ -55,20 +58,17 @@
                             aria-describedby="basic-addon1" required />
                         <label for="password_confirmation">Confirm Password</label>
                         <i class="fa-regular fa-eye toggle-password" id="togglePasswordConfirmation"></i>
-                        @error('password_confirmation')
-                            <span class="invalid-feedback d-block">{{ $message }}</span>
-                        @enderror
                     </div>
+                    @error('password_confirmation')
+                        <div class="input-error"><span class="error-icon">⚠️</span>{{ $message }}<span class="close-error" onclick="this.parentElement.style.display='none';">&times;</span></div>
+                    @enderror
 
-                    <button type="submit" name="register">Register</button>
+                    <button type="submit" name="register">
+                        <span class="spinner"></span>
+                        <span>Register</span>
+                    </button>
                 </form>
                 <p>Already have an account? <a href="{{ route('backend.login.view') }}">Login</a></p>
-            </div>
-        </div>
-
-        <div class="left-panel">
-            <div class="logo">
-                <img src="{{ asset('frontend/images/logo-hd.png') }}" alt="Logo Bookingin" />
             </div>
         </div>
     </div>
@@ -109,7 +109,17 @@
             this.classList.toggle('fa-eye-slash');
         });
     </script>
-
+    <script>
+    document.querySelectorAll('.input-form form').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) {
+                btn.classList.add('button-loading');
+                btn.disabled = true;
+            }
+        });
+    });
+    </script>
 
 </body>
 

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('total_payment', 10, 2)->default(0);
             $table->enum('status', ['pending', 'success', 'canceled'])->default('pending');
             $table->timestamps();
+            $table->softDeletes();
             $table->unsignedBigInteger('created_by')->nullable();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('guests_id')

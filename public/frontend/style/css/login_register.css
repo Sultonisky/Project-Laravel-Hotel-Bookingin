@@ -15,7 +15,8 @@ body {
     min-height: 100vh;
 }
 
-.container {
+/* Container Styles */
+.login-container, .register-container {
     display: flex;
     width: 80%;
     height: 70%;
@@ -24,7 +25,7 @@ body {
 }
 
 /* Left Panel Styles */
-.left-panel {
+.login-left-panel, .register-left-panel {
     width: 50%;
     color: #000;
     display: flex;
@@ -46,7 +47,7 @@ body {
 }
 
 /* Right Panel Styles */
-.right-panel {
+.login-right-panel, .register-right-panel {
     width: 50%;
     background-color: #000;
     display: flex;
@@ -57,6 +58,7 @@ body {
 .input-form {
     text-align: center;
     width: 80%;
+    
 }
 
 .input-form h2 {
@@ -72,13 +74,10 @@ body {
 }
 
 /* Floating Label Styling */
-.form-floating {
-    position: relative;
-    margin-bottom: 20px;
-}
+.form-floating,
 .icon-input {
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
 }
 
 .icon-input input {
@@ -228,19 +227,166 @@ body {
 
 /* Alert */
 .alert-error {
+    display: flex;
+    align-items: center;
     background-color: red;
-    color: white;
-    /* border: 1px solid #d8000c; */
-    padding: 12px 16px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
+    color: #fff;
+    /* border: 1px solid #f5c6cb; */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    gap: 8px;
     font-weight: 500;
+    box-shadow: 0 2px 8px rgba(185,74,72,0.07);
+    line-height: 1.4;
+}
+
+.alert-error .close-error {
+    margin-left: auto;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 12px;
+    transition: color 0.2s;
+}
+
+.alert-error .close-error:hover {
+    color: #000;
 }
 
 .input-error {
-    color: #d8000c;
-    font-size: 14px;
-    margin-top: 12px;
-    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    background-color: red;
+    color: #fff;
+    /* border: 1px solid #f5c6cb; */
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 15px;
+    margin-top: 2px;
+    margin-bottom: 8px;
+    gap: 8px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(185,74,72,0.07);
+    line-height: 1.4;
+}
+
+.input-error .error-icon {
+    font-size: 18px;
+    margin-right: 6px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.input-error .close-error {
+    margin-left: auto;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    padding-left: 12px;
+    transition: color 0.2s;
+}
+
+.input-error .close-error:hover {
+    color: #000;
+}
+
+.icon-input + .input-error {
+    margin-top: 2px;
+    margin-bottom: 8px;
+}
+
+.spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 3px solid #fff;
+    border-top: 3px solid #007bff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+.button-loading .spinner {
+    display: inline-block;
+}
+.button-loading span:not(.spinner) {
+    opacity: 0.6;
+}
+
+@media (max-width: 900px) {
+    .login-container, .register-container {
+        width: 98%;
+    }
+    .input-form {
+        width: 95%;
+    }
+}
+
+@media (max-width: 700px) {
+    .login-container, .register-container {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+    }
+    .login-left-panel, .login-right-panel,
+    .register-left-panel, .register-right-panel {
+        width: 100%;
+    }
+    .login-left-panel, .register-left-panel {
+        padding: 24px 0 12px 0;
+    }
+    .login-right-panel, .register-right-panel {
+        padding: 24px 0 12px 0;
+    }
+    .logo img {
+        width: 180px;
+        height: auto;
+        margin: 0 auto;
+    }
+    .input-form h2 {
+        font-size: 28px;
+    }
+    .input-form {
+        width: 98%;
+        padding: 0 8px;
+    }
+    .form-floating input {
+        font-size: 15px;
+        padding: 14px 12px 10px;
+    }
+    .input-form button, .google-btn {
+        font-size: 15px;
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .input-form h2 {
+        font-size: 22px;
+    }
+    .input-form {
+        width: 100%;
+        padding: 0 2px;
+    }
+    .form-floating input {
+        font-size: 14px;
+        padding: 12px 10px 8px;
+    }
+    .input-form button, .google-btn {
+        font-size: 14px;
+        padding: 9px;
+    }
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('messages');
             $table->timestamps();
+            $table->softDeletes();
             $table->foreign('users_id')
                 ->references('id')
                 ->on('users')

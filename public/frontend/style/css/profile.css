@@ -1,14 +1,19 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,600&display=swap");
+/* THEME COLORS */
+:root {
+    --primary-blue: #006bff;
+    --primary-blue-dark: #0051c7;
+    --white: #fff;
+    --black: #181818;
+    --gray: #ededed;
+    --shadow-blue: 0 8px 32px rgba(0,107,255,0.10);
+}
 
 body {
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    font-family: "Roboto Condensed", Arial, sans-serif;
-    /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 25%, #000 100%),
-        url("../../images/bghotel.jpg") center/cover no-repeat; */
-    background-attachment: fixed;
-    background-attachment: scroll;
+    background: #000;
+}
+
+.container {
+    background: transparent;
 }
 
 .profile-container {
@@ -89,22 +94,26 @@ textarea {
     min-height: 520px;
     margin: 60px auto;
     overflow: hidden;
-    box-shadow: none !important;
-    background: none !important;
-    border-radius: 0 !important;
+    box-shadow: var(--shadow-blue) !important;
+    background: var(--white) !important;
+    border-radius: 24px !important;
     position: relative;
+    transition: box-shadow 0.4s, background 0.3s;
+    animation: fadeInUpProfile 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .profile-figma-left {
     width: 340px;
     min-width: 200px;
-    background: #232323;
+    background: #232323 !important;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 48px 24px;
     border-radius: 24px 0 0 24px;
     justify-content: center;
+    border-right: 1.5px solid var(--gray);
+    transition: box-shadow 0.3s, transform 0.3s, background 0.3s;
 }
 
 .profile-figma-img {
@@ -113,13 +122,13 @@ textarea {
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 32px;
-    border: 4px solid #181818;
-    background: #181818;
+    border: 4px solid var(--primary-blue);
+    background: var(--gray);
 }
 
 .profile-figma-name {
     color: #fff;
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 700;
     margin-bottom: 24px;
     text-align: center;
@@ -136,25 +145,25 @@ textarea {
     align-items: center;
     gap: 10px;
     color: #b3b3b3;
-    font-size: 16px;
+    font-size: 1rem;
     margin-bottom: 12px;
 }
 
 .profile-figma-icon {
     font-size: 20px;
-    color: #b3b3b3;
+    color: var(--primary-blue-dark);
 }
 
 .material-symbols-outlined.profile-figma-icon {
     font-size: 22px;
     vertical-align: middle;
-    color: #b3b3b3;
+    color: var(--primary-blue-dark);
     font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 .profile-figma-right {
     flex: 1;
-    background: #ededed;
+    background: #232323 !important;
     padding: 40px 32px 32px 32px;
     display: flex;
     flex-direction: column;
@@ -186,15 +195,15 @@ textarea {
 }
 
 .profile-figma-title {
-    color: #232323;
-    font-size: 22px;
+    color: var(--primary-blue-dark);
+    font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 2px;
 }
 
 .profile-figma-desc {
-    color: #232323;
-    font-size: 15px;
+    color: var(--black);
+    font-size: 1rem;
     font-weight: 400;
     margin-bottom: 20px;
 }
@@ -213,28 +222,30 @@ textarea {
 }
 
 .profile-figma-form-group label {
-    color: #232323;
-    font-size: 17px;
+    color: #b3b3b3;
+    font-size: 1rem;
     font-weight: 700;
     margin-bottom: 8px;
     letter-spacing: 0.5px;
 }
 
-.profile-figma-form-group input {
-    background: #fff;
-    color: #232323;
-    border: 2px solid #b3b3b3;
+.profile-figma-form-group input,
+.profile-figma-form-group input:focus {
+    background: #fff !important;
+    color: #181818 !important;
+    border: 2px solid var(--gray);
     border-radius: 14px;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     padding: 12px 16px;
     outline: none;
-    transition: border 0.2s;
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
     margin-bottom: 0;
 }
 
 .profile-figma-form-group input:focus {
-    border: 2px solid #006bff;
+    border: 2px solid var(--primary-blue);
+    box-shadow: 0 0 0 2px #b3d4fc;
 }
 
 .profile-figma-form-group input::placeholder {
@@ -247,27 +258,52 @@ textarea {
 .profile-figma-btn {
     width: 180px;
     height: 48px;
-    background: #006bff;
+    background: var(--primary-blue);
     border-radius: 16px;
     border: none;
     color: #fff;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 700;
     font-family: "Roboto Condensed", Arial, sans-serif;
     cursor: pointer;
     margin-top: 8px;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,107,255,0.10);
 }
 
 .profile-figma-btn:hover {
-    background: #0056cc;
+    background: var(--primary-blue-dark);
+    box-shadow: 0 8px 24px rgba(0,107,255,0.18);
+    transform: translateY(-2px) scale(1.03);
+}
+
+.btn-secondary {
+    background: #181818;
+    color: #fff;
+    border-radius: 16px;
+    border: none;
+    font-weight: 600;
+    transition: background 0.2s, color 0.2s;
+    height: 48px;
+    margin-top: 8px;
+}
+.btn-secondary:hover {
+    background: var(--primary-blue-dark);
+    color: #fff;
+}
+
+.d-flex.gap-2 > * {
+    margin-right: 12px;
+}
+.d-flex.gap-2 > *:last-child {
+    margin-right: 0;
 }
 
 /* Responsive: Stack vertically on small screens */
-@media (max-width: 700px) {
+@media (max-width: 1000px) {
     .profile-figma-container {
         flex-direction: column;
         width: 98vw;
@@ -282,9 +318,21 @@ textarea {
     }
     .profile-figma-left {
         border-radius: 24px 24px 0 0;
+        border-right: none;
+        border-bottom: 1.5px solid var(--gray);
     }
     .profile-figma-right {
         border-radius: 0 0 24px 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-content,
+    .profile-card {
+        width: 90vw !important;
+    }
+    .profile-card {
+        padding: 24px 8px;
     }
 }
 
@@ -316,37 +364,53 @@ textarea {
 }
 
 .section-title {
-    color: #fff;
-    font-size: 27px;
-    font-weight: 600;
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 700;
     text-align: center;
     margin: 40px 0 24px 0;
+    letter-spacing: 1px;
 }
 
 .profile-card {
-    background: #424242;
-    border-radius: 18px;
-    border: 2px solid #424242;
-    width: 387px;
+    background: #232323 !important;
+    border-radius: 22px;
+    border: 2px solid var(--primary-blue);
+    width: 400px;
     margin: 0 auto;
     padding: 36px 24px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 18px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    box-shadow: var(--shadow-blue);
+    transition: box-shadow 0.4s, border 0.3s;
+}
+
+.profile-card:hover {
+    box-shadow: 0 12px 40px rgba(0,107,255,0.18);
+    border: 2px solid var(--primary-blue-dark);
 }
 
 .profile-name {
     color: #fff;
-    font-size: 41px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.profile-email {
+    color: #b3b3b3;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: block;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .profile-info {
     color: #b3b3b3;
-    font-size: 18px;
+    font-size: 1.1rem;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -355,28 +419,234 @@ textarea {
 }
 
 .profile-edit-btn {
-    background: #006bff;
+    background: var(--primary-blue);
     color: #fff;
-    font-size: 23px;
+    font-size: 1.2rem;
     font-weight: 600;
     border: none;
     border-radius: 19px;
     width: 200px;
-    height: 63px;
+    height: 56px;
     margin-top: 18px;
-    transition: background 0.2s;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 2px 8px rgba(0,107,255,0.10);
 }
 
 .profile-edit-btn:hover {
-    background: #0051c7;
+    background: var(--primary-blue-dark);
+    box-shadow: 0 8px 24px rgba(0,107,255,0.18);
+    transform: translateY(-2px) scale(1.03);
 }
 
-@media (max-width: 600px) {
-    .hero-content,
-    .profile-card {
-        width: 90vw !important;
+/* Animasi Fade In Kiri */
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.animate-fade-in-left {
+    animation: fadeInLeft 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Animasi Fade In Kanan */
+@keyframes fadeInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.animate-fade-in-right {
+    animation: fadeInRight 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Animasi Container */
+@keyframes fadeInUpProfile {
+    0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.animate-profile {
+    animation: fadeInUpProfile 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Efek Hover Modern pada Form dan Tombol */
+.profile-figma-form-group input:focus {
+    border: 2px solid #006bff;
+    box-shadow: 0 0 0 2px #b3d4fc;
+    
+    transition: box-shadow 0.2s, background 0.2s;
+}
+
+.profile-figma-btn {
+    box-shadow: 0 4px 16px rgba(0,107,255,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+.profile-figma-btn:hover {
+    background: #0056cc;
+    box-shadow: 0 8px 24px rgba(0,107,255,0.18);
+    transform: translateY(-2px) scale(1.03);
+}
+
+/* Efek Hover pada Profile Card */
+.profile-figma-left {
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.profile-figma-left:hover {
+    box-shadow: 0 8px 32px rgba(0,107,255,0.10);
+    transform: translateY(-2px) scale(1.01);
+}
+
+/* Responsive: animasi tetap smooth */
+@media (max-width: 700px) {
+    body, html {
+        padding: 0;
+        margin: 0;
+    }
+    .profile-figma-container {
+        padding-left: 12px !important;
+        padding-right: 12px !important;
     }
     .profile-card {
-        padding: 24px 8px;
+        padding-left: 12px !important;
+        padding-right: 12px !important;
     }
+    .container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+    .animate-fade-in-left, .animate-fade-in-right, .animate-profile {
+        animation-duration: 0.7s;
+    }
+    .profile-figma-container {
+        flex-direction: column !important;
+        width: 98vw !important;
+        min-width: 0 !important;
+        margin: 24px auto !important;
+        min-height: unset !important;
+        border-radius: 18px !important;
+    }
+    .profile-figma-left,
+    .profile-figma-right {
+        border-radius: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 24px 8px !important;
+    }
+    .profile-figma-left {
+        border-radius: 18px 18px 0 0 !important;
+        border-right: none !important;
+        border-bottom: 1.5px solid var(--gray) !important;
+    }
+    .profile-figma-right {
+        border-radius: 0 0 18px 18px !important;
+    }
+    .profile-figma-img {
+        width: 90px !important;
+        height: 90px !important;
+        margin-bottom: 18px !important;
+    }
+    .profile-figma-name {
+        font-size: 1.3rem !important;
+        margin-bottom: 12px !important;
+    }
+    .profile-figma-title {
+        font-size: 1.1rem !important;
+    }
+    .profile-figma-desc {
+        font-size: 0.95rem !important;
+        margin-bottom: 12px !important;
+    }
+    .profile-figma-form-row {
+        flex-direction: column !important;
+        gap: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .profile-figma-form-group {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+    }
+    .profile-figma-btn,
+    .btn-secondary {
+        width: 100% !important;
+        margin-top: 8px !important;
+        height: 44px !important;
+        font-size: 1rem !important;
+    }
+    .d-flex.gap-2 {
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+    .profile-card {
+        width: 98vw !important;
+        padding: 18px 4px !important;
+    }
+    .section-title {
+        font-size: 1.3rem !important;
+        margin: 24px 0 16px 0 !important;
+    }
+}
+
+.profile-figma-right .form-control,
+.profile-figma-right .form-control:focus,
+.profile-figma-right input.form-control,
+.profile-figma-right input.form-control:focus {
+    background: #fff !important;
+    color: #181818 !important;
+    border: 2px solid var(--gray) !important;
+    border-radius: 14px !important;
+    font-size: 1rem !important;
+    font-weight: 600 !important;
+    padding: 12px 16px !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    margin-bottom: 0;
+}
+
+.profile-figma-right .form-control:focus,
+.profile-figma-right input.form-control:focus {
+    border: 2px solid var(--primary-blue) !important;
+    box-shadow: 0 0 0 2px #b3d4fc !important;
+}
+
+@keyframes fadeSlideInRight {
+    0% {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fade-slide-in-right {
+    animation: fadeSlideInRight 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes fadeSlideOutRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+}
+.fade-slide-out-right {
+    animation: fadeSlideOutRight 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }

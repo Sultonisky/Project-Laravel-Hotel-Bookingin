@@ -61,13 +61,13 @@
         /* Tambahan styling untuk input date agar lebih kontras di dark mode */
         input[type="date"].form-control {
             /* background-color: #222;/ */
-            color: #000;
+            color: #fff;
             border: 1px solid #fff;
         }
 
         input[type="date"].form-control:focus {
             /* background-color: #333;/ */
-            color: #000;
+            color: #fff;
             border-color: #80bdff;
             outline: 0;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
@@ -92,15 +92,29 @@
         input[type="date"].form-control::placeholder {
             color: #ccc;
         }
+
+        
+@media (max-width: 576px) {
+    .reservation-row {
+        display: flex;
+        flex-direction: column;
+    }
+    .reservation-room-summary {
+        order: 1;
+    }
+    .reservation-identity-form {
+        order: 2;
+    }
+}
     </style>
 </head>
 
 <body>
     <div class="container py-5">
         <h2 class="fw-bold mb-5 text-center">Detail Payment</h2>
-        <div class="row g-4">
+        <div class="row g-4 reservation-row">
             <!-- Identity Form -->
-            <div class="col-md-6">
+            <div class="col-md-6 reservation-identity-form">
                 <div class="p-4 border rounded identity-form">
                     <h5 class="fw-bold mb-4">Your Identity</h5>
 
@@ -152,7 +166,7 @@
             </div>
 
             <!-- Room Summary -->
-            <div class="col-md-6">
+            <div class="col-md-6 reservation-room-summary">
                 <div class="p-4 border rounded room-summary">
                     <img src="{{ asset('storage/img-room/' . $room->foto) }}" class="img-fluid rounded mb-3"
                         alt="Room Image">
