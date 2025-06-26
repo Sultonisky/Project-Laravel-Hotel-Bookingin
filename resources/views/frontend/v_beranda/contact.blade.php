@@ -1,3 +1,5 @@
+
+
 @extends('frontend.v_layouts.app')
 @section('title', 'Contact')
 @section('content')
@@ -5,7 +7,8 @@
     <!-- Contact Section -->
     <section id="contact" class="py-5 bg-black text-white">
         <div class="container">
-            <h2 class="text-center mb-5">Contact Us</h2>
+            <h2 class="text-center mb-1">Contact Us</h2>
+            <p class="text-white mb-4 text-center">You can contact us here and we will help you </p>
             <div class="row">
                 <!-- Contact Form -->
                 <div class="col-md-6">

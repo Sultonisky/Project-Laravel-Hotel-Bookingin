@@ -57,6 +57,41 @@
         .btn-primary:hover {
             background-color: #0069d9;
         }
+
+        /* Tambahan styling untuk input date agar lebih kontras di dark mode */
+        input[type="date"].form-control {
+            /* background-color: #222;/ */
+            color: #000;
+            border: 1px solid #fff;
+        }
+
+        input[type="date"].form-control:focus {
+            /* background-color: #333;/ */
+            color: #000;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+
+        /* Chrome, Safari, Edge: calendar icon */
+        input[type="date"].form-control::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        /* Firefox: calendar icon */
+        input[type="date"].form-control::-moz-calendar-picker-indicator {
+            filter: invert(1);
+        }
+
+        /* Edge/IE: calendar icon */
+        input[type="date"].form-control::-ms-input-placeholder {
+            color: #fff;
+        }
+
+        /* Placeholder color for date input */
+        input[type="date"].form-control::placeholder {
+            color: #ccc;
+        }
     </style>
 </head>
 
@@ -102,7 +137,15 @@
                             </select>
                         </div>
 
-                        <button type="button" id="pay-button" class="btn btn-primary w-100 mt-2">Confirm
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="1" id="agreeRefund" required>
+                            <label class="form-check-label" for="agreeRefund">
+                                Saya setuju bahwa jika reservasi dibatalkan, uang tidak akan dikembalikan
+                                (non-refundable).
+                            </label>
+                        </div>
+
+                        <button type="button" id="pay-button" class="btn btn-primary w-100 mt-2" disabled>Confirm
                             Reservation</button>
                     </form>
                 </div>
@@ -206,7 +249,18 @@
         checkoutInput.addEventListener('change', updateSummary);
         document.addEventListener("DOMContentLoaded", updateSummary);
 
-        document.getElementById('pay-button').addEventListener('click', function() {
+        const payButton = document.getElementById('pay-button');
+        const agreeRefund = document.getElementById('agreeRefund');
+
+        agreeRefund.addEventListener('change', function() {
+            payButton.disabled = !this.checked;
+        });
+
+        payButton.addEventListener('click', function() {
+            if (!agreeRefund.checked) {
+                alert('Anda harus menyetujui syarat non-refundable sebelum melanjutkan.');
+                return;
+            }
             const form = document.getElementById('bookingForm');
             const formData = new FormData(form);
 

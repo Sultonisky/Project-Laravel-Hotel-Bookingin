@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Room;
+use App\Mail\TestMails;
 use App\Models\Reservation;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
@@ -16,6 +18,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\FrontendRoomController;
 use App\Http\Controllers\RoomCategoryController;
 use App\Http\Controllers\MidtransWebhookController;
+use App\Http\Controllers\Auth\GoogleController;
 
 Route::get('/', function () {
     // return view('welcome'); 
@@ -96,4 +99,9 @@ Route::middleware('auth', 'role:0')->group(function () {
     Route::get('/booking/success/{code}', [BookingController::class, 'success'])->name('frontend.booking.success');
     Route::delete('/booking/{id}/cancel', [BookingController::class, 'cancel'])->name('booking.cancel');
     Route::put('/booking/{id}/reschedule', [BookingController::class, 'reschedule'])->name('booking.reschedule');
+    
 });
+
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+

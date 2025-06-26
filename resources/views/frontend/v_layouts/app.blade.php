@@ -8,6 +8,7 @@
     <title>Bookingin | @yield('title')</title>
     <link href="{{ asset('frontend/style/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/style/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/style/css/profile.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 
@@ -61,7 +62,7 @@
     @endif
 
     <!-- konfirmasi success End-->
-    {{-- 
+
     <script type="text/javascript">
         // Konfirmasi untuk membatalkan reservasi
         $(document).on('click', '.show_cancel', function(event) {
@@ -86,7 +87,7 @@
                 }
             });
         });
-    </script> --}}
+    </script>
 
 
     <script src="{{ asset('frontend/style/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

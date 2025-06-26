@@ -61,8 +61,8 @@
                     </div> --}}
 
                     <button type="submit" name="login">LOGIN</button>
-                    <a href="" class="google-btn">
-                        <i class="fab fa-google"></i>
+                    <a href="{{ url('auth/google') }}" class="google-btn">
+                        <i class="fab fa-google"></i> Login with Google
                     </a>
 
                 </form>

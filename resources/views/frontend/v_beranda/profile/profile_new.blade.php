@@ -19,7 +19,10 @@
                 <span class="material-symbols-outlined">mail</span>
                 {{ Auth::user()->email }}
             </div>
-
+            <div class="profile-info">
+                <span class="material-symbols-outlined">call</span>
+                {{ Auth::user()->no_telp ?? '-' }}
+            </div>
             <button class="profile-edit-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">Edit</button>
         @endauth
     </div>
@@ -62,10 +65,17 @@
                         <div class="profile-figma-form-row">
                             <div class="profile-figma-form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" value="{{ Auth::user()->email }}">
+                                <input type="email" name="email" class="form-control"
+                                    value="{{ Auth::user()->email }}">
                             </div>
                         </div>
-
+                        <div class="profile-figma-form-row">
+                            <div class="profile-figma-form-group">
+                                <label>No Telp</label>
+                                <input type="text" name="no_telp" class="form-control"
+                                    value="{{ Auth::user()->no_telp ?? '' }}">
+                            </div>
+                        </div>
                         <div class="profile-figma-form-row">
                             <div class="profile-figma-form-group">
                                 <label>Password Baru <span class="text-muted">(opsional)</span></label>

@@ -3,7 +3,8 @@
 
 @section('content')
     <div class="container py-5">
-        <h2 class="fw-bold text-center mb-4">Booking History</h2>
+        <h2 class="fw-bold text-center mb-1">Booking History</h2>
+        <p class="text-white mb-4 text-center">You can see your booking history here and manage your booking </p>
 
         @if ($reservations->isEmpty())
             <p class="text-center">Belum ada data booking.</p>
@@ -119,7 +120,7 @@
                                                                         @enderror
                                                                     </div>
                                                                     <div class="mb-3">
-                                                                        <label>Checkin Date</label>
+                                                                        <label>Checkout Date</label>
                                                                         <input type="date" name="checkout_date"
                                                                             id="checkout_date"
                                                                             class="form-control @error('checkout_date') is-invalid @enderror"
@@ -220,44 +221,5 @@
             </div>
         @endif
     </div>
-
-    {{-- SweetAlert konfirmasi cancel --}}
-    <script>
-        $(document).on('click', '.show_cancel', function(event) {
-            event.preventDefault();
-            let form = $(this).closest("form");
-            let konfCancel = $(this).data("konf-cancel");
-
-            Swal.fire({
-                title: 'Yakin ingin membatalkan?',
-                html: "Booking dengan kode <strong>" + konfCancel + "</strong> akan dibatalkan.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, batalkan!',
-                cancelButtonText: 'Tidak',
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-        });
-    </script>
-
-    {{-- SweetAlert success message --}}
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Sukses!',
-                text: @json(session('success')),
-                timer: 2000,
-                showConfirmButton: false
-            });
-        </script>
-    @endif
-
-
 
 @endsection

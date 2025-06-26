@@ -253,17 +253,16 @@ class BookingController extends Controller
 
         $reservation = Reservation::findOrFail($id);
 
-        // Cek durasi tetap
-        $oldDuration = \Carbon\Carbon::parse($reservation->checkout_date)->diffInDays($reservation->checkin_date);
-        $newDuration = \Carbon\Carbon::parse($validatedData['checkout_date'])->diffInDays($validatedData['checkin_date']);
-
+        // Cek durasi tetap (minimal 1 hari)
+        $oldDuration = max(1, \Carbon\Carbon::parse($reservation->checkout_date)->diffInDays($reservation->checkin_date));
+        $newDuration = max(1, \Carbon\Carbon::parse($validatedData['checkout_date'])->diffInDays($validatedData['checkin_date']));
 
         if ($newDuration !== $oldDuration) {
             return response()->json(['errors' => ['checkout_date' => ['Durasi inap harus sama dengan sebelumnya.']]], 422);
         }
 
-        // Cek ketersediaan kamar
-        $conflict = Reservation::where('room_id', $reservation->room_id)
+        // Cek ketersediaan kamar (perbaiki kolom menjadi rooms_id)
+        $conflict = Reservation::where('rooms_id', $reservation->rooms_id)
             ->where('id', '!=', $reservation->id)
             ->where(function ($query) use ($validatedData) {
                 $query->whereBetween('checkin_date', [$validatedData['checkin_date'], $validatedData['checkout_date']])
@@ -276,7 +275,7 @@ class BookingController extends Controller
             ->exists();
 
         if ($conflict) {
-            return back()->withErrors(['checkin_date' => 'Kamar tidak tersedia di tanggal yang dipilih.']);
+            return response()->json(['errors' => ['checkin_date' => ['Kamar tidak tersedia di tanggal yang dipilih.']]], 422);
         }
 
         // Simpan perubahan tanggal

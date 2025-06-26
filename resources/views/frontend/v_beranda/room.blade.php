@@ -5,7 +5,8 @@
     <!-- Tipe Room Section -->
     <section id="tipe-room" class="py-5">
         <div class="container text-center">
-            <h2 class="mb-4">Our Rooms</h2>
+            <h2 class="mb-1">Our Rooms</h2>
+            <p class="text-white mb-4">You can choose the room you want to stay in and enjoy your stay with us </p>
             <div class="row">
                 @foreach ($room as $row)
                     <div class="col-md-4 mb-4">

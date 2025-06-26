@@ -48,9 +48,7 @@
                         <img src="{{ facilityImage('pool.jpg') }}" class="card-img-top" alt="Kolam Renang">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Private Pool</h5>
-                            <p class="card-text text-white">Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                                Asperiores, eius?
-                            </p>
+                            <p class="card-text text-white">Nikmati kolam renang pribadi yang bersih dan nyaman, sempurna untuk relaksasi bersama keluarga atau teman tanpa gangguan.</p>
                         </div>
                     </div>
                 </div>
@@ -59,8 +57,7 @@
                         <img src="{{ facilityImage('gym.jpg') }}" class="card-img-top" alt="Gym">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Gym</h5>
-                            <p class="card-text text-white">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel,
-                                atque.</p>
+                            <p class="card-text text-white">Fasilitas gym modern dengan peralatan lengkap untuk mendukung gaya hidup sehat dan menjaga kebugaran selama menginap.</p>
                         </div>
                     </div>
                 </div>
@@ -69,9 +66,7 @@
                         <img src="{{ facilityImage('restaurant.jpg') }}" class="card-img-top" alt="Restoran">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Restaurant</h5>
-                            <p class="card-text text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                Obcaecati, quo!
-                            </p>
+                            <p class="card-text text-white">Rasakan pengalaman kuliner terbaik dengan berbagai pilihan menu lokal dan internasional yang lezat di restoran kami.</p>
                         </div>
                     </div>
 
@@ -81,9 +76,7 @@
                         <img src="{{ facilityImage('mosque.jpg') }}" class="card-img-top" alt="Restoran">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Mosque</h5>
-                            <p class="card-text text-white">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non,
-                                iure!
-                            </p>
+                            <p class="card-text text-white">Tersedia mushola yang bersih dan nyaman untuk memenuhi kebutuhan ibadah Anda selama berada di hotel.</p>
                         </div>
                     </div>
                 </div>
@@ -92,9 +85,7 @@
                         <img src="{{ facilityImage('ballroom.jpg') }}" class="card-img-top" alt="Restoran">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Ballroom</h5>
-                            <p class="card-text text-white">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum,
-                                quod?
-                            </p>
+                            <p class="card-text text-white">Ballroom luas dan elegan, ideal untuk acara pernikahan, seminar, atau pertemuan bisnis dengan kapasitas besar.</p>
                         </div>
                     </div>
                 </div>
@@ -103,10 +94,7 @@
                         <img src="{{ facilityImage('meeting_room.jpg') }}" class="card-img-top" alt="Restoran">
                         <div class="card-body">
                             <h5 class="card-title text-white fw-bold">Meeting Room</h5>
-                            <p class="card-text text-white">Lorem ipsum dolor sit amet consectetur adipisicing
-                                elit.
-                                Laudantium, excepturi?
-                            </p>
+                            <p class="card-text text-white">Ruang meeting eksklusif dengan fasilitas lengkap, cocok untuk rapat bisnis, presentasi, atau diskusi kelompok.</p>
                         </div>
                     </div>
                 </div>

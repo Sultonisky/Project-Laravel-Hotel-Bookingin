@@ -1,17 +1,25 @@
+/* =====================
+   GLOBAL STYLE
+   ===================== */
 body {
     font-family: "Segoe UI", sans-serif;
     background-color: black;
     color: white;
+    min-height: 100vh;
 }
 nav .navbar-own {
     z-index: 1000 !important;
 }
 
+/* =====================
+   HERO SECTION (index.blade.php)
+   ===================== */
 .hero {
     background: url("../../images/image 8.png") center/cover no-repeat;
     color: white;
     text-align: center;
     padding: 240px 50px;
+    min-height: 100vh;
 }
 
 .hero h1 {
@@ -24,6 +32,9 @@ nav .navbar-own {
     font-weight: bold;
 }
 
+/* =====================
+   ABOUT SECTION (about.blade.php)
+   ===================== */
 .img-about {
     width: 100%;
     height: 300px; /* Sesuaikan tinggi yang kamu mau */
@@ -32,6 +43,9 @@ nav .navbar-own {
     border-radius: 10px;
 }
 
+/* =====================
+   SEARCH BOX (index.blade.php)
+   ===================== */
 .search-box {
     margin-top: 20px;
     display: flex;
@@ -75,6 +89,9 @@ nav .navbar-own {
     background-color: #0046a0;
 }
 
+/* =====================
+   FASILITAS SECTION (index.blade.php)
+   ===================== */
 .facility-card {
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -97,6 +114,9 @@ nav .navbar-own {
     border-radius: 10px;
 }
 
+/* =====================
+   ROOM CARD & ROOM DETAILS (index.blade.php, detail_room.blade.php)
+   ===================== */
 .room-card img {
     width: 100%;
     height: auto;
@@ -108,7 +128,6 @@ nav .navbar-own {
     transform: scale(1.1); /* Zoom in by 10% */
 }
 
-/* Room Details Section */
 #room-details {
     min-height: 100vh;
     padding: 40px 0;
@@ -251,7 +270,9 @@ nav .navbar-own {
     transform: translateY(-2px);
 }
 
-/* Responsive */
+/* =====================
+   RESPONSIVE (index.blade.php, detail_room.blade.php, etc)
+   ===================== */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
@@ -291,7 +312,9 @@ nav .navbar-own {
     justify-content: space-between;
 }
 
-/* gallery section */
+/* =====================
+   GALLERY SECTION (index.blade.php)
+   ===================== */
 .masonry-gallery {
     column-count: 3;
     column-gap: 1rem;
@@ -328,7 +351,9 @@ nav .navbar-own {
     }
 }
 
-/* contact section */
+/* =====================
+   CONTACT SECTION (contact.blade.php)
+   ===================== */
 .map-responsive {
     overflow: hidden;
     padding-bottom: 56.25%;
@@ -344,6 +369,16 @@ nav .navbar-own {
     filter: invert(90%) hue-rotate(180deg); /* semi-dark theme style */
 }
 
+.form-control:focus {
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 0 0.15rem rgba(13,110,253,.15);
+    background-color: #181d2a;
+    color: #fff;
+}
+
+/* =====================
+   WHATSAPP FLOATING BUTTON
+   ===================== */
 .wa-float {
     position: fixed;
     bottom: 20px;
@@ -351,20 +386,210 @@ nav .navbar-own {
     z-index: 999;
     background-color: #007bff;
     color: white;
-    padding: 15px 20px;
+    width: 52px;
+    height: 52px;
+    padding: 0;
     border-radius: 50%;
     font-size: 24px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .wa-float:hover {
     background-color: #007bff;
     transform: scale(1.1);
 }
 
+/* =====================
+   ERROR MESSAGE
+   ===================== */
 .input-error {
     color: red;
     font-size: 14px;
     margin-top: 12px;
     margin-bottom: 10px;
+}
+
+/* =====================
+   CUSTOM SCROLLBAR (DARK MODE)
+   ===================== */
+/* Untuk Chrome, Edge, Safari, Opera */
+::-webkit-scrollbar {
+    width: 10px;
+    background: #181d2a;
+}
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 8px;
+    border: 2px solid #181d2a;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #007bff;
+}
+/* Untuk Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #444 #181d2a;
+}
+
+/* =====================
+   FASILITAS CARD SAMA TINGGI
+   ===================== */
+.facility-card,
+.card.facility-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.card.facility-card .card-body {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* =====================
+   NAVBAR STYLE
+   ===================== */
+.navbar-toggler {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    padding: 0.25rem 0.5rem;
+}
+
+.navbar-toggler:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.nav-link.active {
+    color: #0d6efd !important; /* Biru */
+    background: #fff;
+    border-radius: 10px;
+    font-weight: bold;
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    box-shadow: 0 2px 8px rgba(13, 110, 253, 0.08);
+    transition: all 0.3s;
+    display: inline-block;
+}
+@media (min-width: 992px) {
+    .nav-link.active {
+        border-radius: 20px;
+        padding-left: 18px !important;
+        padding-right: 18px !important;
+        display: block;
+    }
+}
+
+.nav-link {
+    position: relative;
+    overflow: hidden;
+}
+.nav-link::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 10%;
+    height: 3px;
+    background: #fff;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 2px;
+    transform-origin: left;
+}
+@media (min-width: 992px) {
+    .nav-link::after {
+        left: 30%;
+        width: 40%;
+        transform-origin: center;
+    }
+}
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+.nav-link:hover {
+    color: #fff !important;
+    background: none;
+}
+
+.navbar-nav .nav-link {
+    margin: 0 0 8px 0;
+}
+@media (min-width: 992px) {
+    .navbar-nav .nav-link {
+        margin: 0 12px 0 12px;
+    }
+}
+
+.dropdown-menu .dropdown-item {
+    position: relative;
+    z-index: 1;
+    border-radius: 0 !important;
+}
+.dropdown-menu .dropdown-item:hover {
+    background: #0d6efd !important;
+    color: #fff !important;
+    border-radius: 0 0 6px 6px !important;
+    box-shadow: none;
+}
+
+/* =====================
+   FOOTER PROFESSIONAL STYLE
+   ===================== */
+.footer-pro {
+    background: transparent;
+    overflow: hidden;
+}
+.footer-gradient {
+    background: linear-gradient(135deg, #024aff 0%, #007bff 100%);
+    opacity: 0.97;
+    pointer-events: none;
+}
+.footer-icon {
+    color: #fff;
+    font-size: 2.1rem;
+    margin: 0 6px;
+    transition: color 0.2s, transform 0.2s;
+    display: inline-block;
+}
+.footer-icon:hover {
+    color: #010101;
+    transform: scale(1.15) rotate(-6deg);
+    text-shadow: 0 2px 12px #fff2;
+}
+.footer-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.footer-link:hover {
+    color: #010101;
+    text-decoration: underline;
+}
+.footer-pro hr {
+    border-top: 1.5px solid #fff;
+    opacity: 0.2;
+}
+@media (max-width: 767.98px) {
+    .footer-pro .row > div {
+        text-align: center !important;
+    }
+    .footer-pro .d-flex {
+        justify-content: center !important;
+        align-items: center !important;
+    }
+}
+@media (max-width: 576px) {
+    .footer-icon { font-size: 1.4rem; }
+    .footer-pro .fw-bold.fs-5 { font-size: 1.1rem; }
 }

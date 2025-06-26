@@ -219,12 +219,12 @@ class="light-logo" /> -->
                                                 Categories</span>
                                         </a>
                                     </li>
-                                    <li class="sidebar-item">
+                                    {{-- <li class="sidebar-item">
                                         <a href="{{ route('backend.room.roomGallery') }}" class="sidebar-link">
                                             <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Room
                                                 Galleries</span>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li class="sidebar-item">
                                         <a href="{{ route('backend.room.index') }}" class="sidebar-link">
                                             <i class="mdi mdi-chevron-right"></i><span class="hide-menu"> Rooms</span>
