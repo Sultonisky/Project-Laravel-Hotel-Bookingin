@@ -1,66 +1,369 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🏨 Bookingin Hotel - Hotel Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
+  
+  ![Laravel](https://img.shields.io/badge/Laravel-10.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+  ![PHP](https://img.shields.io/badge/PHP-8.1+-777BB4?style=for-the-badge&logo=php&logoColor=white)
+  ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## About Laravel
+</div>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Table of Contents
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- [Overview](#-overview)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Prerequisites](#-prerequisites)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Database Setup](#-database-setup)
+- [Usage](#-usage)
+- [Project Structure](#-project-structure)
+- [API Integration](#-api-integration)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🌟 Overview
 
-## Learning Laravel
+**Bookingin Hotel** is a comprehensive hotel management system built with Laravel 10. This system provides a complete solution for managing hotel operations including room reservations, guest management, payment processing, and administrative tasks. The application features a role-based access control system with separate interfaces for administrators, receptionists, and guests.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ✨ Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 🎯 Core Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- **📅 Reservation Management**
+  - Online room booking system
+  - Check-in/Check-out date management
+  - Reservation status tracking (Pending, Success, Canceled)
+  - Booking code generation for each reservation
+  - Reschedule functionality with tracking
+  
+- **👥 Guest Management**
+  - Guest information management
+  - Guest history tracking
+  - Soft delete functionality for data recovery
+  
+- **🛏️ Room Management**
+  - Room categories and pricing
+  - Room availability tracking
+  - Multiple room photos per room
+  - Room features assignment
+  - Room gallery management
+  
+- **💳 Payment Integration**
+  - Midtrans payment gateway integration
+  - Multiple payment methods (Bank Transfer, Credit Card, e-Wallet)
+  - Payment status tracking
+  - Automatic total payment calculation with tax and service fee
+  
+- **🔐 Authentication & Authorization**
+  - Role-based access control (Admin, Receptionist, Guest)
+  - Google OAuth integration
+  - Secure login/logout functionality
+  - User registration system
+  
+- **📧 Email Notifications**
+  - Booking confirmation emails
+  - Reservation success notifications
+  
+- **📊 Reporting**
+  - Reservation reports
+  - Custom date range filtering
+  - Export functionality
+  
+- **🗑️ Soft Delete & Recovery**
+  - Data recovery for deleted records
+  - Trash management system
+  - Permanent delete functionality (admin only)
 
-## Laravel Sponsors
+### 🎨 User Interfaces
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- **Backend Dashboard** - Admin and Receptionist panel
+- **Frontend Interface** - Guest booking interface
+- **Responsive Design** - Mobile-friendly layouts
 
-### Premium Partners
+## 🛠️ Tech Stack
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Backend
+- **Framework**: Laravel 10.x
+- **Language**: PHP 8.1+
+- **Database**: MySQL/MariaDB
+- **Authentication**: Laravel Sanctum
+- **OAuth**: Laravel Socialite (Google)
 
-## Contributing
+### Frontend
+- **Blade Templates** - Laravel Blade templating engine
+- **CSS Framework**: Bootstrap 4
+- **JavaScript**: jQuery, DataTables
+- **UI Libraries**: SweetAlert2, Matrix Admin Template
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Payment Gateway
+- **Midtrans** - Indonesian payment gateway integration
 
-## Code of Conduct
+### Additional Packages
+- `midtrans/midtrans-php` - Payment processing
+- `laravel/socialite` - Social authentication
+- `guzzlehttp/guzzle` - HTTP client
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 📋 Prerequisites
 
-## Security Vulnerabilities
+Before you begin, ensure you have the following installed:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- PHP >= 8.1
+- Composer
+- Node.js & NPM (for frontend assets)
+- MySQL or MariaDB
+- Web Server (Apache/Nginx)
+- Git
 
-## License
+## 🚀 Installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1. Clone the Repository
+
+```bash
+git clone <repository-url>
+cd Bookingin-Hotel
+```
+
+### 2. Install Dependencies
+
+```bash
+# Install PHP dependencies
+composer install
+
+# Install NPM dependencies (if needed)
+npm install
+```
+
+### 3. Environment Setup
+
+```bash
+# Copy environment file
+cp .env.example .env
+
+# Generate application key
+php artisan key:generate
+```
+
+### 4. Configure Environment
+
+Edit the `.env` file with your configuration:
+
+```env
+APP_NAME="Bookingin Hotel"
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=bookingin_hotel
+DB_USERNAME=root
+DB_PASSWORD=
+
+# Midtrans Configuration
+MIDTRANS_SERVER_KEY=your_server_key
+MIDTRANS_CLIENT_KEY=your_client_key
+MIDTRANS_IS_PRODUCTION=false
+
+# Mail Configuration
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=your_username
+MAIL_PASSWORD=your_password
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@bookinginhotel.com
+```
+
+### 5. Database Setup
+
+```bash
+# Run migrations
+php artisan migrate
+
+# Seed database with sample data
+php artisan db:seed
+```
+
+## 📁 Project Structure
+
+```
+Bookingin-Hotel/
+├── app/
+│   ├── Console/          # Artisan commands
+│   ├── Exceptions/       # Exception handlers
+│   ├── Helpers/          # Helper classes
+│   ├── Http/
+│   │   ├── Controllers/  # Application controllers
+│   │   └── Middleware/   # Custom middleware
+│   ├── Mail/             # Mail classes
+│   ├── Models/           # Eloquent models
+│   └── Providers/        # Service providers
+├── config/               # Configuration files
+├── database/
+│   ├── migrations/       # Database migrations
+│   └── seeders/          # Database seeders
+├── public/               # Public assets
+│   ├── backend/          # Backend assets
+│   └── frontend/         # Frontend assets
+├── resources/
+│   ├── views/            # Blade templates
+│   │   ├── backend/      # Admin views
+│   │   ├── frontend/     # Guest views
+│   │   └── emails/       # Email templates
+│   ├── css/              # Stylesheets
+│   └── js/               # JavaScript files
+├── routes/               # Route definitions
+├── storage/              # File storage
+└── tests/                # Test files
+```
+
+## 💾 Database Schema
+
+### Main Tables
+
+- **users** - System users (admins, receptionists, guests)
+- **guests** - Guest information
+- **room_categories** - Room category definitions
+- **rooms** - Room details and pricing
+- **room_photos** - Room images
+- **features** - Room features/amenities
+- **feature_room** - Room-feature pivot table
+- **reservations** - Booking records
+- **contacts** - Contact messages
+
+## 🔧 Usage
+
+### Starting the Development Server
+
+```bash
+php artisan serve
+```
+
+The application will be available at `http://localhost:8000`
+
+### Default Credentials
+
+After running the seeders, you can use:
+
+**Admin Account:**
+- Email: admin@bookinginhotel.com
+- Password: password
+
+**Receptionist Account:**
+- Email: receptionist@bookinginhotel.com
+- Password: password
+
+**Guest Account:**
+- Email: guest@bookinginhotel.com
+- Password: password
+
+### Key Routes
+
+**Backend Routes:**
+- `/backend/login` - Admin/Receptionist login
+- `/backend/beranda` - Dashboard
+- `/backend/reservation` - Reservation management
+- `/backend/room` - Room management
+- `/backend/guest` - Guest management
+
+**Frontend Routes:**
+- `/beranda` - Guest home page
+- `/room` - Browse available rooms
+- `/room/detail/{id}` - Room details
+- `/booking/{room_id}` - Booking form
+- `/history` - Booking history
+
+## 🔌 API Integration
+
+### Midtrans Configuration
+
+1. Sign up at [Midtrans](https://midtrans.com)
+2. Get your Server Key and Client Key
+3. Add credentials to `.env` file
+4. Configure webhook URL in Midtrans dashboard
+
+### Google OAuth Setup
+
+1. Create a project in [Google Cloud Console](https://console.cloud.google.com)
+2. Enable Google+ API
+3. Create OAuth 2.0 credentials
+4. Add credentials to `.env`:
+   ```env
+   GOOGLE_CLIENT_ID=your_client_id
+   GOOGLE_CLIENT_SECRET=your_client_secret
+   GOOGLE_REDIRECT_URI=http://localhost:8000/auth/google/callback
+   ```
+
+## 🔐 Security Features
+
+- Password hashing with bcrypt
+- CSRF protection
+- SQL injection prevention
+- XSS protection
+- Role-based access control
+- Middleware authentication
+- Secure session management
+
+## 🧪 Testing
+
+```bash
+# Run tests
+php artisan test
+
+# Run specific test suite
+php artisan test --testsuite=Feature
+```
+
+## 📝 Additional Commands
+
+```bash
+# Clear all caches
+php artisan optimize:clear
+
+# Cache configuration
+php artisan config:cache
+
+# Cache routes
+php artisan route:cache
+
+# Cache views
+php artisan view:cache
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is open-sourced software licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+## 👨‍💻 Author
+
+**Bookingin Hotel Development Team**
+
+## 🙏 Acknowledgments
+
+- Laravel Framework
+- Midtrans Payment Gateway
+- Matrix Admin Template
+- All contributors and developers
+
+---
+
+<div align="center">
+  
+  Made with ❤️ using Laravel
+
+  **Built with Laravel 10 | PHP 8.1+**
+
+</div>
